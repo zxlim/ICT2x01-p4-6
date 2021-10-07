@@ -33,6 +33,7 @@ if (defined("FRONTEND") === FALSE) {
 
 <!-- Core plugin JavaScript-->
 <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/static/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
 
 <!-- Custom scripts for all pages-->
 <script src="/static/js/sb-admin-2.min.js"></script>
