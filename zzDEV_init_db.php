@@ -22,8 +22,8 @@
 * -----------------------------------------------------------------------
 */
 
-require_once("backend/base.php");
-require_once("backend/functions/db.php");
+require_once("base.php");
+require_once(__ROOT__ . "backend/functions/db.php");
 
 define("WEBPAGE_TITLE", "Initialise Database");
 ?>
