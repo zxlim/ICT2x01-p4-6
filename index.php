@@ -1,6 +1,6 @@
 <?php define("FRONTEND", TRUE);
 /**
-* zzDEV_init_db.php
+* index.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
