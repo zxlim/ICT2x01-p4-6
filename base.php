@@ -26,5 +26,7 @@ if (defined("FRONTEND") === FALSE) {
     die();
 }
 
-require_once("backend/constants.php");
-require_once("backend/functions/utils.php");
+define("__ROOT__", $_SERVER["DOCUMENT_ROOT"] . "/");
+
+require_once(__ROOT__ . "backend/constants.php");
+require_once(__ROOT__ . "backend/functions/utils.php");

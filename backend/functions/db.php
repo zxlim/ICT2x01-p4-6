@@ -26,7 +26,7 @@ if (defined("FRONTEND") === FALSE) {
     die();
 }
 
-require_once("backend/constants.php");
+require_once(__ROOT__ . "backend/constants.php");
 
 function db_get_conn(): SQLite3 {
     /**

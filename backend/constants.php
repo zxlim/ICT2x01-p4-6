@@ -36,4 +36,4 @@ define("APP_TITLE", "BOTster");
 define("APP_TZ", "Asia/Singapore");
 
 # Relative location of SQLite database file on disk.
-define("SQLITE_DB_FILE", "backend/private/botster.db");
+define("SQLITE_DB_FILE", __ROOT__ . "backend/private/botster.db");

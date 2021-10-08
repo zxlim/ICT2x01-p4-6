@@ -18,13 +18,13 @@
 * -----------------------------------------------------------------------
 */
 
-require_once("backend/base.php");
+require_once("base.php");
 
 define("WEBPAGE_TITLE", "Dashboard");
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php require_once("templates/head.inc.php"); ?>
+    <?php require_once(__ROOT__ . "templates/head.inc.php"); ?>
     <body id="page-top">
 
         <!-- Page Wrapper -->
@@ -433,7 +433,7 @@ define("WEBPAGE_TITLE", "Dashboard");
                 </div>
             </div>
 
-            <?php require_once("templates/js.inc.php"); ?>
+            <?php require_once(__ROOT__ . "templates/js.inc.php"); ?>
 
             <!-- Page level plugins -->
             <script src="/static/vendor/chart.js/Chart.min.js"></script>
