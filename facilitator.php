@@ -14,20 +14,20 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Student dashboard.
+* Facilitator dashboard.
 * -----------------------------------------------------------------------
 */
 
-define("WEBPAGE_TITLE", "Dashboard");
+define("WEBPAGE_TITLE", "Facilitator Dashboard");
 define("REQUIRE_AUTH", TRUE);
 
 require_once("base.php");
 require_once(__ROOT__ . "backend/session_management.php");
 
-if ($session_is_facilitator === TRUE) {
-    // Facilitator cannot access Student dashboard.
+if ($session_is_facilitator === FALSE) {
+    // Student cannot access Facilitator dashboard.
     header("HTTP/1.1 403 Forbidden");
-    header("Location: facilitator.php");
+    header("Location: index.php");
     die("You are not allowed to access the requested resource.");
 }
 ?>
@@ -56,75 +56,22 @@ if ($session_is_facilitator === TRUE) {
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <br>
-                <center><a href="#" class="btn btn-success btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-gamepad"></i>
-                    </span>
-                    <span class="text">PLAY!</span>
-                    </a></center>
-
-                    <a class="nav-link" href="index.html">
+                    <br />
+                    <center>
+                        <button class="btn btn-success btn-icon-split" id="genOTP">
+                            <span class="icon text-white-50"><i class="fas fa-key"></i></span><span class="text">Generate OTP</span>
+                        </button>
+                    </center>
+                    <br />
+                    <a class="nav-link" href="facilitator.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Metric Data
-                </div>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Ultrasonic Sensor</span>
+                        <span>Dashboard</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Category</h6>
-                            <a class="collapse-item" href="#">Summary</a>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Infrared Sensor</span>
+                    <a class="nav-link" href="facilitator.php">
+                        <i class="fas fa-fw fa-bullseye"></i>
+                        <span>View All Challenges</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Category</h6>
-                            <a class="collapse-item" href="#">Summary</a>
-                        </div>
-                    </div>
                 </li>
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>WiFi Module</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Category</h6>
-                            <a class="collapse-item" href="#">Summary</a>
-                        </div>
-                    </div>
-                </li>
-
-
-
-
             </ul>
             <!-- End of Sidebar -->
 
@@ -149,12 +96,18 @@ if ($session_is_facilitator === TRUE) {
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Student</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Facilitator</span>
                                     <img class="img-profile rounded-circle"
                                          src="/static/img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Settings
+                                    </a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
@@ -172,7 +125,7 @@ if ($session_is_facilitator === TRUE) {
 
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Facilitator Dashboard</h1>
                         </div>
 
                         <!-- Content Row -->
@@ -349,7 +302,7 @@ if ($session_is_facilitator === TRUE) {
                     <footer class="sticky-footer bg-white">
                         <div class="container my-auto">
                             <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; 2021 Team P4-6.</span>
+                                <span>Copyright &copy; 2021 BOTster, Team P4-6.</span>
                             </div>
                         </div>
                     </footer>
@@ -367,12 +320,11 @@ if ($session_is_facilitator === TRUE) {
             </a>
 
             <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <h5 class="modal-title" id="logoutModalLabel">Ready to Leave?</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -381,6 +333,28 @@ if ($session_is_facilitator === TRUE) {
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                             <a class="btn btn-primary" href="logout.php">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTP Modal-->
+            <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="otpModalLabel">Student One-Time Password</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            Provide the following One-Time Password to your student for them to login.
+                            <br />
+                            <h5 class="text-center" id="generated_otp"></h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -395,6 +369,38 @@ if ($session_is_facilitator === TRUE) {
             <script src="/static/js/demo/chart-area-demo.js"></script>
             <script src="/static/js/demo/chart-pie-demo.js"></script>
 
+            <script>
+                $(document).ready(function() {
+                    $("#genOTP").click(function(){
+                        $.ajax({
+                            url: "facilitator_genotp.php",
+                            dataType: "json",
+                            method: "GET",
+                            success: function(response){
+                                $("#generated_otp").text(response[0]["otp"]);
+                                $("#otpModal").modal("show");
+                            },
+                            error: function(response){
+                                console.log(response);
+                                console.log(response.responseText);
+                                $.notify({
+                                    message: "Failed to generate One-Time Password."
+                                }, {
+                                    type: "danger",
+                                    animate: {
+                                        enter: "animated fadeInDown",
+                                        exit: "animated fadeOutUp"
+                                    },
+                                    placement: {
+                                        from: "top",
+                                        align: "center"
+                                    },
+                                });
+                                console.log("HTTP Status Code: " + response.status);
+                            }
+                        });
+                    });
+                });
+            </script>
     </body>
-
 </html>

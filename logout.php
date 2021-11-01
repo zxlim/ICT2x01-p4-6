@@ -1,6 +1,6 @@
-<?php
+<?php define("FRONTEND", TRUE);
 /**
-* base.php
+* login.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,20 +14,21 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Base PHP file to be included by all frontend resources.
+* Logout page.
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    die();
-}
+define("WEBPAGE_TITLE", "Logout");
+define("REQUIRE_AUTH", TRUE);
 
-define("__ROOT__", $_SERVER["DOCUMENT_ROOT"] . "/");
+require_once("base.php");
+require_once(__ROOT__ . "backend/session_management.php");
 
-require_once(__ROOT__ . "backend/constants.php");
-require_once(__ROOT__ . "backend/functions/utils.php");
-require_once(__ROOT__ . "backend/functions/session.php");
+$_SESSION["is_authenticated"] = FALSE;
+$session_is_authenticated = FALSE;
+$session_is_facilitator = FALSE;
+
+session_end();
+
+header("HTTP/1.1 302 Found");
+header("Location: login.php");
