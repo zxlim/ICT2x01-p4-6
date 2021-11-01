@@ -1,6 +1,6 @@
-<?php
+<?php define("FRONTEND", TRUE);
 /**
-* base.php
+* login.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,20 +14,31 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Base PHP file to be included by all frontend resources.
+* Logout page.
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
+define("REQUIRE_AUTH", TRUE);
+
+require_once("base.php");
+require_once(__ROOT__ . "backend/session_management.php");
+
+if ($session_is_facilitator === FALSE) {
+    // Facilitator only.
     http_response_code(404);
     die();
 }
 
-define("__ROOT__", $_SERVER["DOCUMENT_ROOT"] . "/");
+if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+    http_response_code(405);
+    die();
+}
 
-require_once(__ROOT__ . "backend/constants.php");
-require_once(__ROOT__ . "backend/functions/utils.php");
-require_once(__ROOT__ . "backend/functions/session.php");
+require_once(__ROOT__ . "backend/classes/Student.php");
+
+$stud = new Student();
+$otp = $stud->generateOTP();
+$stud->saveStudent();
+$res = json_encode(array("otp" => $otp));
+
+echo("[" . $res . "]");

@@ -33,6 +33,15 @@ function generate_token(int $len = 16): string {
     return bin2hex(random_bytes($len));
 }
 
+function generate_pin_code(): string {
+    /**
+    * A function to generate a random 6 digit code.
+    *
+    * @return   string  $code      The random code.
+    */
+    return str_pad((string)(mt_rand(0, 999999)), 6, "0", STR_PAD_LEFT);
+}
+
 function sha256(string $input): string {
     /**
     * A function to generate a SHA256 hash.
