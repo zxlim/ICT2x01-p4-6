@@ -22,8 +22,8 @@ define("WEBPAGE_TITLE", "Facilitator Dashboard");
 define("REQUIRE_AUTH", TRUE);
 
 require_once("base.php");
-require_once(__ROOT__ . "/2201WebCodes/backend/session_management.php");
-require_once(__ROOT__ . "/2201WebCodes/backend/functions/db.php");
+require_once(__ROOT__ . "/backend/session_management.php");
+require_once(__ROOT__ . "/backend/functions/db.php");
 
 if ($session_is_facilitator === FALSE) {
 // Student cannot access Facilitator dashboard.
@@ -35,7 +35,7 @@ if ($session_is_facilitator === FALSE) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php require_once(__ROOT__ . "/2201WebCodes/templates/head.inc.php"); ?>
+    <?php require_once(__ROOT__ . "/templates/head.inc.php"); ?>
     <body id="page-top">
 
         <!-- Page Wrapper -->
