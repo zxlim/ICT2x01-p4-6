@@ -100,7 +100,7 @@ if ($session_is_facilitator === FALSE) {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Facilitator</span>
                                     <img class="img-profile rounded-circle"
-                                         src="/2201WebCodes/static/img/undraw_profile.svg">
+                                         src="/static/img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -225,14 +225,14 @@ if ($session_is_facilitator === FALSE) {
                                     </div>
                                 </div>
 
-                                <?php require_once(__ROOT__ . "/2201WebCodes/templates/js.inc.php"); ?>
+                                <?php require_once(__ROOT__ . "/templates/js.inc.php"); ?>
 
                                 <!-- Page level plugins -->
-                                <script src="/2201WebCodes/static/vendor/chart.js/Chart.min.js"></script>
+                                <script src="/static/vendor/chart.js/Chart.min.js"></script>
 
                                 <!-- Page level custom scripts -->
-                                <script src="/2201WebCodes/static/js/demo/chart-area-demo.js"></script>
-                                <script src="/2201WebCodes/static/js/demo/chart-pie-demo.js"></script>
+                                <script src="/static/js/demo/chart-area-demo.js"></script>
+                                <script src="/static/js/demo/chart-pie-demo.js"></script>
 
                                 <script>
                                     $(document).ready(function () {
