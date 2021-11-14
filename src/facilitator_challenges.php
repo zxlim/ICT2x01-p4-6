@@ -32,6 +32,7 @@ if ($session_is_facilitator === FALSE) {
     die("You are not allowed to access the requested resource.");
 }
 
+
 $db = db_get_conn();
 
 $stmt = $db->prepare("SELECT * FROM challenge");
