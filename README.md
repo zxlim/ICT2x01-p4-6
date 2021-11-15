@@ -8,6 +8,8 @@ BOTster is a gamified feedback system used to engage primary school students on 
     - [Setup Steps](#setup-steps)
 - [Development Workflow](#development-workflow)
     - [Branches](#branches)
+        - [Naming and Terminology](#naming-and-terminology)
+        - [Branch Protection](#branch-protection)
     - [Summary of Workflow](#summary-of-workflow)
     - [New Feature or Bug Fix](#new-feature-or-bug-fix)
     - [Merging into `master`](#merging-into-master)
@@ -37,15 +39,25 @@ TBD
 This section will contain the necessary information for the project development workflow.
 
 ### Branches
+#### Naming and Terminology
 - `master`: Contains production-ready code and/or other "critical" resources (Important for the progression of the project).
 - `dev`: Contains code and resources that are of "release-candidate" standards and ready to be staged for production.
 - `feature/x`: Contains development code for a feature `x` as described in a related GitHub Issue. Branch will be merged into `dev` when feature is deemed complete.
 - `bugfix/x`: Contains development code for a bug fix `x` as described in a related GitHub Issue. Branch will be merged into `dev` when bug fix is deemed complete.
 - `hotfix/x`: Contains development code for an **urgent** bug fix `x` as described in a related GitHub Issue. A bug is defined as "urgent" if it severely degrades the functionality of the application in production (E.g. Causes the application to crash).
 
+#### Branch Protection
+Branch protection is enforced on the following branches:
+- `master`
+    - **Pull Request required**: Commits must be made to another branch first, then merged via a PR to this protected branch.
+    - **Approval required**: 2 reviewers are required to approve the PR for the merge feature to be available.
+- `dev`
+    - **Pull Request required**: Commits must be made to another branch first, then merged via a PR to this protected branch.
+    - **Approval required**: 2 reviewers are required to approve the PR for the merge feature to be available.
+
 ### Summary of Workflow
 1. No one shall directly commit into `master` or `dev` branch.
-2. New commits shall only be made in `feature/` or `bugfix/` branches, which shall be derived from the `dev` branch.
+2. New features and bug fixes shall only be made in `feature/` or `bugfix/` branches respectively, which shall be derived from the `dev` branch.
 3. Hotfixes shall only be made in a `hotfix/` branch, which shall be derived from the `master` branch.
 4. Commits shall only be introduced into the `master` or `dev` branches via Pull Requests (PR).
 5. PRs that involve the `master` branch must be reviewed and approved by the Team Lead. Only the Team Lead is allowed to perform a merge into `master` branch.
