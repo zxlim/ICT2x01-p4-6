@@ -50,7 +50,7 @@ This section will contain the necessary information for the project development 
 Branch protection is enforced on the following branches:
 - `master`
     - **Pull Request required**: Commits must be made to another branch first, then merged via a PR to this protected branch.
-    - **Approval required**: 2 reviewers are required to approve the PR for the merge feature to be available.
+    - **Approval required**: 1 reviewer is required to approve the PR for the merge feature to be available.
 - `dev`
     - **Pull Request required**: Commits must be made to another branch first, then merged via a PR to this protected branch.
     - **Approval required**: 2 reviewers are required to approve the PR for the merge feature to be available.
@@ -60,8 +60,9 @@ Branch protection is enforced on the following branches:
 2. New features and bug fixes shall only be made in `feature/` or `bugfix/` branches respectively, which shall be derived from the `dev` branch.
 3. Hotfixes shall only be made in a `hotfix/` branch, which shall be derived from the `master` branch.
 4. Commits shall only be introduced into the `master` or `dev` branches via Pull Requests (PR).
-5. PRs that involve the `master` branch must be reviewed and approved by the Team Lead. Only the Team Lead is allowed to perform a merge into `master` branch.
-6. No branches shall be deleted without the approval of the Team Lead.
+5. PR authors are not allowed to review or approve their own changes.
+6. PRs that involve the `master` branch can only be created by the Team Lead, unless it is a hotfix. Only the Team Lead is allowed to perform a merge into `master` branch after approval is given by the assigned reviewer(s).
+7. No branches shall be deleted without the approval of the Team Lead.
 
 ### New Feature or Bug Fix
 ![Feature/Bug Fix Workflow Diagram](docs/workflow_newfeature.png)
@@ -91,19 +92,19 @@ Once all the necessary commits are pushed, open a new PR (`feature/` or `bugfix/
 Once approval requirements have been met, use the `Merge Commit` feature on the respective PR page to merge the approved changes into the `dev` branch. Merging can be done by the final approver. **Only perform merging using the GitHub web interface!** Once merged, **do not delete** the feature branch.
 
 ### Merging into `master`
-Only production-ready code (Meant for release) and other critical resources shall be merged into `master` from `dev`. All activities that involve the `master` branch requires the involvement of the Team Lead.
+Only production-ready code (Meant for release) and other critical resources shall be merged into `master` from `dev`. Only the Team Lead is allowed to create a PR and complete the merge as these processes involes the `master` branch.
 <br /><br />
 **1. Create a Pull Request on GitHub**
 <br />
-Open a new PR (`dev` into `master`). Provide a summary of the changes made.
+The Team Lead will open a new PR (`dev` into `master`) and provide a summary of the changes made. The Team Lead must assign a minimum of 1 reviewer to this PR.
 
 **2. Wait for PR approval**
 <br />
-2 reviewers are to check and verify the changes before approving the PR. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
+The assigned reviewer(s) are required to check and verify the changes before approving the PR. The reviewer have the right to request for changes to the PR by providing comments to support their justification.
 
 **3. Perform merge commit via GitHub**
 <br />
-Once approval requirements have been met, use the `Merge Commit` feature on the respective PR page to merge into the `master` branch. Merging shall only be done by the Team Lead.
+Once approval requirements have been met, the Team Lead will perform a merge from the `dev` branch onto the `master` branch.
 
 ### Deploying Hotfixes
 Hotfixes are code that will be deployed to both `dev` and `master` branches to fix urgent issues that are present in production (`master`). Hotfix deployment PRs requires the involvement of the Team Lead as it involves merging into the `master` branch.
@@ -124,12 +125,12 @@ Commit all additons or changes to the newly created branch. **Only work within t
 
 **4. Create a Pull Request on GitHub**
 <br />
-Open 2 new PRs ("`hotfix` into `dev`" and "`hotfix` into `master`"). Provide a summary of the changes made.
+Open 2 new PRs (`hotfix` into `dev` and `hotfix` into `master`). Provide a summary of the changes made.
 
 **5. Wait for PR approval**
 <br />
-2 reviewers are to check and verify the changes before approving the PR. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
+2 reviewers are to check and verify the changes before approving the PRs. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PRs by providing comments to support their justification.
 
 **6. Perform merge commits via GitHub**
 <br />
-Once approval requirements have been met, use the `Merge Commit` feature on the respective PR page to merge into the `dev` and `master` branches. Merging shall only be done by the Team Lead.
+Once approval requirements have been met, the Team Lead will perform a merge from the `hotfix/` branch onto the `dev` and `master` branches.
