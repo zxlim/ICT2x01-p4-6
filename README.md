@@ -2,6 +2,7 @@
 BOTster is a gamified feedback system used to engage primary school students on the topics of problem solving and computational thinking skills through block-based logical programming. Students will control a robotic car to complete challenges using a web interface.
 
 ## Table of Contents
+- [Repository Structure](#repository-structure)
 - [Setup Instructions](#setup-instructions)
 - [Development Workflow](#development-workflow)
     - [Branches](#branches)
@@ -9,6 +10,12 @@ BOTster is a gamified feedback system used to engage primary school students on 
     - [New Feature or Bug Fix](#new-feature-or-bug-fix)
     - [Merging into `master`](#merging-into-master)
     - [Deploying Hotfixes](#deploying-hotfixes)
+
+## Repository Structure
+    ICT2x01-p4-6
+    ├── docs                # Directory containing resources for project documentation.
+    ├── src                 # Directory containing project soruce code.
+    └── README.md           # This README file. Contains the key project documentation.
 
 ## Setup Instructions
 TBD
