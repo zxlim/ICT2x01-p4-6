@@ -12,7 +12,7 @@ BOTster is a gamified feedback system used to engage primary school students on 
         - [Branch Protection](#branch-protection)
     - [Summary of Workflow](#summary-of-workflow)
     - [New Feature or Bug Fix](#new-feature-or-bug-fix)
-    - [Merging into `master`](#merging-into-master)
+    - [Merging into `master` branch](#merging-into-master-branch)
     - [Deploying Hotfixes](#deploying-hotfixes)
 
 ## Repository Structure
@@ -91,7 +91,7 @@ Once all the necessary commits are pushed, open a new PR (`feature/` or `bugfix/
 <br />
 Once approval requirements have been met, use the `Merge Commit` feature on the respective PR page to merge the approved changes into the `dev` branch. Merging can be done by the final approver. **Only perform merging using the GitHub web interface!** Once merged, **do not delete** the feature branch.
 
-### Merging into `master`
+### Merging into `master` branch
 Only production-ready code (Meant for release) and other critical resources shall be merged into `master` from `dev`. Only the Team Lead is allowed to create a PR and complete the merge as these processes involes the `master` branch.
 <br /><br />
 **1. Create a Pull Request on GitHub**
@@ -108,7 +108,7 @@ Once approval requirements have been met, the Team Lead will perform a merge fro
 
 ### Deploying Hotfixes
 Hotfixes are code that will be deployed to both `dev` and `master` branches to fix urgent issues that are present in production (`master`). Hotfix deployment PRs requires the involvement of the Team Lead as it involves merging into the `master` branch.
-<br />
+<br /><br />
 ![Hotfix Workflow Diagram](docs/workflow_hotfix.png)
 <br /><br />
 **1. Open a new Issue on GitHub**
