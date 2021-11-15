@@ -3,7 +3,9 @@ BOTster is a gamified feedback system used to engage primary school students on 
 
 ## Table of Contents
 - [Repository Structure](#repository-structure)
-- [Setup Instructions](#setup-instructions)
+- [Deployment](#deployment)
+    - [Dependencies and Requirements](#dependencies-and-requirements)
+    - [Setup Steps](#setup-steps)
 - [Development Workflow](#development-workflow)
     - [Branches](#branches)
     - [Summary of Workflow](#summary-of-workflow)
@@ -17,7 +19,18 @@ BOTster is a gamified feedback system used to engage primary school students on 
     ├── src                 # Directory containing project soruce code.
     └── README.md           # This README file. Contains the key project documentation.
 
-## Setup Instructions
+## Deployment
+This section will cover the deployment instructions for this application.
+
+### Dependencies and Requirements
+The following software is required to be present on the machine running this application:
+- PHP 7.4
+- SQLite
+- Web server capable of parsing PHP code (E.g. Apache, Nginx)
+
+The machine running this application shall also be connected to a network that has wireless connection capabilities (WiFi) for the Robotic Car to be able to communicate with the web component of this application.
+
+### Setup Steps
 TBD
 
 ## Development Workflow
@@ -28,7 +41,7 @@ This section will contain the necessary information for the project development 
 - `dev`: Contains code and resources that are of "release-candidate" standards and ready to be staged for production.
 - `feature/x`: Contains development code for a feature `x` as described in a related GitHub Issue. Branch will be merged into `dev` when feature is deemed complete.
 - `bugfix/x`: Contains development code for a bug fix `x` as described in a related GitHub Issue. Branch will be merged into `dev` when bug fix is deemed complete.
-- `hotfix/x`: Contains development code for an **urgent** bug fix `x` as described in a related GitHub Issue. A bug is defined as "urgent" if it severely degrades the functionality of the product in production (E.g. Causes the product to crash).
+- `hotfix/x`: Contains development code for an **urgent** bug fix `x` as described in a related GitHub Issue. A bug is defined as "urgent" if it severely degrades the functionality of the application in production (E.g. Causes the application to crash).
 
 ### Summary of Workflow
 1. No one shall directly commit into `master` or `dev` branch.
