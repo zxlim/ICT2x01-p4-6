@@ -59,7 +59,7 @@ if (defined("FRONTEND") === FALSE) {
                     <span class="text">PLAY!</span>
                     </a></center>
 
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="/">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>

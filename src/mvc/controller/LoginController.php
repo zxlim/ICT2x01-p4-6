@@ -33,11 +33,11 @@ define("WEBPAGE_TITLE", "Login");
 
 
 class LoginController extends Controller {
-    public function get($request) {
+    public function get() {
         session_start();
 
         if (session_isauth() === TRUE) {
-            $this->redirect("dashboard");
+            $this->redirect("/");
         }
 
         $page_vars = array(
@@ -48,7 +48,7 @@ class LoginController extends Controller {
         $this->renderTemplate("login.php", $page_vars);
     }
 
-    public function post($request) {
+    public function post() {
         session_start();
 
         if (session_isauth() === TRUE) {
@@ -98,7 +98,7 @@ class LoginController extends Controller {
 
         if ($page_vars["errorLogin"] === FALSE) {
             // Login successful.
-            $this->redirect("dashboard");
+            $this->redirect("/");
         }
 
         $this->renderTemplate("login.php", $page_vars);

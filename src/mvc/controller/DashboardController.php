@@ -30,11 +30,11 @@ define("WEBPAGE_TITLE", "Dashboard");
 
 
 class DashboardController extends Controller {
-    public function get($request) {
+    public function get() {
         session_start();
 
         if (session_isauth() === FALSE) {
-            $this->redirect("login");
+            $this->redirect("/login");
         }
 
         if ($_SESSION["Facilitator"] === TRUE) {
@@ -44,7 +44,7 @@ class DashboardController extends Controller {
         }
     }
 
-    public function post($request) {
+    public function post() {
         $this->methodNotAllowed();
     }
 

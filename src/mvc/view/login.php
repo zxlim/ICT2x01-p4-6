@@ -45,7 +45,7 @@ if (defined("FRONTEND") === FALSE) {
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Welcome to <?php safe_echo(APP_TITLE); ?>!</h1>
                                         </div>
-                                        <form class="user" action="/login" method="POST">
+                                        <form class="loginForm" action="/login" method="POST">
                                             <div class="form-group">
                                                 <h6>Login as</h6>
                                                 <select class="custom-select custom-select-sm form-control form-control-sm" id="user" name="user">

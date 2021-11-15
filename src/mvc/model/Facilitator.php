@@ -66,15 +66,14 @@ class Facilitator {
 }
 
 
-class FacilitatorAccess
-{
+class FacilitatorAccess {
     private $facilitator;
 
     function __construct(Facilitator $facilitator) {
         $this->facilitator = $facilitator;
     }
 
-    function login(string $password): bool {
+    public function login(string $password): bool {
         return pw_verify($password, $this->facilitator->getPassword());
     }
 }

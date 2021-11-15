@@ -38,7 +38,7 @@ if (defined("FRONTEND") === FALSE) {
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-truck-monster"></i>
                     </div>
@@ -58,11 +58,11 @@ if (defined("FRONTEND") === FALSE) {
                         </button>
                     </center>
                     <br />
-                    <a class="nav-link" href="facilitator.php">
+                    <a class="nav-link" href="/">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a class="nav-link" href="facilitator.php">
+                    <a class="nav-link" href="/challenges">
                         <i class="fas fa-fw fa-bullseye"></i>
                         <span>View All Challenges</span>
                     </a>

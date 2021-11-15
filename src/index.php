@@ -31,36 +31,28 @@ if (isset($_GET["route"])) {
     $router = (string)(trim($_GET["route"]));
 }
 
-// Default.
-$controllerName = DashboardController::class;
-$controllerFilePath = "";
-
-// Application Router
+// Application Router.
 switch ($router) {
     case "/login":
-    case "login":
         $controllerName = LoginController::class;
         break;
 
     case "/logout":
-    case "logout":
         $controllerName = LogoutController::class;
         break;
 
     case "/facilitator/generateOTP":
-    case "facilitator/generateOTP":
         $controllerName = OTPController::class;
         $controllerFilePath = "Facilitator/" . $controllerName;
         break;
 
-    case "/dashboard":
-    case "dashboard":
+    case "/":
     default:
         $controllerName = DashboardController::class;
         break;
 }
 
-if (validate_notempty($controllerFilePath) !== TRUE) {
+if (isset($controllerFilePath) !== TRUE) {
     $controllerFilePath = $controllerName;
 }
 
@@ -70,4 +62,4 @@ require_once(__ROOT__ . "mvc/controller/" . $controllerFilePath . ".php");
 $requestMethod = strtolower($_SERVER["REQUEST_METHOD"]);
 
 $controller = new $controllerName();
-$controller->{$requestMethod}($_REQUEST);
+$controller->{$requestMethod}();

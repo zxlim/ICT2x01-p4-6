@@ -27,15 +27,18 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
+// Set the view's webpage title below.
+define("WEBPAGE_TITLE", "Dashboard");
+
 
 // Change the name of the Controller Class.
 class SampleController extends Controller {
-    public function get($request) {
+    public function get() {
         // Change this.
         $this->renderTemplate("somePage.php");
     }
 
-    public function post($request) {
+    public function post() {
         // If POST is allowed, remove the next line.
         $this->methodNotAllowed();
     }

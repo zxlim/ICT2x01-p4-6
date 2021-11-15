@@ -12,18 +12,17 @@ define("WEBPAGE_TITLE", "Logout");
 
 
 class LogoutController extends Controller {
-    public function get($request) {
+    public function get() {
         session_start();
 
         $_SESSION["authenticated"] = FALSE;
         session_end();
 
-        $this->redirect("login");
+        $this->redirect("/login");
     }
 
-    public function post($request) {
-        // Send to GET.
-        $this->get($request);
+    public function post() {
+        $this->get();
     }
 
 }

@@ -32,7 +32,7 @@ define("WEBPAGE_TITLE", "Generate OTP");
 
 
 class OTPController extends Controller {
-    public function get($request) {
+    public function get() {
         session_start();
 
         if (session_isauth() === FALSE || $_SESSION["Facilitator"] !== TRUE) {
@@ -46,7 +46,7 @@ class OTPController extends Controller {
         echo("[" . $res . "]");
     }
 
-    public function post($request) {
+    public function post() {
         $this->methodNotAllowed();
     }
 

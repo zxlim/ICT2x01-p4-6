@@ -8,37 +8,31 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-abstract class Controller
-{
-    abstract public function get($request);
-    abstract public function post($request);
+abstract class Controller {
+    abstract public function get();
+    abstract public function post();
 
-    public function renderTemplate($page, $page_vars = NULL)
-    {
+    public function renderTemplate(string $page, $page_vars = NULL) {
         require_once(__ROOT__ . "mvc/view/" . $page);
     }
 
-    public function redirect($route)
-    {
+    public function redirect(string $route) {
         header("HTTP/1.1 302 Found");
         header("Location: " . $route);
         exit();
     }
 
-    public function unauthorized()
-    {
+    public function unauthorized() {
         http_response_code(401);
         exit();
     }
 
-    public function notFound()
-    {
+    public function notFound() {
         http_response_code(404);
         exit();
     }
 
-    public function methodNotAllowed()
-    {
+    public function methodNotAllowed() {
         http_response_code(405);
         exit();
     }

@@ -30,8 +30,7 @@ require_once(__ROOT__ . "functions/db.php");
 require_once(__ROOT__ . "functions/security.php");
 
 
-class Student
-{
+class Student {
     private $oneTimePassword;
     private $issueCommandStatus;
     private $tutorialStatus;
@@ -94,15 +93,14 @@ class Student
     }
 }
 
-class StudentAccess
-{
+class StudentAccess {
     private $student;
 
     function __construct(Student $student) {
         $this->student = $student;
     }
 
-    function login(string $otp): bool {
+    public function login(string $otp): bool {
         if ($this->student->getOneTimePassword() !== "") {
             if (pw_verify($otp, $this->student->getOneTimePassword()) === TRUE) {
                 $this->student->setOneTimePassword("");
@@ -115,22 +113,21 @@ class StudentAccess
     }
 }
 
-class StudentManagement
-{
+class StudentManagement {
     private $student;
 
     function __construct(Student $student) {
         $this->student = $student;
     }
 
-    function generateOTP(): string {
+    public function generateOTP(): string {
         $otp = generate_pin_code();
         $this->student->setOneTimePassword($otp);
         $this->student->saveToDatabase();
         return $otp;
     }
 
-    function toggleIssueCommandStatus() {
+    public function toggleIssueCommandStatus() {
         if ($this->student->getIssueCommandStatus() === TRUE) {
             $this->student->setIssueCommandStatus(FALSE);
         } else {
