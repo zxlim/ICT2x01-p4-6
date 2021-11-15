@@ -66,7 +66,7 @@ Branch protection is enforced on the following branches:
 
 ### New Feature or Bug Fix
 ![Feature/Bug Fix Workflow Diagram](docs/workflow_newfeature.png)
-<br />
+<br /><br />
 **1. Open a new Issue on GitHub**
 <br />
 Describe the feature that is being worked on. Assign it to the relevant person and label the Issue accordingly (Is this a bug, documentation or enhancement related?).
@@ -110,7 +110,7 @@ Once approval requirements have been met, the Team Lead will perform a merge fro
 Hotfixes are code that will be deployed to both `dev` and `master` branches to fix urgent issues that are present in production (`master`). Hotfix deployment PRs requires the involvement of the Team Lead as it involves merging into the `master` branch.
 <br />
 ![Hotfix Workflow Diagram](docs/workflow_hotfix.png)
-<br />
+<br /><br />
 **1. Open a new Issue on GitHub**
 <br />
 Describe the hotfix that is being worked on. Assign it to the relevant person and label the Issue as a `hotfix`.
