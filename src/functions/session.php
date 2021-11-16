@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* backend/functions/utils.php
+* functions/utils.php
 *
 * @license      MIT License
 * @copyright    Copyright (c) 2019 Zhao Xiang Lim.
@@ -9,8 +9,6 @@
 *
 * -----------------------------------------------------------------------
 * Session functions for the web application.
-* If sessions are used on a page, please include this file first at
-* the top.
 * -----------------------------------------------------------------------
 */
 

@@ -19,11 +19,12 @@
 */
 
 require_once("config.php");
-require_once(__ROOT__ . "functions/db.php");
-require_once(__ROOT__ . "functions/security.php");
-require_once(__ROOT__ . "functions/session.php");
-require_once(__ROOT__ . "functions/utils.php");
-require_once(__ROOT__ . "functions/validation.php");
+require_once(__FUNCTIONS_DIR__ . "db.php");
+require_once(__FUNCTIONS_DIR__ . "security.php");
+require_once(__FUNCTIONS_DIR__ . "session.php");
+require_once(__FUNCTIONS_DIR__ . "utils.php");
+require_once(__FUNCTIONS_DIR__ . "validation.php");
+
 
 $router = $_SERVER["REQUEST_URI"];
 
@@ -56,8 +57,8 @@ if (isset($controllerFilePath) !== TRUE) {
     $controllerFilePath = $controllerName;
 }
 
-require_once(__ROOT__ . "mvc/controller/Controller.php");
-require_once(__ROOT__ . "mvc/controller/" . $controllerFilePath . ".php");
+require_once(__MVC_CONTROLLERS_DIR__ . "Controller.php");
+require_once(__MVC_CONTROLLERS_DIR__ . $controllerFilePath . ".php");
 
 $requestMethod = strtolower($_SERVER["REQUEST_METHOD"]);
 

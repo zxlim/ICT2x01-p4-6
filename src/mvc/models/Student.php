@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/model/Facilitator.php
+* mvc/models/Facilitator.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -26,8 +26,8 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-require_once(__ROOT__ . "functions/db.php");
-require_once(__ROOT__ . "functions/security.php");
+require_once(__FUNCTIONS_DIR__ . "db.php");
+require_once(__FUNCTIONS_DIR__ . "security.php");
 
 
 class Student {

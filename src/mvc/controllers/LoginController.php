@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/controller/LoginController.php
+* mvc/controllers/LoginController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -26,8 +26,8 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-require_once(__ROOT__ . "mvc/model/Facilitator.php");
-require_once(__ROOT__ . "mvc/model/Student.php");
+require_once(__MVC_MODELS_DIR__ . "Facilitator.php");
+require_once(__MVC_MODELS_DIR__ . "Student.php");
 
 define("WEBPAGE_TITLE", "Login");
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* backend/functions/security.php
+* functions/security.php
 *
 * @license      MIT License
 * @copyright    Copyright (c) 2019 Zhao Xiang Lim.
@@ -20,7 +20,7 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-require_once(__ROOT__ . "functions/validation.php");
+require_once(__FUNCTIONS_DIR__ . "validation.php");
 
 
 function generate_token(int $len = 16): string {

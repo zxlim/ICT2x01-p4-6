@@ -1,6 +1,6 @@
 <?php
 /**
-* config.php
+* mvc/views/templates/js.inc.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,8 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Global constant and config keys declaration for the web application.
+* Reusable frontend template for including required JavaScript imports in
+* HTML files.
 * -----------------------------------------------------------------------
 */
 
@@ -25,26 +26,14 @@ if (defined("FRONTEND") === FALSE) {
     http_response_code(404);
     exit();
 }
+?>
+<!-- Bootstrap core JavaScript-->
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-# The absolute path to the base directory of this application on the web server.
-define("__ROOT__", $_SERVER["DOCUMENT_ROOT"] . "/");
+<!-- Core plugin JavaScript-->
+<script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/static/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
 
-
-# Application constants.
-define("APP_DOMAIN", trim($_SERVER["SERVER_NAME"]));
-define("APP_ROOT", trim(dirname($_SERVER["REQUEST_URI"])));
-define("APP_TITLE", "BOTster");
-define("APP_TZ", "Asia/Singapore");
-
-define("__FUNCTIONS_DIR__", __ROOT__ . "functions/");
-
-
-# Constants used for MVC.
-define("__MVC_MODELS_DIR__", __ROOT__ . "mvc/models/");
-define("__MVC_VIEWS_DIR__", __ROOT__ . "mvc/views/");
-define("__MVC_VIEWS_TEMPLATES_DIR__", __MVC_VIEWS_DIR__ . "templates/");
-define("__MVC_CONTROLLERS_DIR__", __ROOT__ . "mvc/controllers/");
-
-
-# Relative location of SQLite database file on disk.
-define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
+<!-- Custom scripts for all pages-->
+<script src="/static/js/sb-admin-2.min.js"></script>

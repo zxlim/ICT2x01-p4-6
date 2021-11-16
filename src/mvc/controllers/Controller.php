@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
-* templates/js.inc.php
+* mvc/controllers/Controller.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,8 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Reusable frontend template for including required JavaScript imports in
-* HTML files.
+* The base Controller class. To be extended by actual controllers.
 * -----------------------------------------------------------------------
 */
 
@@ -26,14 +25,34 @@ if (defined("FRONTEND") === FALSE) {
     http_response_code(404);
     exit();
 }
-?>
-<!-- Bootstrap core JavaScript-->
-<script src="/static/vendor/jquery/jquery.min.js"></script>
-<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="/static/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="/static/js/sb-admin-2.min.js"></script>
+abstract class Controller {
+    abstract public function get();
+    abstract public function post();
+
+    public function renderTemplate(string $page, $page_vars = NULL) {
+        require_once(__MVC_VIEWS_DIR__ . $page);
+    }
+
+    public function redirect(string $route) {
+        header("HTTP/1.1 302 Found");
+        header("Location: " . $route);
+        exit();
+    }
+
+    public function unauthorized() {
+        http_response_code(401);
+        exit();
+    }
+
+    public function notFound() {
+        http_response_code(404);
+        exit();
+    }
+
+    public function methodNotAllowed() {
+        http_response_code(405);
+        exit();
+    }
+}

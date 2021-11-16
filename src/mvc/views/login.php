@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/view/login.php
+* mvc/views/login.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -28,7 +28,7 @@ if (defined("FRONTEND") === FALSE) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php require_once(MVC_VIEW_TEMPLATES . "head.inc.php"); ?>
+    <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "head.inc.php"); ?>
     <body class="bg-gradient-primary">
         <br /><br /><br />
         <div class="container">
@@ -66,10 +66,10 @@ if (defined("FRONTEND") === FALSE) {
                 </div>
             </div>
         </div>
-        <?php require_once(MVC_VIEW_TEMPLATES . "js.inc.php"); ?>
+        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "js.inc.php"); ?>
 
         <script>
-            var userSelect = document.getElementById("user");
+            let userSelect = document.getElementById("user");
             userSelect.onchange = (event) => {
                 let content = event.target.value;
 

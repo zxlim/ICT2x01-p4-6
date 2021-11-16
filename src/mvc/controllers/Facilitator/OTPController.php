@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/controller/DashboardController.php
+* mvc/controllers/Facilitator/OTPController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* The Dashboard Controller.
+* The Facilitator OTP Controller.
 * -----------------------------------------------------------------------
 */
 
@@ -26,22 +26,24 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-define("WEBPAGE_TITLE", "Dashboard");
+require_once(__MVC_MODELS_DIR__ . "Student.php");
+
+define("WEBPAGE_TITLE", "Generate OTP");
 
 
-class DashboardController extends Controller {
+class OTPController extends Controller {
     public function get() {
         session_start();
 
-        if (session_isauth() === FALSE) {
-            $this->redirect("/login");
+        if (session_isauth() === FALSE || $_SESSION["Facilitator"] !== TRUE) {
+            $this->notFound();
         }
 
-        if ($_SESSION["Facilitator"] === TRUE) {
-            $this->renderTemplate("Facilitator/dashboard.php");
-        } else {
-            $this->renderTemplate("Student/dashboard.php");
-        }
+        $studentMgnt = new StudentManagement(new Student());
+        $otp = $studentMgnt->generateOTP();
+        $json_output = json_encode(array("otp" => $otp));
+
+        echo("[" . $json_output . "]");
     }
 
     public function post() {

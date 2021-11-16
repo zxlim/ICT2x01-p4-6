@@ -26,8 +26,8 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-require_once(__ROOT__ . "config.php");
-require_once(__ROOT__ . "functions/security.php");
+require_once(__FUNCTIONS_DIR__ . "security.php");
+
 
 function db_get_conn(): SQLite3 {
     /**
@@ -84,6 +84,8 @@ function db_get_config_value(string $key) {
     return $value;
 }
 
+/*
+// Function deprecated. Will be removed soon.
 function db_initial_setup() {
     $db = db_get_conn();
 
@@ -115,3 +117,4 @@ function db_initial_setup() {
 
     $db->close();
 }
+*/

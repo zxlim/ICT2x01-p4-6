@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 /**
-* config.php
+* mvc/controllers/LogoutController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Global constant and config keys declaration for the web application.
+* The Logout Controller.
 * -----------------------------------------------------------------------
 */
 
@@ -26,25 +26,21 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-# The absolute path to the base directory of this application on the web server.
-define("__ROOT__", $_SERVER["DOCUMENT_ROOT"] . "/");
+define("WEBPAGE_TITLE", "Logout");
 
 
-# Application constants.
-define("APP_DOMAIN", trim($_SERVER["SERVER_NAME"]));
-define("APP_ROOT", trim(dirname($_SERVER["REQUEST_URI"])));
-define("APP_TITLE", "BOTster");
-define("APP_TZ", "Asia/Singapore");
+class LogoutController extends Controller {
+    public function get() {
+        session_start();
 
-define("__FUNCTIONS_DIR__", __ROOT__ . "functions/");
+        $_SESSION["authenticated"] = FALSE;
+        session_end();
 
+        $this->redirect("/login");
+    }
 
-# Constants used for MVC.
-define("__MVC_MODELS_DIR__", __ROOT__ . "mvc/models/");
-define("__MVC_VIEWS_DIR__", __ROOT__ . "mvc/views/");
-define("__MVC_VIEWS_TEMPLATES_DIR__", __MVC_VIEWS_DIR__ . "templates/");
-define("__MVC_CONTROLLERS_DIR__", __ROOT__ . "mvc/controllers/");
+    public function post() {
+        $this->get();
+    }
 
-
-# Relative location of SQLite database file on disk.
-define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
+}

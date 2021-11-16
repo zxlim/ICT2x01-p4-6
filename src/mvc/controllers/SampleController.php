@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/controller/Facilitator/OTPController.php
+* mvc/controllers/SampleController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,8 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* The Facilitator OTP Controller.
+* A sample Controller class to be used as a template. Created by ZX.
+* Change this portion to something that describes this file.
 * -----------------------------------------------------------------------
 */
 
@@ -26,27 +27,19 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-require_once(__ROOT__ . "mvc/model/Student.php");
+// Set the view's webpage title below.
+define("WEBPAGE_TITLE", "Dashboard");
 
-define("WEBPAGE_TITLE", "Generate OTP");
 
-
-class OTPController extends Controller {
+// Change the name of the Controller Class.
+class SampleController extends Controller {
     public function get() {
-        session_start();
-
-        if (session_isauth() === FALSE || $_SESSION["Facilitator"] !== TRUE) {
-            $this->notFound();
-        }
-
-        $studentMgnt = new StudentManagement(new Student());
-        $otp = $studentMgnt->generateOTP();
-        $res = json_encode(array("otp" => $otp));
-
-        echo("[" . $res . "]");
+        // Change this.
+        $this->renderTemplate("somePage.php");
     }
 
     public function post() {
+        // If POST is allowed, remove the next line.
         $this->methodNotAllowed();
     }
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/controller/SampleController.php
+* mvc/controllers/DashboardController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,8 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* A sample Controller class to be used as a template. Created by ZX.
-* Change this portion to something that describes this file.
+* The Dashboard Controller.
 * -----------------------------------------------------------------------
 */
 
@@ -27,19 +26,25 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-// Set the view's webpage title below.
 define("WEBPAGE_TITLE", "Dashboard");
 
 
-// Change the name of the Controller Class.
-class SampleController extends Controller {
+class DashboardController extends Controller {
     public function get() {
-        // Change this.
-        $this->renderTemplate("somePage.php");
+        session_start();
+
+        if (session_isauth() === FALSE) {
+            $this->redirect("/login");
+        }
+
+        if ($_SESSION["Facilitator"] === TRUE) {
+            $this->renderTemplate("Facilitator/dashboard.php");
+        } else {
+            $this->renderTemplate("Student/dashboard.php");
+        }
     }
 
     public function post() {
-        // If POST is allowed, remove the next line.
         $this->methodNotAllowed();
     }
 
