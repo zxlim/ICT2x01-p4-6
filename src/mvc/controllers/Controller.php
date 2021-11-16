@@ -31,8 +31,20 @@ abstract class Controller {
     abstract public function get();
     abstract public function post();
 
-    public function renderTemplate(string $page, $page_vars = NULL) {
-        require_once(__MVC_VIEWS_DIR__ . $page);
+    public function renderTemplate(string $view, string $pageTitle = "", array $state = array()) {
+        if (validate_notempty($pageTitle) === TRUE) {
+            define("PAGE_TITLE", $pageTitle);
+        }
+
+        if (validate_notempty($state, "array") === TRUE) {
+            define("PAGE_STATE", $state);
+        }
+
+        unset($pageTitle);
+        unset($state);
+
+        require_once(__MVC_VIEWS_DIR__ . $view);
+        exit();
     }
 
     public function redirect(string $route) {

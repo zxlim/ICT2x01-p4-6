@@ -29,78 +29,80 @@ if (defined("FRONTEND") === FALSE) {
 require_once(__MVC_MODELS_DIR__ . "Facilitator.php");
 require_once(__MVC_MODELS_DIR__ . "Student.php");
 
-define("WEBPAGE_TITLE", "Login");
-
 
 class LoginController extends Controller {
     public function get() {
         session_start();
 
         if (session_isauth() === TRUE) {
+            // Client is already logged in.
             $this->redirect("/");
         }
 
-        $page_vars = array(
+        $state = array(
             "errorLogin" => FALSE,
             "loginAsFacilitator" => FALSE
         );
 
-        $this->renderTemplate("login.php", $page_vars);
+        $this->renderTemplate("login.php", "Login", $state);
     }
 
     public function post() {
         session_start();
 
         if (session_isauth() === TRUE) {
+            // Client is already logged in.
             $this->unauthorized();
         }
 
-        $page_vars = array(
+        $state = array(
             "errorLogin" => TRUE,
             "errorMessage" => "Invalid credentials.",
             "loginAsFacilitator" => FALSE
         );
 
         if (validate_notempty($_POST["user"]) === FALSE) {
-            $page_vars["errorMessage"] = "Please specify the user to login as.";
+            $state["errorMessage"] = "Please specify the user to login as.";
         } else if (validate_notempty($_POST["password"]) === FALSE) {
-            $page_vars["errorMessage"] = "Please enter your password.";
+            $state["errorMessage"] = "Please enter your password.";
         } else {
             switch ($_POST["user"]) {
                 case "facilitator":
+                    // Facilitator Authentication Flow.
                     $facilitatorAccess = new FacilitatorAccess(new Facilitator());
-                    $page_vars["loginAsFacilitator"] = TRUE;
-                    $page_vars["errorMessage"] = "Invalid Password.";
+                    $state["loginAsFacilitator"] = TRUE;
+                    $state["errorMessage"] = "Invalid Password.";
 
                     if ($facilitatorAccess->login($_POST["password"]) === TRUE) {
-                        $page_vars["errorLogin"] = FALSE;
+                        $state["errorLogin"] = FALSE;
                         $_SESSION["authenticated"] = TRUE;
                         $_SESSION["Facilitator"] = TRUE;
                     }
                     break;
 
                 case "student":
+                    // Student Authentication Flow.
                     $studentAccess = new StudentAccess(new Student());
-                    $page_vars["errorMessage"] = "Invalid One-Time Password.";
+                    $state["errorMessage"] = "Invalid One-Time Password.";
 
                     if ($studentAccess->login($_POST["password"]) === TRUE) {
-                        $page_vars["errorLogin"] = FALSE;
+                        $state["errorLogin"] = FALSE;
                         $_SESSION["authenticated"] = TRUE;
                         $_SESSION["Facilitator"] = FALSE;
                     }
                     break;
 
                 default:
-                    $page_vars["errorMessage"] = "User specified is not recognised.";
+                    $state["errorMessage"] = "User specified is not recognised.";
                     break;
             }
         }
 
-        if ($page_vars["errorLogin"] === FALSE) {
-            // Login successful.
+        if ($state["errorLogin"] === FALSE) {
+            // Login successful. Redirect to Dashboard.
             $this->redirect("/");
         }
 
-        $this->renderTemplate("login.php", $page_vars);
+        $this->renderTemplate("login.php", "Login", $state);
     }
 }

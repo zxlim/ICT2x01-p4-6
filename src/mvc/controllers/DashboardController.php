@@ -26,8 +26,6 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-define("WEBPAGE_TITLE", "Dashboard");
-
 
 class DashboardController extends Controller {
     public function get() {
@@ -38,9 +36,9 @@ class DashboardController extends Controller {
         }
 
         if ($_SESSION["Facilitator"] === TRUE) {
-            $this->renderTemplate("Facilitator/dashboard.php");
+            $this->renderTemplate("Facilitator/dashboard.php", "Dashboard");
         } else {
-            $this->renderTemplate("Student/dashboard.php");
+            $this->renderTemplate("Student/dashboard.php", "Dashboard");
         }
     }
 

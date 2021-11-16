@@ -26,8 +26,6 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
-define("WEBPAGE_TITLE", "Logout");
-
 
 class LogoutController extends Controller {
     public function get() {

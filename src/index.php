@@ -28,7 +28,8 @@ require_once(__FUNCTIONS_DIR__ . "validation.php");
 
 $router = $_SERVER["REQUEST_URI"];
 
-if (isset($_GET["route"])) {
+if (isset($_GET["route"]) === TRUE) {
+    // Alternative method to obtain route using the `route` GET parameter.
     $router = (string)(trim($_GET["route"]));
 }
 

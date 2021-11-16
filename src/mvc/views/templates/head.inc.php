@@ -35,8 +35,8 @@ if (defined("FRONTEND") === FALSE) {
 
     <title>
         <?php
-        if (defined("WEBPAGE_TITLE") === TRUE) {
-            safe_echo(sprintf("%s | %s", APP_TITLE, WEBPAGE_TITLE));
+        if (defined("PAGE_TITLE") === TRUE) {
+            safe_echo(sprintf("%s | %s", APP_TITLE, PAGE_TITLE));
         } else {
             safe_echo(APP_TITLE);
         }

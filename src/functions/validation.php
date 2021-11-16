@@ -27,7 +27,7 @@ function validate_notempty($input, string $type = "string"): bool {
     * Used for input validation.
     *
     * @param    mixed   $input  The input to check.
-    * @param    string  $type   The input type (String or Array.
+    * @param    string  $type   The input type (String or Array).
     *
     * @return   bool    $result TRUE if variable is not empty else FALSE.
     */

@@ -28,8 +28,6 @@ if (defined("FRONTEND") === FALSE) {
 
 require_once(__MVC_MODELS_DIR__ . "Student.php");
 
-define("WEBPAGE_TITLE", "Generate OTP");
-
 
 class OTPController extends Controller {
     public function get() {

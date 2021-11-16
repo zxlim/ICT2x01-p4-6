@@ -70,27 +70,29 @@ if (defined("FRONTEND") === FALSE) {
 
         <script>
             let userSelect = document.getElementById("user");
+            let pwField = document.getElementById("password");
+            
             userSelect.onchange = (event) => {
                 let content = event.target.value;
 
                 if (content === "facilitator") {
-                    document.getElementById("password").placeholder = "Enter Password";
+                    pwField.placeholder = "Enter Password";
                 } else {
-                    document.getElementById("password").placeholder = "Enter One-Time Password";
+                    pwField.placeholder = "Enter One-Time Password";
                 }
             }
 
-            <?php if ($page_vars["loginAsFacilitator"] === TRUE) { ?>
+            <?php if (PAGE_STATE["loginAsFacilitator"] === TRUE) { ?>
             userSelect.value = "facilitator";
-            document.getElementById("password").placeholder = "Enter Password";
+            pwField.placeholder = "Enter Password";
             <?php } ?>
         </script>
 
-        <?php if ($page_vars["errorLogin"] === TRUE) { ?>
+        <?php if (PAGE_STATE["errorLogin"] === TRUE) { ?>
         <script>
             $(document).ready(function() {
                 $.notify({
-                    message: "<?php safe_echo($page_vars["errorMessage"]); ?>"
+                    message: "<?php safe_echo(PAGE_STATE["errorMessage"]); ?>"
                 }, {
                     type: "danger",
                     animate: {
