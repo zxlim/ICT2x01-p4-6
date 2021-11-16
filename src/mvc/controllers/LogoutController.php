@@ -38,7 +38,7 @@ class LogoutController extends Controller {
     }
 
     public function post() {
-        $this->get();
+        $this->methodNotAllowed();
     }
 
 }
