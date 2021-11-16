@@ -128,22 +128,23 @@ if ($session_is_facilitator === FALSE) {
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Add New Challenge</h1>
 
-                        <form class="user" action="post" enctype="multipart/form-data">
+                        <form class="user" method="post" action="facilitator_doAddChal.php" enctype="multipart/form-data">
                             <label class="control-label">Challenge Name</label>
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user"
-                                       id="exampleInputEmail" aria-describedby="emailHelp"
-                                       placeholder="Enter Challenge Name...">
+                                <input type="text" class="form-control form-control-user"
+                                       id="Challenge Name" aria-describedby="Challenge Name" name="chalName"
+                                       placeholder="Enter Challenge Name..." maxlength="45" required>
                             </div>
                             <label class="control-label">Checkpoint Number</label>
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user"
-                                       id="exampleInputEmail" aria-describedby="emailHelp"
-                                       placeholder="Enter Checkpoint Number...">
+                                <input type="number" class="form-control form-control-user"
+                                       id="Challenge Checkpoint" aria-describedby="Challenge Checkpoint" name="chalCheckNo"
+                                       placeholder="Enter Checkpoint Number..." required>
                             </div>
                             <label class="control-label">Map Image</label>
                             <div class="form-group">
-                                <input type="file"  id="map_img" name="map_img" style="width: 200px;" >
+                                <input type="file"   id="map_img" name="map_img" 
+                                       style="width: 200px;" accept=".png,.PNG,.jpg,.JPG,.jpeg,.JPEG" required>
                             </div>
                             
                             <br><br>
@@ -155,7 +156,7 @@ if ($session_is_facilitator === FALSE) {
                                     </span>
                                     <span class="text">Submit!</span></button>
                             </div>
-                            <form>
+                            </form>
 
                                 </div>
                                 <!-- /.container-fluid -->
