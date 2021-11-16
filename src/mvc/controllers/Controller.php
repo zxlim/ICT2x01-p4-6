@@ -55,16 +55,16 @@ abstract class Controller {
 
     public function unauthorized() {
         http_response_code(401);
-        exit();
+        $this->renderTemplate("Error/401.php", "Unauthorised");
     }
 
     public function notFound() {
         http_response_code(404);
-        exit();
+        $this->renderTemplate("Error/404.php", "Not Found");
     }
 
     public function methodNotAllowed() {
         http_response_code(405);
-        exit();
+        $this->renderTemplate("Error/405.php", "Invalid Method");
     }
 }

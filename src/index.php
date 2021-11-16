@@ -49,8 +49,11 @@ switch ($router) {
         break;
 
     case "/":
-    default:
         $controllerName = DashboardController::class;
+        break;
+    
+    default:
+        $controllerName = UnhandledRouteController::class;
         break;
 }
 
