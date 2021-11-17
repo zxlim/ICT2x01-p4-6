@@ -91,10 +91,9 @@ class Student {
         foreach ($stmts as $stmt) {
             $res = $stmt->execute();
             if ($res === false) {
-                $last_error_code = $db->lastErrorCode();
-                $last_error_msg = $db->lastErrorMsg();
+                $errorMessage = sprintf("Failed to update Student [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
                 $db->close();
-                exit("Failed to update Student data in database: (" . $last_error_code . ") " . $last_error_msg);
+                throw new DBException($errorMessage);
             }
         }
 

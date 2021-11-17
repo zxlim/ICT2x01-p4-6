@@ -29,6 +29,14 @@ if (defined("FRONTEND") === FALSE) {
 require_once(__FUNCTIONS_DIR__ . "security.php");
 
 
+class DBException extends Exception {
+    public function getError(): string {
+        $msg = "DBException on line " . $this->getLine() . ": " . $this->getMessage();
+        return $msg;
+    }
+}
+
+
 function db_get_conn(): SQLite3 {
     /**
     * A function to create a connection to a SQLite database.
@@ -38,7 +46,8 @@ function db_get_conn(): SQLite3 {
     $db = new SQLite3(SQLITE_DB_FILE);
 
     if (!$db || $db->lastErrorCode() !== 0) {
-        exit("Failed to connect to database: " . $db->lastErrorMsg());
+        $errorMessage = sprintf("Failed to connect to Database [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
+        exit($errorMessage);
     }
 
     return $db;
@@ -51,15 +60,14 @@ function db_get_config_value(string $key) {
 
     $db = db_get_conn();
 
-    $stmt = $db->prepare("SELECT type, value FROM config WHERE key=:key");
+    $stmt = $db->prepare("SELECT type, value FROM config WHERE key = :key");
     $stmt->bindValue(":key", $key, SQLITE3_TEXT);
     $res = $stmt->execute();
 
     if ($res === false) {
-        $last_error_code = $db->lastErrorCode();
-        $last_error_msg = $db->lastErrorMsg();
+        $errorMessage = sprintf("Failed to retrieve Config [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
         $db->close();
-        exit("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
+        throw new DBException($errorMessage);
     }
 
     $row = $res->fetchArray(SQLITE3_ASSOC);
