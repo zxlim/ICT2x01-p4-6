@@ -43,18 +43,18 @@ class Facilitator {
     /**
     * Getters and Setters.
     */
-    function getPassword(): string {
+    public function getPassword(): string {
         return $this->password;
     }
 
-    function setPassword(string $password) {
+    public function setPassword(string $password) {
         $this->password = pw_hash($password);
     }
 
     /**
     * Database CRUD operations.
     */
-    function dbUpdate() {
+    public function dbUpdate() {
         $db = db_get_conn();
         $stmt = $db->prepare("UPDATE config SET value = :pw WHERE key = 'facilitator_password'");
         $stmt->bindValue(":pw", $this->password, SQLITE3_TEXT);
