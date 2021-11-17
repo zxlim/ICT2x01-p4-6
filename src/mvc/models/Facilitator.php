@@ -30,6 +30,9 @@ require_once(__FUNCTIONS_DIR__ . "db.php");
 require_once(__FUNCTIONS_DIR__ . "security.php");
 
 
+/**
+* Facilitator Entity Class.
+*/
 class Facilitator {
     private $password;
 
@@ -48,9 +51,12 @@ class Facilitator {
         $this->password = pw_hash($password);
     }
 
-    function saveToDatabase() {
+    /**
+    * Database CRUD operations.
+    */
+    function dbUpdate() {
         $db = db_get_conn();
-        $stmt = $db->prepare("UPDATE config SET facilitator_password = :pw");
+        $stmt = $db->prepare("UPDATE config SET value = :pw WHERE key = 'facilitator_password'");
         $stmt->bindValue(":pw", $this->password, SQLITE3_TEXT);
 
         $res = $stmt->execute();
@@ -66,6 +72,9 @@ class Facilitator {
 }
 
 
+/**
+* Control Classes.
+*/
 class FacilitatorAccess {
     private $facilitator;
 

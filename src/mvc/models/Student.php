@@ -30,6 +30,9 @@ require_once(__FUNCTIONS_DIR__ . "db.php");
 require_once(__FUNCTIONS_DIR__ . "security.php");
 
 
+/**
+* Student Entity Class.
+*/
 class Student {
     private $oneTimePassword;
     private $issueCommandStatus;
@@ -68,13 +71,19 @@ class Student {
         $this->tutorialStatus = $tutorialStatus;
     }
 
-    public function saveToDatabase() {
+    /**
+    * Database CRUD operations.
+    */
+    public function dbUpdate() {
         $db = db_get_conn();
-        $stmt_one = $db->prepare("UPDATE config SET value=:val WHERE key='student_otp_code'");
+
+        $stmt_one = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_otp_code'");
         $stmt_one->bindValue(":val", (string)($this->getOneTimePassword()), SQLITE3_TEXT);
-        $stmt_two = $db->prepare("UPDATE config SET value=:val WHERE key='student_issue_cmd'");
+
+        $stmt_two = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_issue_cmd'");
         $stmt_two->bindValue(":val", (string)($this->getIssueCommandStatus()), SQLITE3_TEXT);
-        $stmt_three = $db->prepare("UPDATE config SET value=:val WHERE key='student_tutorial'");
+
+        $stmt_three = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_tutorial'");
         $stmt_three->bindValue(":val", (string)($this->getTutorialStatus()), SQLITE3_TEXT);
 
         $stmts = array($stmt_one, $stmt_two, $stmt_three);
@@ -93,6 +102,9 @@ class Student {
     }
 }
 
+/**
+* Control Classes.
+*/
 class StudentAccess {
     private $student;
 
@@ -104,7 +116,7 @@ class StudentAccess {
         if ($this->student->getOneTimePassword() !== "") {
             if (pw_verify($otp, $this->student->getOneTimePassword()) === TRUE) {
                 $this->student->setOneTimePassword("");
-                $this->student->saveToDatabase();
+                $this->student->dbUpdate();
                 return TRUE;
             }
         }
@@ -123,7 +135,7 @@ class StudentManagement {
     public function generateOTP(): string {
         $otp = generate_pin_code();
         $this->student->setOneTimePassword($otp);
-        $this->student->saveToDatabase();
+        $this->student->dbUpdate();
         return $otp;
     }
 
@@ -133,6 +145,6 @@ class StudentManagement {
         } else {
             $this->student->setIssueCommandStatus(TRUE);
         }
-        $this->student->saveToDatabase();
+        $this->student->dbUpdate();
     }
 }
