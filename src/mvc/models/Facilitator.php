@@ -64,7 +64,7 @@ class Facilitator {
             $last_error_code = $db->lastErrorCode();
             $last_error_msg = $db->lastErrorMsg();
             $db->close();
-            die("Failed to update Facilitator data in database: (" . $last_error_code . ") " . $last_error_msg);
+            exit("Failed to update Facilitator data in database: (" . $last_error_code . ") " . $last_error_msg);
         }
 
         $db->close();
