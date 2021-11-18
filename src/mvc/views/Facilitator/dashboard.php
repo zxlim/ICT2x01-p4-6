@@ -364,38 +364,6 @@ if (defined("FRONTEND") === FALSE) {
             <script src="/static/js/demo/chart-area-demo.js"></script>
             <script src="/static/js/demo/chart-pie-demo.js"></script>
 
-            <script>
-                $(document).ready(function() {
-                    $("#genOTP").click(function(){
-                        $.ajax({
-                            url: "/facilitator/generateOTP",
-                            dataType: "json",
-                            method: "GET",
-                            success: function(response){
-                                $("#generated_otp").text(response[0]["otp"]);
-                                $("#otpModal").modal("show");
-                            },
-                            error: function(response){
-                                console.log(response);
-                                console.log(response.responseText);
-                                $.notify({
-                                    message: "Failed to generate One-Time Password."
-                                }, {
-                                    type: "danger",
-                                    animate: {
-                                        enter: "animated fadeInDown",
-                                        exit: "animated fadeOutUp"
-                                    },
-                                    placement: {
-                                        from: "top",
-                                        align: "center"
-                                    },
-                                });
-                                console.log("HTTP Status Code: " + response.status);
-                            }
-                        });
-                    });
-                });
-            </script>
+            <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "facilitator.otp.js.inc.php"); ?>
     </body>
 </html>
