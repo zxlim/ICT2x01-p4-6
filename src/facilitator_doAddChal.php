@@ -26,35 +26,116 @@ require_once(__ROOT__ . "/backend/session_management.php");
 require_once(__ROOT__ . "/backend/functions/db.php");
 
 if ($session_is_facilitator === FALSE) {
-// Student cannot access Facilitator dashboard.
+    // Student cannot access Facilitator dashboard.
     header("HTTP/1.1 403 Forbidden");
     header("Location: index.php");
     die("You are not allowed to access the requested resource.");
 }
 
-$db = db_get_conn();
+$errorMsg = "";
+$success = true;
 
-$stmt = $db->prepare("SELECT * FROM challenge");
-$res = $stmt->execute();
+if (isset($_POST["add"])) {
+    $chalName = $_POST["chalName"];
+    $chalCheckNo = $_POST["chalCheckNo"];
+    $chalImg = $_FILES["map_img"]["name"];
+    $chalImgTmp = $_FILES["map_img"]["tmp_name"];
 
-if ($res === false) {
-    $last_error_code = $db->lastErrorCode();
-    $last_error_msg = $db->lastErrorMsg();
+    // Checking if Challenge Name field is empty
+    if (empty($chalName)) {
+        $errorMsg .= "Challenge name is required.";
+        $success = false;
+    } else {
+        // If not empty, sanitize input
+        $chalName = sanitize_input($chalName);
+    }
+
+    // Checking if Checkpoint No. field is empty
+    if (empty($chalCheckNo)) {
+        $errorMsg .= "Challenge Checkpoint Number is required.";
+        $success = false;
+    } else {
+        // If not empty, sanitize input
+        $chalCheckNo = sanitize_input($chalCheckNo);
+    }
+
+    // Set the allowed image file extensions
+    $allowed_image_extension = array(
+        "png",
+        "jpg",
+        "jpeg",
+        "PNG",
+        "JPG",
+        "JPEG"
+    );
+
+
+    // Get image file extension
+    $file_extension = pathinfo($chalImg, PATHINFO_EXTENSION);
+
+    // Validate file input to check if is not empty
+    if (!file_exists($chalImgTmp)) {
+        $errorMsg .= "Please choose an image file to upload.";
+        $success = false;
+    }    // Validate file input to check if is with valid extension
+    else if (!in_array($file_extension, $allowed_image_extension)) {
+        $errorMsg .= "File type invalid. Only PNG and JPEG/JPG are allowed.";
+        $success = false;
+        // Validate file input to check if required dimension is met
+    } else {
+        // Store image file path to folder and then upload it
+        $folder = ".\\static\img\\" . ($chalImg);
+        if (move_uploaded_file($chalImgTmp, $folder)) {
+            @addChallenge();
+        } else {
+            $errorMsg .= "Problem uploading image file!";
+            $success = false;
+        }
+    }
+}
+
+function addChallenge() {
+
+    global $chalName, $chalCheckNo, $folder, $success, $errorMsg;
+
+    try {
+    $db = db_get_conn();
+
+    // Prepare the statement:
+    $stmt = $db->prepare("INSERT INTO challenge(ch_name, ch_checkpoint, ch_imgdir) VALUES (:name, :checkpoint, :img)");
+    // Bind & execute the query statement:
+    $stmt->bindParam(":name", $chalName);
+    $stmt->bindParam(":checkpoint", $chalCheckNo);
+    $stmt->bindParam(":img", $folder);
+    $res = $stmt->execute();
+
+    if ($res === false) {
+        $last_error_code = $db->lastErrorCode();
+        $last_error_msg = $db->lastErrorMsg();
+        $errorMsg .= $last_error_msg;
+        $db->close();
+        //die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
+        
+        $success = false;
+    }
+
     $db->close();
-    die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
+    } catch (SQLiteException $e){
+        $errorMsg .= $e;
+    }
 }
 
-$row = array();
-while ($rows = $res->fetchArray()) {
-    $row[] = $rows;
+// Data sanitization function
+function sanitize_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
-
-
-$db->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once(__ROOT__ . "/templates/head.inc.php"); ?>
+    <?php require_once(__ROOT__ . "/templates/head.inc.php"); ?>
     <body id="page-top">
 
         <!-- Page Wrapper -->
@@ -144,60 +225,18 @@ $db->close();
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
 
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">List of Challenges</h1>
-                        <a href="facilitator_addChal.php" class="btn btn-info btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-puzzle-piece"></i>
-                            </span>
-                            <span class="text">Add New Challange</span>
-                        </a><br><br>
-
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"></h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Checkpoint No.</th>
-                                                <th>Map Image</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Checkpoint No.</th>
-                                                <th>Map Image</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-<?php
-#db_get_challenges();
-foreach ($row as $rows) {
-    ?>
-                                                <tr>
-                                                    <td><?php echo $rows["ch_name"] ?></td>
-                                                    <td><?php echo $rows["ch_checkpoint"] ?></td>
-                                                    <td style="width: 400px"><img class="product-thmb" id="<?php echo $rows["ch_name"]; ?>" src="<?php echo $rows["ch_imgdir"]; ?>" alt="product-image" style="object-fit: cover; display: block; max-height: 100%; max-width: 100%;" ></td>
-                                                    <td> <form class="user" method="post" action="facilitator_delChal.php"><button class="btn btn-danger btn-circle" name="delChal" value="<?php echo $rows['ch_id'];?>"  type="submit"><i class="fas fa-trash"></i></button></form></td>
-                                                </tr>
-
+                        <?php if ($success == true) { ?>
+                            <div class='alert alert-success' role='alert'><strong>Challenge Added Successfully! </strong></div>
+                            <a class='btn btn-success' href='facilitator_challenges.php'>Return to Challenge List</a>
+<?php } else { ?>
+                            <div class='alert alert-danger' role='alert'><strong>Error: <?php echo $errorMsg; ?>!\<br>Failed to add challenge!</strong></div>
+                            <a class='btn btn-success' href='facilitator_challenges.php'>Return to Challenge List</a>
     <?php
 }
-?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+?>   
+
+                        <!-- Page Heading -->
+
 
                     </div>
                     <!-- /.container-fluid -->
@@ -310,4 +349,10 @@ foreach ($row as $rows) {
             });
         </script>
     </body>
-</html>
+</html><?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */

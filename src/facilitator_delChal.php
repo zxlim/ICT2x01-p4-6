@@ -27,34 +27,48 @@ require_once(__ROOT__ . "/backend/functions/db.php");
 
 if ($session_is_facilitator === FALSE) {
 // Student cannot access Facilitator dashboard.
-    header("HTTP/1.1 403 Forbidden");
-    header("Location: index.php");
-    die("You are not allowed to access the requested resource.");
+header("HTTP/1.1 403 Forbidden");
+header("Location: index.php");
+die("You are not allowed to access the requested resource.");
 }
 
+$errorMsg = "";
+$success = true;
+
+if ($_POST['delChal'] === NULL) {
+$errorMsg = "Challenge selected not found.";
+$success = false;
+}
+$id = $_POST['delChal'];
+
+
+try {
 $db = db_get_conn();
 
-$stmt = $db->prepare("SELECT * FROM challenge");
+// Prepare the statement:
+$stmt = $db->prepare("DELETE from challenge WHERE ch_id=:id");
+// Bind & execute the query statement:
+$stmt->bindParam(":id", $id);
 $res = $stmt->execute();
 
 if ($res === false) {
-    $last_error_code = $db->lastErrorCode();
-    $last_error_msg = $db->lastErrorMsg();
-    $db->close();
-    die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
-}
+$last_error_code = $db->lastErrorCode();
+$last_error_msg = $db->lastErrorMsg();
+$errorMsg .= $last_error_msg;
+$db->close();
+//die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
 
-$row = array();
-while ($rows = $res->fetchArray()) {
-    $row[] = $rows;
+$success = false;
 }
-
 
 $db->close();
+} catch (SQLiteException $e){
+$errorMsg .= $e;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once(__ROOT__ . "/templates/head.inc.php"); ?>
+    <?php require_once(__ROOT__ . "/templates/head.inc.php"); ?>
     <body id="page-top">
 
         <!-- Page Wrapper -->
@@ -144,60 +158,18 @@ $db->close();
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
 
+                        <?php if ($success == true) { ?>
+                            <div class='alert alert-success' role='alert'><strong>Challenge Deleted Successfully! </strong></div>
+                            <a class='btn btn-success' href='facilitator_challenges.php'>Return to Challenge List</a>
+                        <?php } else { ?>
+                            <div class='alert alert-danger' role='alert'><strong>Error: <?php echo $errorMsg; ?>!\<br>Failed to delete challenge!</strong></div>
+                            <a class='btn btn-success' href='facilitator_challenges.php'>Return to Challenge List</a>
+                            <?php
+                        }
+                        ?>   
+
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">List of Challenges</h1>
-                        <a href="facilitator_addChal.php" class="btn btn-info btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-puzzle-piece"></i>
-                            </span>
-                            <span class="text">Add New Challange</span>
-                        </a><br><br>
 
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"></h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Checkpoint No.</th>
-                                                <th>Map Image</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Checkpoint No.</th>
-                                                <th>Map Image</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-<?php
-#db_get_challenges();
-foreach ($row as $rows) {
-    ?>
-                                                <tr>
-                                                    <td><?php echo $rows["ch_name"] ?></td>
-                                                    <td><?php echo $rows["ch_checkpoint"] ?></td>
-                                                    <td style="width: 400px"><img class="product-thmb" id="<?php echo $rows["ch_name"]; ?>" src="<?php echo $rows["ch_imgdir"]; ?>" alt="product-image" style="object-fit: cover; display: block; max-height: 100%; max-width: 100%;" ></td>
-                                                    <td> <form class="user" method="post" action="facilitator_delChal.php"><button class="btn btn-danger btn-circle" name="delChal" value="<?php echo $rows['ch_id'];?>"  type="submit"><i class="fas fa-trash"></i></button></form></td>
-                                                </tr>
-
-    <?php
-}
-?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <!-- /.container-fluid -->
@@ -267,7 +239,7 @@ foreach ($row as $rows) {
             </div>
         </div>
 
-<?php require_once(__ROOT__ . "/templates/js.inc.php"); ?>
+        <?php require_once(__ROOT__ . "/templates/js.inc.php"); ?>
 
         <!-- Page level plugins -->
         <script src="/static/vendor/chart.js/Chart.min.js"></script>
@@ -310,4 +282,10 @@ foreach ($row as $rows) {
             });
         </script>
     </body>
-</html>
+</html><?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
