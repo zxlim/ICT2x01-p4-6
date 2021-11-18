@@ -34,7 +34,7 @@ if ($session_is_facilitator === FALSE) {
 
 $db = db_get_conn();
 
-$stmt = $db->prepare("SELECT ch_name, ch_imgdir, ch_checkpoint FROM challenge");
+$stmt = $db->prepare("SELECT * FROM challenge");
 $res = $stmt->execute();
 
 if ($res === false) {
@@ -51,12 +51,10 @@ while ($rows = $res->fetchArray()) {
 
 
 $db->close();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php require_once(__ROOT__ . "/templates/head.inc.php"); ?>
+<?php require_once(__ROOT__ . "/templates/head.inc.php"); ?>
     <body id="page-top">
 
         <!-- Page Wrapper -->
@@ -181,22 +179,20 @@ $db->close();
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <?php
-                                            #db_get_challenges();
-                                            foreach ($row as $rows) {
-                                                ?>
+<?php
+#db_get_challenges();
+foreach ($row as $rows) {
+    ?>
                                                 <tr>
                                                     <td><?php echo $rows["ch_name"] ?></td>
                                                     <td><?php echo $rows["ch_checkpoint"] ?></td>
                                                     <td style="width: 400px"><img class="product-thmb" id="<?php echo $rows["ch_name"]; ?>" src="<?php echo $rows["ch_imgdir"]; ?>" alt="product-image" style="object-fit: cover; display: block; max-height: 100%; max-width: 100%;" ></td>
-                                                    <td><a href="#" class="btn btn-danger btn-circle">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a></td>
+                                                    <td> <form class="user" method="post" action="facilitator_delChal.php"><button class="btn btn-danger btn-circle" name="delChal" value="<?php echo $rows['ch_id'];?>"  type="submit"><i class="fas fa-trash"></i></button></form></td>
                                                 </tr>
 
-                                                <?php
-                                            }
-                                            ?>
+    <?php
+}
+?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -271,7 +267,7 @@ $db->close();
             </div>
         </div>
 
-        <?php require_once(__ROOT__ . "/templates/js.inc.php"); ?>
+<?php require_once(__ROOT__ . "/templates/js.inc.php"); ?>
 
         <!-- Page level plugins -->
         <script src="/static/vendor/chart.js/Chart.min.js"></script>
