@@ -52,7 +52,7 @@ class Student {
     }
 
     public function setOneTimePassword(string $oneTimePassword) {
-        $this->oneTimePassword = pw_hash($oneTimePassword);
+        $this->oneTimePassword = $oneTimePassword;
     }
 
     public function getIssueCommandStatus(): bool {
@@ -133,7 +133,7 @@ class StudentManagement {
 
     public function generateOTP(): string {
         $otp = generate_pin_code();
-        $this->student->setOneTimePassword($otp);
+        $this->student->setOneTimePassword(pw_hash($otp));
         $this->student->dbUpdate();
         return $otp;
     }

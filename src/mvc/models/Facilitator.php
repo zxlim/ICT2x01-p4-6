@@ -48,7 +48,7 @@ class Facilitator {
     }
 
     public function setPassword(string $password) {
-        $this->password = pw_hash($password);
+        $this->password = $password;
     }
 
     /**
