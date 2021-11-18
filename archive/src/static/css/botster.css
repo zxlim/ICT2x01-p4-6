@@ -1,0 +1,24 @@
+/**
+* css/botster.css
+*
+* @copyright    Copyright (c) P4-6 2021. For the
+*               partial fulfillment of the module
+*               ICT2101/2201 Introduction to
+*               Software Engineering.
+*
+* @author       LIM ZHAO XIANG         (1802976@sit.singaporetech.edu.sg)
+* @author       IRFAN BIN FAIRUZ NIAN  (2000937@sit.singaporetech.edu.sg)
+* @author       JEROME LIEW HAN RONG   (2001546@sit.singaporetech.edu.sg)
+* @author       LIM ZHENG JIE          (2000627@sit.singaporetech.edu.sg)
+* @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
+*
+* -----------------------------------------------------------------------
+* Custom styling for web application.
+* -----------------------------------------------------------------------
+*/
+
+.bg-login-image {
+  background: url("/static/img/undraw_posting_photo.svg");
+  background-position: center;
+  background-size: cover;
+}
