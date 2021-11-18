@@ -288,82 +288,81 @@ if (defined("FRONTEND") === FALSE) {
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-                    <!-- End of Main Content -->
-
-                    <!-- Footer -->
-                    <footer class="sticky-footer bg-white">
-                        <div class="container my-auto">
-                            <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; 2021 BOTster, Team P4-6.</span>
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- End of Footer -->
-
                 </div>
-                <!-- End of Content Wrapper -->
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; 2021 BOTster, Team P4-6.</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Page Wrapper -->
+            <!-- End of Content Wrapper -->
 
-            <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
+        </div>
+        <!-- End of Page Wrapper -->
 
-            <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="logoutModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="/logout">Logout</a>
-                        </div>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/logout">Logout</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- OTP Modal-->
-            <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="otpModalLabel">Student One-Time Password</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body text-center">
-                            Provide the following One-Time Password to your student for them to login.
-                            <br />
-                            <h5 class="text-center" id="generated_otp"></h5>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-                        </div>
+        <!-- OTP Modal-->
+        <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="otpModalLabel">Student One-Time Password</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        Provide the following One-Time Password to your student for them to login.
+                        <br />
+                        <h5 class="text-center" id="generated_otp"></h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "js.inc.php"); ?>
+        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "js.inc.php"); ?>
 
-            <!-- Page level plugins -->
-            <script src="/static/vendor/chart.js/Chart.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="/static/vendor/chart.js/Chart.min.js"></script>
 
-            <!-- Page level custom scripts -->
-            <script src="/static/js/demo/chart-area-demo.js"></script>
-            <script src="/static/js/demo/chart-pie-demo.js"></script>
+        <!-- Page level custom scripts -->
+        <script src="/static/js/demo/chart-area-demo.js"></script>
+        <script src="/static/js/demo/chart-pie-demo.js"></script>
 
-            <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "facilitator.otp.js.inc.php"); ?>
+        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "facilitator.otp.js.inc.php"); ?>
     </body>
 </html>
