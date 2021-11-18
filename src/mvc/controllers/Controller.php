@@ -30,20 +30,29 @@ if (defined("FRONTEND") === FALSE) {
 abstract class Controller {
     abstract public function get();
     abstract public function post();
+    abstract public function delete();
 
     public function renderTemplate(string $view, string $pageTitle = "", array $state = array()) {
         if (validate_notempty($pageTitle) === TRUE) {
             define("PAGE_TITLE", $pageTitle);
         }
 
-        if (validate_notempty($state, "array") === TRUE) {
-            define("PAGE_STATE", $state);
+        unset($pageTitle);
+
+        require_once(__MVC_VIEWS_DIR__ . "/" . $view);
+        exit();
+    }
+
+    public function returnJSON(array $state) {
+        $statusCode = 200;
+
+        if (isset($state["httpStatusCode"]) === TRUE && validate_int($state["httpStatusCode"]) === TRUE) {
+            $statusCode = (int)($state["httpStatusCode"]);
         }
 
-        unset($pageTitle);
-        unset($state);
-
-        require_once(__MVC_VIEWS_DIR__ . $view);
+        header("Content-Type: application/json; charset=utf-8");
+        http_response_code($statusCode);
+        echo(json_encode($state));
         exit();
     }
 

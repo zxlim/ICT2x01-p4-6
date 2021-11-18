@@ -39,13 +39,16 @@ class OTPController extends Controller {
 
         $studentMgnt = new StudentManagement(new Student());
         $otp = $studentMgnt->generateOTP();
-        $json_output = json_encode(array("otp" => $otp));
+        $state = array("otp" => $otp);
 
-        echo("[" . $json_output . "]");
+        $this->returnJSON($state);
     }
 
     public function post() {
         $this->methodNotAllowed();
     }
 
+    public function delete() {
+        $this->methodNotAllowed();
+    }
 }

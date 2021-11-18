@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/controllers/LogoutController.php
+* mvc/controllers/ChallengeController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* The Logout Controller.
+* The Challenge Controller.
 * -----------------------------------------------------------------------
 */
 
@@ -26,15 +26,28 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 
+require_once(__MVC_MODELS_DIR__ . "Challenge.php");
 
-class LogoutController extends Controller {
+
+class ChallengeController extends Controller {
     public function get() {
         session_start();
 
-        $_SESSION["authenticated"] = FALSE;
-        session_end();
+        if (session_isauth() === FALSE) {
+            $this->redirect("/login");
+        }
 
-        $this->redirect("/login");
+        $challenges = ChallengeManagement::GetAllChallenges();
+
+        $state = array(
+            "chals" => $challenges
+        );
+
+        if ($_SESSION["Facilitator"] === TRUE) {
+            $this->renderTemplate("Facilitator/challenges.php", "All Challenges", $state);
+        } else {
+            $this->renderTemplate("Student/challenges.php", "All Challenges", $state);
+        }
     }
 
     public function post() {

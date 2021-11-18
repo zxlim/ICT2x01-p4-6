@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/templates/facilitator.otp.js.inc.php
+* mvc/views/templates/Facilitator/otp.js.inc.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -26,6 +26,28 @@ if (defined("FRONTEND") === FALSE) {
     exit();
 }
 ?>
+<!-- OTP Modal-->
+<div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="otpModalLabel">Student One-Time Password</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                Provide the following One-Time Password to your student for them to login.
+                <br /><br />
+                <h5 class="text-center" id="generated_otp"></h5>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function() {
         $("#genOTP").click(function(){
@@ -34,12 +56,12 @@ if (defined("FRONTEND") === FALSE) {
                 dataType: "json",
                 method: "GET",
                 success: function(response){
-                    $("#generated_otp").text(response[0]["otp"]);
+                    $("#generated_otp").text(response.otp);
                     $("#otpModal").modal("show");
                 },
                 error: function(response){
-                    console.log(response);
-                    console.log(response.responseText);
+                    // console.log("HTTP Status Code: " + response.status);
+                    
                     $.notify({
                         message: "Failed to generate One-Time Password."
                     }, {
@@ -53,7 +75,6 @@ if (defined("FRONTEND") === FALSE) {
                             align: "center"
                         },
                     });
-                    console.log("HTTP Status Code: " + response.status);
                 }
             });
         });

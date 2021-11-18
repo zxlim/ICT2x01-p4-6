@@ -40,4 +40,7 @@ class SampleController extends Controller {
         $this->methodNotAllowed();
     }
 
+    public function delete() {
+        $this->methodNotAllowed();
+    }
 }

@@ -105,4 +105,8 @@ class LoginController extends Controller {
 
         $this->renderTemplate("login.php", "Login", $state);
     }
+
+    public function delete() {
+        $this->methodNotAllowed();
+    }
 }

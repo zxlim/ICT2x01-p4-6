@@ -82,17 +82,17 @@ if (defined("FRONTEND") === FALSE) {
                 }
             }
 
-            <?php if (PAGE_STATE["loginAsFacilitator"] === TRUE) { ?>
+            <?php if ($state["loginAsFacilitator"] === TRUE) { ?>
             userSelect.value = "facilitator";
             pwField.placeholder = "Enter Password";
             <?php } ?>
         </script>
 
-        <?php if (PAGE_STATE["errorLogin"] === TRUE) { ?>
+        <?php if ($state["errorLogin"] === TRUE) { ?>
         <script>
             $(document).ready(function() {
                 $.notify({
-                    message: "<?php safe_echo(PAGE_STATE["errorMessage"]); ?>"
+                    message: "<?php safe_echo($state["errorMessage"]); ?>"
                 }, {
                     type: "danger",
                     animate: {

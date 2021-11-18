@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/login.php
+* mvc/views/Error/404.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module

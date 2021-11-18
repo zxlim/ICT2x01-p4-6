@@ -46,4 +46,7 @@ class DashboardController extends Controller {
         $this->methodNotAllowed();
     }
 
+    public function delete() {
+        $this->methodNotAllowed();
+    }
 }

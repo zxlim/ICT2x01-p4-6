@@ -35,39 +35,7 @@ if (defined("FRONTEND") === FALSE) {
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-                <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-truck-monster"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3">BOT<sup>ster</sup></div>
-                </a>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
-                    <br />
-                    <center>
-                        <button class="btn btn-success btn-icon-split" id="genOTP">
-                            <span class="icon text-white-50"><i class="fas fa-key"></i></span><span class="text">Generate OTP</span>
-                        </button>
-                    </center>
-                    <br />
-                    <a class="nav-link" href="/">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <a class="nav-link" href="/challenges">
-                        <i class="fas fa-fw fa-bullseye"></i>
-                        <span>View All Challenges</span>
-                    </a>
-                </li>
-            </ul>
+            <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "Facilitator/sidebar.inc.php"); ?>
             <!-- End of Sidebar -->
 
             <!-- Content Wrapper -->
@@ -77,42 +45,7 @@ if (defined("FRONTEND") === FALSE) {
                 <div id="content">
 
                     <!-- Topbar -->
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-
-                        <!-- Topbar Navbar -->
-                        <ul class="navbar-nav ml-auto">
-
-                            <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Facilitator</span>
-                                    <img class="img-profile rounded-circle"
-                                         src="/static/img/undraw_profile.svg">
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Logout
-                                    </a>
-                                </div>
-                            </li>
-
-                        </ul>
-
-                    </nav>
+                    <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "Facilitator/nav.inc.php"); ?>
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
@@ -332,28 +265,6 @@ if (defined("FRONTEND") === FALSE) {
             </div>
         </div>
 
-        <!-- OTP Modal-->
-        <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="otpModalLabel">Student One-Time Password</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body text-center">
-                        Provide the following One-Time Password to your student for them to login.
-                        <br />
-                        <h5 class="text-center" id="generated_otp"></h5>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "js.inc.php"); ?>
 
         <!-- Page level plugins -->
@@ -363,6 +274,6 @@ if (defined("FRONTEND") === FALSE) {
         <script src="/static/js/demo/chart-area-demo.js"></script>
         <script src="/static/js/demo/chart-pie-demo.js"></script>
 
-        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "facilitator.otp.js.inc.php"); ?>
+        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "Facilitator/otp.inc.php"); ?>
     </body>
 </html>

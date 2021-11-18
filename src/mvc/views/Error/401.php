@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/login.php
+* mvc/views/Error/401.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* 404 Not Found Error page.
+* 401 Unauthorized Error page.
 * -----------------------------------------------------------------------
 */
 

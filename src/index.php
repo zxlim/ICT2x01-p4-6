@@ -18,7 +18,7 @@
 * -----------------------------------------------------------------------
 */
 
-require_once("config.php");
+require_once("constants.php");
 require_once(__FUNCTIONS_DIR__ . "db.php");
 require_once(__FUNCTIONS_DIR__ . "security.php");
 require_once(__FUNCTIONS_DIR__ . "session.php");
@@ -26,7 +26,7 @@ require_once(__FUNCTIONS_DIR__ . "utils.php");
 require_once(__FUNCTIONS_DIR__ . "validation.php");
 
 
-$router = $_SERVER["REQUEST_URI"];
+$router = strtok($_SERVER["REQUEST_URI"], "?");
 
 if (isset($_GET["route"]) === TRUE) {
     // Alternative method to obtain route using the `route` GET parameter.
@@ -35,6 +35,10 @@ if (isset($_GET["route"]) === TRUE) {
 
 // Application Router.
 switch ($router) {
+    case "/":
+        $controllerName = DashboardController::class;
+        break;
+
     case "/login":
         $controllerName = LoginController::class;
         break;
@@ -43,13 +47,18 @@ switch ($router) {
         $controllerName = LogoutController::class;
         break;
 
+    case "/challenges":
+        $controllerName = ChallengeController::class;
+        break;
+
     case "/facilitator/generateOTP":
         $controllerName = OTPController::class;
         $controllerFilePath = "Facilitator/" . $controllerName;
         break;
 
-    case "/":
-        $controllerName = DashboardController::class;
+    case "/facilitator/challenges":
+        $controllerName = ChallengeManagementController::class;
+        $controllerFilePath = "Facilitator/" . $controllerName;
         break;
     
     default:

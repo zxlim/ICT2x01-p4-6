@@ -36,4 +36,7 @@ class UnhandledRouteController extends Controller {
         $this->notFound();
     }
 
+    public function delete() {
+        $this->notFound();
+    }
 }
