@@ -5,7 +5,8 @@ BOTster is a gamified feedback system used to engage primary school students on 
 - [Repository Structure](#repository-structure)
 - [Deployment](#deployment)
     - [Dependencies and Requirements](#dependencies-and-requirements)
-    - [Setup Steps](#setup-steps)
+    - [Setup Steps for Development (For macOS/Linux)](#setup-steps-for-development-for-macoslinux)
+    - [Setup Steps for Development (For Windows)](#setup-steps-for-development-for-windows)
 - [Development Workflow](#development-workflow)
     - [Branches](#branches)
         - [Naming and Terminology](#naming-and-terminology)
@@ -28,11 +29,30 @@ This section will cover the deployment instructions for this application.
 The following software is required to be present on the machine running this application:
 - PHP 7.4
 - SQLite
-- Web server capable of parsing PHP code (E.g. Apache, Nginx)
 
 The machine running this application shall also be connected to a network that has wireless connection capabilities (WiFi) for the Robotic Car to be able to communicate with the web component of this application.
 
-### Setup Steps
+### Setup Steps for Development (For macOS/Linux)
+1. Clone the repository.
+```bash
+dev@p4-6:~$ git clone https://github.com/zxlim/ICT2x01-p4-6.git
+```
+
+2. Set your current working directory to the repository on your local file system.
+```bash
+dev@p4-6:~$ cd ICT2x01-p4-6
+```
+
+3. Run `run-dev.sh` to start the PHP development web server.
+```bash
+dev@p4-6:~/ICT2x01-p4-6$ run-dev.sh
+PHP 7.4.26 Development Server started at Fri Nov 19 00:00:00 2021
+Listening on http://127.0.0.1:5000
+Document root is /home/dev/ICT2x01-p4-6/src
+Press Ctrl-C to quit.
+```
+
+### Setup Steps for Development (For Windows)
 TBD
 
 ## Development Workflow
