@@ -3,9 +3,10 @@ BOTster is a gamified feedback system used to engage primary school students on 
 
 ## Table of Contents
 - [Repository Structure](#repository-structure)
-- [Deployment](#deployment)
-    - [Dependencies and Requirements](#dependencies-and-requirements)
-    - [Setup Steps](#setup-steps)
+- [Deployment Instructions](#deployment-instructions)
+    - [Dependencies](#dependencies)
+    - [Starting the Application (For macOS/Linux)](#starting-the-application-for-macoslinux)
+    - [Starting the Application (For Windows)](#starting-the-application-for-windows)
 - [Development Workflow](#development-workflow)
     - [Branches](#branches)
         - [Naming and Terminology](#naming-and-terminology)
@@ -21,19 +22,65 @@ BOTster is a gamified feedback system used to engage primary school students on 
     ├── src                 # Directory containing project soruce code.
     └── README.md           # This README file. Contains the key project documentation.
 
-## Deployment
+## Deployment Instructions
 This section will cover the deployment instructions for this application.
 
-### Dependencies and Requirements
-The following software is required to be present on the machine running this application:
+### Dependencies
+The following softwares are required to be present on the machine running this application:
 - PHP 7.4
 - SQLite
-- Web server capable of parsing PHP code (E.g. Apache, Nginx)
+
+On macOS Catalina and later, PHP is already preinstalled with SQLite support. For Debian-based GNU/Linux systems, the dependencies can be installed using the following commands:
+```bash
+dev@p4-6:~$ sudo apt update && sudo apt install -y php7.4-cli php7.4-common php7.4-json php7.4-readline php7.4-sqlite3
+```
+
+On Windows, PHP 7.4 must be installed using XAMPP with default settings. [Click here to download the correct version](https://www.apachefriends.org/xampp-files/7.4.25/xampp-windows-x64-7.4.25-0-VC15-installer.exe).
 
 The machine running this application shall also be connected to a network that has wireless connection capabilities (WiFi) for the Robotic Car to be able to communicate with the web component of this application.
 
-### Setup Steps
-TBD
+### Starting the Application (For macOS/Linux)
+Steps shown here are done using Console Terminal.
+
+1. Clone the repository.
+```bash
+dev@botster:~$ git clone https://github.com/zxlim/ICT2x01-p4-6.git
+```
+
+2. Set your current working directory to the repository on your local file system.
+```bash
+dev@botster:~$ cd ICT2x01-p4-6
+```
+
+3. Run `start.sh` to start BOTster.
+```bash
+dev@botster:~/ICT2x01-p4-6$ ./start.sh
+PHP 7.4.26 Development Server started at Fri Nov 19 00:00:00 2021
+Listening on http://127.0.0.1:5000
+Document root is /home/dev/ICT2x01-p4-6/src
+Press Ctrl-C to quit.
+```
+
+### Starting the Application (For Windows)
+Steps shown here are done using Windows Command Prompt.
+
+1. Clone the repository.
+```batch
+C:\Users\dev> git clone https://github.com/zxlim/ICT2x01-p4-6.git
+```
+
+2. Set your current working directory to the repository on your local file system.
+```batch
+C:\Users\dev> cd ICT2x01-p4-6
+```
+
+3. Run `start.bat` to start BOTster.
+```batch
+C:\Users\dev\ICT2x01-p4-6> .\start.bat
+[*] Press Ctrl+C to stop BOTster Web.
+[*] Document root is: C:\Users\dev\ICT2x01-p4-6\src
+[Fri Nov 19 12:58:19 2021] PHP 7.4.25 Development Server (http://127.0.0.1:5000) started
+```
 
 ## Development Workflow
 This section will contain the necessary information for the project development workflow.
