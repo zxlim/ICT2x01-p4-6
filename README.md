@@ -18,17 +18,18 @@ BOTster is a gamified feedback system used to engage primary school students on 
 
 ## Repository Structure
     ICT2x01-p4-6
+    ├── config              # Directory containing PHP configuration files used for running BOTster.
     ├── docs                # Directory containing resources for project documentation.
-    ├── src                 # Directory containing project soruce code.
+    ├── src                 # Directory containing project source code.
     └── README.md           # This README file. Contains the key project documentation.
 
 ## Deployment Instructions
 This section will cover the deployment instructions for this application.
 
 ### Dependencies
-The following softwares are required to be present on the machine running this application:
+The following software are required to be installed on the machine running this application:
 - PHP 7.4
-- SQLite
+- SQLite3
 
 On macOS Catalina and later, PHP is already preinstalled with SQLite support. For Debian-based GNU/Linux systems, the dependencies can be installed using the following commands:
 ```bash
@@ -40,7 +41,7 @@ On Windows, PHP 7.4 must be installed using XAMPP with default settings. [Click 
 The machine running this application shall also be connected to a network that has wireless connection capabilities (WiFi) for the Robotic Car to be able to communicate with the web component of this application.
 
 ### Starting the Application (For macOS/Linux)
-Steps shown here are done using Console Terminal.
+Steps shown here are done using a Terminal.
 
 1. Clone the repository.
 ```bash
@@ -62,21 +63,16 @@ Press Ctrl-C to quit.
 ```
 
 ### Starting the Application (For Windows)
-Steps shown here are done using Windows Command Prompt.
 
-1. Clone the repository.
-```batch
-C:\Users\dev> git clone https://github.com/zxlim/ICT2x01-p4-6.git
+1. Clone the repository using [Git Bash](https://gitforwindows.org/).
+```bash
+dev@botster MINGW64 ~ git clone https://github.com/zxlim/ICT2x01-p4-6.git
 ```
 
-2. Set your current working directory to the repository on your local file system.
-```batch
-C:\Users\dev> cd ICT2x01-p4-6
-```
+2. Open the repository folder using File Explorer by double-clicking it in the respective directory.
 
-3. Run `start.bat` to start BOTster.
+3. Double-click on `start.bat` to start BOTster. A Command Prompt window will open with the following output:
 ```batch
-C:\Users\dev\ICT2x01-p4-6> .\start.bat
 [*] Press Ctrl+C to stop BOTster Web.
 [*] Document root is: C:\Users\dev\ICT2x01-p4-6\src
 [Fri Nov 19 12:58:19 2021] PHP 7.4.25 Development Server (http://127.0.0.1:5000) started
@@ -116,7 +112,11 @@ Branch protection is enforced on the following branches:
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
-Describe the feature that is being worked on. Assign it to the relevant person and label the Issue accordingly (Is this a bug, documentation or enhancement related?).
+- Describe the feature that is being worked on.
+- Assign it to the relevant person(s).
+- Label the Issue accordingly (Is this a bugfix, documentation or enhancement related?).
+- Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the Issue status.
+- Add the Issue to the `Milestone 3 (Project Development)` Milestone.
 
 **2. Branch off from `dev` branch on GitHub**
 <br />
@@ -139,7 +139,7 @@ Once all the necessary commits are pushed, open a new PR (`feature/` or `bugfix/
 Once approval requirements have been met, use the `Merge Commit` feature on the respective PR page to merge the approved changes into the `dev` branch. Merging can be done by the final approver. **Only perform merging using the GitHub web interface!** Once merged, **do not delete** the feature branch.
 
 ### Merging into `master` branch
-Only production-ready code (Meant for release) and other critical resources shall be merged into `master` from `dev`. Only the Team Lead is allowed to create a PR and complete the merge as these processes involes the `master` branch.
+Only production-ready code (Meant for release) and other critical resources shall be merged into `master` from `dev`. Only the Team Lead is allowed to create such PRs and complete the merge as these processes involes the `master` branch.
 <br /><br />
 **1. Create a Pull Request on GitHub**
 <br />
@@ -160,7 +160,11 @@ Hotfixes are code that will be deployed to both `dev` and `master` branches to f
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
-Describe the hotfix that is being worked on. Assign it to the relevant person and label the Issue as a `hotfix`.
+- Describe the feature that is being worked on.
+- Assign it to the relevant person(s).
+- Label the Issue with the `hotfix` label.
+- Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on Issue status.
+- Add the Issue to the `Milestone 3 (Project Development)` Milestone.
 
 **2. Branch off from `master` branch on GitHub**
 <br />
