@@ -144,7 +144,7 @@ Once all the necessary commits are pushed, open a new PR (From `feature/` or `bu
 
 **5. Request for review and wait for Approval**
 <br />
-When ready for code review, label the PR with the `request-review` label. 2 reviewers are to check and verify the changes before approving the PR. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
+When ready for code review, label the PR with the `review-requested` label. 2 reviewers are to check and verify the changes before approving the PR. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
 
 **6. Perform merge commit via GitHub**
 <br />
@@ -155,7 +155,7 @@ Only production-ready code (Meant for release) and other critical resources shal
 <br /><br />
 **1. Create a Pull Request on GitHub**
 <br />
-The Team Lead will open a new PR (`dev` into `master`), labelling it with the `request-review` label and provide a summary of the features introduced. The Team Lead must assign a minimum of 1 reviewer to this PR.
+The Team Lead will open a new PR (`dev` into `master`), labelling it with the `review-requested` label and provide a summary of the features introduced. The Team Lead must assign a minimum of 1 reviewer to this PR.
 
 **2. Wait for PR approval**
 <br />
@@ -197,7 +197,7 @@ Open 2 new PRs (From `hotfix` into `dev` and `hotfix` into `master`) and perform
 
 **5. Request for review and wait for approval**
 <br />
-When ready for code review, label the PR with the `request-review` label. 2 reviewers are to check and verify the changes before approving the PRs. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PRs by providing comments to support their justification.
+When ready for code review, label the PR with the `review-requested` label. 2 reviewers are to check and verify the changes before approving the PRs. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PRs by providing comments to support their justification.
 
 **6. Perform merge commits via GitHub**
 <br />
