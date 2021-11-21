@@ -113,7 +113,7 @@ Branch protection is enforced on the following branches:
 **1. Open a new Issue on GitHub**
 <br />
 - Describe the feature that is being worked on.
-- Assign it to the relevant person(s).
+- Assign it to the relevant people (the "Issue Owner").
 - Label the Issue accordingly (Is this a bugfix, documentation or enhancement related?).
 - Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the Issue status.
 - Add the Issue to the `Milestone 3 (Project Development)` Milestone.
@@ -128,7 +128,12 @@ Commit all additons or changes to the newly created branch. **Only work within t
 
 **4. Create a Pull Request (PR) on GitHub**
 <br />
-Once all the necessary commits are pushed, open a new PR (`feature/` or `bugfix/` into `dev`) and tag the related GitHub Issue. If possible, mark the PR with a relevant Label. Provide a summary of the changes made.
+Once all the necessary commits are pushed, open a new PR (From `feature/` or `bugfix/` into `dev`) and perform the following:
+- Summarise the changes made.
+- Assign it to the Issue Owner.
+- Label the PR accordingly (Is this a `bugfix`, `documentation` or `enhancement`? Is the PR ready for merging or `do-not-merge`?).
+- Add the PR to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the PR status (Either `In-Progress` or `Pending Review` when ready to merge).
+- Add the PR to the `Milestone 3 (Project Development)` Milestone.
 
 **5. Wait for PR Approval**
 <br />
@@ -161,7 +166,7 @@ Hotfixes are code that will be deployed to both `dev` and `master` branches to f
 **1. Open a new Issue on GitHub**
 <br />
 - Describe the feature that is being worked on.
-- Assign it to the relevant person(s).
+- Assign it to the relevant people (the "Issue Owner").
 - Label the Issue with the `hotfix` label.
 - Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on Issue status.
 - Add the Issue to the `Milestone 3 (Project Development)` Milestone.
@@ -176,7 +181,12 @@ Commit all additons or changes to the newly created branch. **Only work within t
 
 **4. Create a Pull Request on GitHub**
 <br />
-Open 2 new PRs (`hotfix` into `dev` and `hotfix` into `master`). Provide a summary of the changes made.
+Open 2 new PRs (From `hotfix` into `dev` and `hotfix` into `master`) and perform the following:
+- Summarise the changes made.
+- Assign it to the Issue Owner.
+- Label the PR as a `hotfix`. If the PR is not ready for merging, label it with the `do-not-merge` label.
+- Add the PR to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the PR status (Either `In-Progress` or `Pending Review` when ready to merge).
+- Add the PR to the `Milestone 3 (Project Development)` Milestone.
 
 **5. Wait for PR approval**
 <br />
