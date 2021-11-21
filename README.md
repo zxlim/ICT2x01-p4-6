@@ -71,7 +71,7 @@ dev@botster MINGW64 ~ git clone https://github.com/zxlim/ICT2x01-p4-6.git
 
 2. Open the repository folder using File Explorer by double-clicking it in the respective directory.
 
-3. Double-click on `start.bat` to start BOTster. A Command Prompt window will open with the following output:
+3. Double-click on `start.bat` to start BOTster. A Command Prompt window will open with output similar to the following:
 ```batch
 [*] Press Ctrl+C to stop BOTster Web.
 [*] Document root is: C:\Users\dev\ICT2x01-p4-6\src
