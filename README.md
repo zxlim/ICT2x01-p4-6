@@ -121,7 +121,7 @@ Branch protection is enforced on the following branches:
 <br />
 - Describe the feature that is being worked on.
 - Assign it to the relevant people (the "Issue Owner").
-- Label the Issue accordingly (Is this a bugfix, documentation or enhancement related?).
+- Label the Issue accordingly (Is this a `bugfix`, `documentation` or `feature`?).
 - Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the Issue status.
 - Add the Issue to the `Milestone 3 (Project Development)` Milestone.
 
@@ -138,13 +138,13 @@ Commit all additons or changes to the newly created branch. **Only work within t
 Once all the necessary commits are pushed, open a new PR (From `feature/` or `bugfix/` into `dev`) and perform the following:
 - Summarise the changes made.
 - Assign it to the Issue Owner.
-- Label the PR accordingly (Is this a `bugfix`, `documentation` or `enhancement`? Is the PR ready for merging or `do-not-merge`?).
-- Add the PR to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the PR status (Either `In-Progress` or `Pending Review` when ready to merge).
+- Label the PR accordingly (Is this a `bugfix`, `documentation` or `feature`?).
+- Add the PR to the `ICT2101/2201 Team Project` Project Board and move it to the `In-Progress` column.
 - Add the PR to the `Milestone 3 (Project Development)` Milestone.
 
-**5. Wait for PR Approval**
+**5. Request for review and wait for Approval**
 <br />
-2 reviewers are to check and verify the changes before approving the PR. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
+When ready for code review, label the PR with the `request-review` label. 2 reviewers are to check and verify the changes before approving the PR. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
 
 **6. Perform merge commit via GitHub**
 <br />
@@ -155,7 +155,7 @@ Only production-ready code (Meant for release) and other critical resources shal
 <br /><br />
 **1. Create a Pull Request on GitHub**
 <br />
-The Team Lead will open a new PR (`dev` into `master`) and provide a summary of the changes made. The Team Lead must assign a minimum of 1 reviewer to this PR.
+The Team Lead will open a new PR (`dev` into `master`), labelling it with the `request-review` label and provide a summary of the features introduced. The Team Lead must assign a minimum of 1 reviewer to this PR.
 
 **2. Wait for PR approval**
 <br />
@@ -191,13 +191,13 @@ Commit all additons or changes to the newly created branch. **Only work within t
 Open 2 new PRs (From `hotfix` into `dev` and `hotfix` into `master`) and perform the following:
 - Summarise the changes made.
 - Assign it to the Issue Owner.
-- Label the PR as a `hotfix`. If the PR is not ready for merging, label it with the `do-not-merge` label.
-- Add the PR to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the PR status (Either `In-Progress` or `Pending Review` when ready to merge).
+- Label the PR as a `hotfix`.
+- Add the PR to the `ICT2101/2201 Team Project` Project Board and move it to the `In-Progress` column.
 - Add the PR to the `Milestone 3 (Project Development)` Milestone.
 
-**5. Wait for PR approval**
+**5. Request for review and wait for approval**
 <br />
-2 reviewers are to check and verify the changes before approving the PRs. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PRs by providing comments to support their justification.
+When ready for code review, label the PR with the `request-review` label. 2 reviewers are to check and verify the changes before approving the PRs. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PRs by providing comments to support their justification.
 
 **6. Perform merge commits via GitHub**
 <br />
