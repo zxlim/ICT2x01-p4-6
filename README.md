@@ -121,13 +121,13 @@ Branch protection is enforced on the following branches:
 <br />
 - Describe the feature that is being worked on.
 - Assign it to the relevant people (the "Issue Owner").
-- Label the Issue accordingly (Is this a `bugfix`, `documentation` or `feature`?).
+- Label the Issue accordingly (Is this a `bugfix`, `docs-workflow` or `feature`?).
 - Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the Issue status.
 - Add the Issue to the `Milestone 3 (Project Development)` Milestone.
 
 **2. Branch off from `dev` branch on GitHub**
 <br />
-Create a new branch off from the `dev` branch with a descriptive name starting with `feature/` or `bugfix/` (E.g. `feature/documentation` or `bugfix/command-parsing-issue`)
+Create a new branch off from the `dev` branch with a descriptive name starting with `feature/` or `bugfix/` (E.g. `feature/docs-and-workflow` or `bugfix/command-parsing-issue`)
 
 **3. Work on the Issue in the new branch**
 <br />
@@ -138,7 +138,7 @@ Commit all additons or changes to the newly created branch. **Only work within t
 Once all the necessary commits are pushed, open a new PR (From `feature/` or `bugfix/` into `dev`) and perform the following:
 - Summarise the changes made.
 - Assign it to the Issue Owner.
-- Label the PR accordingly (Is this a `bugfix`, `documentation` or `feature`?).
+- Label the PR accordingly (Is this a `bugfix`, `docs-workflow` or `feature`?).
 - Add the PR to the `ICT2101/2201 Team Project` Project Board and move it to the `In-Progress` column.
 - Add the PR to the `Milestone 3 (Project Development)` Milestone.
 
