@@ -3,10 +3,10 @@ BOTster is a gamified feedback system used to engage primary school students on 
 
 ## Table of Contents
 - [Repository Structure](#repository-structure)
-- [Deployment Instructions](#deployment-instructions)
+- [How To Run](#how-to-run)
     - [Dependencies](#dependencies)
-    - [Starting the Application (For macOS/Linux)](#starting-the-application-for-macoslinux)
-    - [Starting the Application (For Windows)](#starting-the-application-for-windows)
+    - [Starting BOTster (For Windows)](#starting-botster-for-windows)
+    - [Starting BOTster (For macOS/Linux)](#starting-botster-for-macoslinux)
 - [Development Workflow](#development-workflow)
     - [Branches](#branches)
         - [Naming and Terminology](#naming-and-terminology)
@@ -15,32 +15,54 @@ BOTster is a gamified feedback system used to engage primary school students on 
     - [New Feature or Bug Fix](#new-feature-or-bug-fix)
     - [Merging into `master` branch](#merging-into-master-branch)
     - [Deploying Hotfixes](#deploying-hotfixes)
+- [User Acceptance Test (UAT)](#user-acceptance-test-uat)
+- [Whitebox Testing](#whitebox-testing)
 
 ## Repository Structure
     ICT2x01-p4-6
+    ├── .github             # Directory containing GitHub workflow files.
+    ├── config              # Directory containing PHP configuration files used for running BOTster.
     ├── docs                # Directory containing resources for project documentation.
-    ├── src                 # Directory containing project soruce code.
+    ├── src                 # Directory containing project source code.
     └── README.md           # This README file. Contains the key project documentation.
 
-## Deployment Instructions
-This section will cover the deployment instructions for this application.
+## How To Run
+This section will cover the deployment instructions for BOTster.
 
 ### Dependencies
-The following softwares are required to be present on the machine running this application:
+The following software are required to be installed on the machine running BOTster:
 - PHP 7.4
-- SQLite
+- SQLite3
+
+On Windows, dependencies must be installed using XAMPP with default settings. [Click here to download the correct version](https://www.apachefriends.org/xampp-files/7.4.25/xampp-windows-x64-7.4.25-0-VC15-installer.exe).
 
 On macOS Catalina and later, PHP is already preinstalled with SQLite support. For Debian-based GNU/Linux systems, the dependencies can be installed using the following commands:
 ```bash
 dev@p4-6:~$ sudo apt update && sudo apt install -y php7.4-cli php7.4-common php7.4-json php7.4-readline php7.4-sqlite3
 ```
 
-On Windows, PHP 7.4 must be installed using XAMPP with default settings. [Click here to download the correct version](https://www.apachefriends.org/xampp-files/7.4.25/xampp-windows-x64-7.4.25-0-VC15-installer.exe).
+The machine running BOTster shall also be connected to a network that has wireless connection capabilities (WiFi) for the Robotic Car to be able to communicate with the web component of this application.
 
-The machine running this application shall also be connected to a network that has wireless connection capabilities (WiFi) for the Robotic Car to be able to communicate with the web component of this application.
+### Starting BOTster (For Windows)
 
-### Starting the Application (For macOS/Linux)
-Steps shown here are done using Console Terminal.
+1. Clone the repository using [Git Bash](https://gitforwindows.org/).
+```bash
+dev@botster MINGW64 ~ git clone https://github.com/zxlim/ICT2x01-p4-6.git
+```
+
+2. Open the repository folder using File Explorer by double-clicking it in the respective directory.
+
+3. Double-click on `start.bat` to start BOTster. A Command Prompt window will open with output similar to the following:
+```
+[*] Press Ctrl+C to stop BOTster Web.
+[*] Document root is: C:\Users\dev\ICT2x01-p4-6\src
+[Fri Nov 19 12:58:19 2021] PHP 7.4.25 Development Server (http://127.0.0.1:5000) started
+```
+
+4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`.
+
+### Starting BOTster (For macOS/Linux)
+Steps shown here are done using a Terminal.
 
 1. Clone the repository.
 ```bash
@@ -61,26 +83,7 @@ Document root is /home/dev/ICT2x01-p4-6/src
 Press Ctrl-C to quit.
 ```
 
-### Starting the Application (For Windows)
-Steps shown here are done using Windows Command Prompt.
-
-1. Clone the repository.
-```batch
-C:\Users\dev> git clone https://github.com/zxlim/ICT2x01-p4-6.git
-```
-
-2. Set your current working directory to the repository on your local file system.
-```batch
-C:\Users\dev> cd ICT2x01-p4-6
-```
-
-3. Run `start.bat` to start BOTster.
-```batch
-C:\Users\dev\ICT2x01-p4-6> .\start.bat
-[*] Press Ctrl+C to stop BOTster Web.
-[*] Document root is: C:\Users\dev\ICT2x01-p4-6\src
-[Fri Nov 19 12:58:19 2021] PHP 7.4.25 Development Server (http://127.0.0.1:5000) started
-```
+4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`.
 
 ## Development Workflow
 This section will contain the necessary information for the project development workflow.
@@ -116,11 +119,15 @@ Branch protection is enforced on the following branches:
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
-Describe the feature that is being worked on. Assign it to the relevant person and label the Issue accordingly (Is this a bug, documentation or enhancement related?).
+- Describe the feature that is being worked on.
+- Assign it to the relevant people (the "Issue Owner").
+- Label the Issue accordingly (Is this a `bugfix`, `docs-workflow` or `feature`?).
+- Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on the Issue status.
+- Add the Issue to the `Milestone 3 (Project Development)` Milestone.
 
 **2. Branch off from `dev` branch on GitHub**
 <br />
-Create a new branch off from the `dev` branch with a descriptive name starting with `feature/` or `bugfix/` (E.g. `feature/documentation` or `bugfix/command-parsing-issue`)
+Create a new branch off from the `dev` branch with a descriptive name starting with `feature/` or `bugfix/` (E.g. `feature/docs-and-workflow` or `bugfix/command-parsing-issue`)
 
 **3. Work on the Issue in the new branch**
 <br />
@@ -128,22 +135,27 @@ Commit all additons or changes to the newly created branch. **Only work within t
 
 **4. Create a Pull Request (PR) on GitHub**
 <br />
-Once all the necessary commits are pushed, open a new PR (`feature/` or `bugfix/` into `dev`) and tag the related GitHub Issue. If possible, mark the PR with a relevant Label. Provide a summary of the changes made.
+Once all the necessary commits are pushed, open a new PR (From `feature/` or `bugfix/` into `dev`) and perform the following:
+- Summarise the changes made.
+- Assign it to the Issue Owner.
+- Label the PR accordingly (Is this a `bugfix`, `docs-workflow` or `feature`?).
+- Add the PR to the `ICT2101/2201 Team Project` Project Board and move it to the `In-Progress` column.
+- Add the PR to the `Milestone 3 (Project Development)` Milestone.
 
-**5. Wait for PR Approval**
+**5. Request for review and wait for Approval**
 <br />
-2 reviewers are to check and verify the changes before approving the PR. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
+When ready for code review, label the PR with the `review-requested` label. 2 reviewers are to check and verify the changes before approving the PR. Reviewers have the right to request for changes to the PR by providing comments to support their justification.
 
 **6. Perform merge commit via GitHub**
 <br />
 Once approval requirements have been met, use the `Merge Commit` feature on the respective PR page to merge the approved changes into the `dev` branch. Merging can be done by the final approver. **Only perform merging using the GitHub web interface!** Once merged, **do not delete** the feature branch.
 
 ### Merging into `master` branch
-Only production-ready code (Meant for release) and other critical resources shall be merged into `master` from `dev`. Only the Team Lead is allowed to create a PR and complete the merge as these processes involes the `master` branch.
+Only production-ready code (Meant for release) and other critical resources shall be merged into `master` from `dev`. Only the Team Lead is allowed to create such PRs and complete the merge as these processes involes the `master` branch.
 <br /><br />
 **1. Create a Pull Request on GitHub**
 <br />
-The Team Lead will open a new PR (`dev` into `master`) and provide a summary of the changes made. The Team Lead must assign a minimum of 1 reviewer to this PR.
+The Team Lead will open a new PR (`dev` into `master`), labelling it with the `review-requested` label and provide a summary of the features introduced. The Team Lead must assign a minimum of 1 reviewer to this PR.
 
 **2. Wait for PR approval**
 <br />
@@ -160,7 +172,11 @@ Hotfixes are code that will be deployed to both `dev` and `master` branches to f
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
-Describe the hotfix that is being worked on. Assign it to the relevant person and label the Issue as a `hotfix`.
+- Describe the feature that is being worked on.
+- Assign it to the relevant people (the "Issue Owner").
+- Label the Issue with the `hotfix` label.
+- Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on Issue status.
+- Add the Issue to the `Milestone 3 (Project Development)` Milestone.
 
 **2. Branch off from `master` branch on GitHub**
 <br />
@@ -172,12 +188,35 @@ Commit all additons or changes to the newly created branch. **Only work within t
 
 **4. Create a Pull Request on GitHub**
 <br />
-Open 2 new PRs (`hotfix` into `dev` and `hotfix` into `master`). Provide a summary of the changes made.
+Open 2 new PRs (From `hotfix` into `dev` and `hotfix` into `master`) and perform the following:
+- Summarise the changes made.
+- Assign it to the Issue Owner.
+- Label the PR as a `hotfix`.
+- Add the PR to the `ICT2101/2201 Team Project` Project Board and move it to the `In-Progress` column.
+- Add the PR to the `Milestone 3 (Project Development)` Milestone.
 
-**5. Wait for PR approval**
+**5. Request for review and wait for approval**
 <br />
-2 reviewers are to check and verify the changes before approving the PRs. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PRs by providing comments to support their justification.
+When ready for code review, label the PR with the `review-requested` label. 2 reviewers are to check and verify the changes before approving the PRs. One of the reviewers must be the Team Lead. Reviewers have the right to request for changes to the PRs by providing comments to support their justification.
 
 **6. Perform merge commits via GitHub**
 <br />
 Once approval requirements have been met, the Team Lead will perform a merge from the `hotfix/` branch onto the `dev` and `master` branches.
+
+## User Acceptance Test (UAT)
+TBD
+```
+- include an updated use case diagram and system state diagram if there are changes made based on M2. Highlight the changes clearly.
+- an embedded video that runs through all the system test cases you have created (and refined) from M2
+- ~3 mins long to cover all system tests
+```
+
+## Whitebox Testing
+TBD
+```
+- choose one meaningful class to demonstrate your test code. “Meaningful” here means 2 or more interactions with other classes, e.g., a Control class. Please do not use an Entity class.
+- list the test cases for this test suite (for this one class) and where they reside in your repo
+- show code coverage statistics for each test case, including an explanation of how you have generated these statistics (whether manual, through a lib, or via the IDE)
+- provide instructions how to run the test suite
+- embed an animated gif or another short video (~1 min) of the test case being ran
+```
