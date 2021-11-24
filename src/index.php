@@ -60,6 +60,11 @@ switch ($router) {
         $controllerName = ChallengeManagementController::class;
         $controllerFilePath = "Facilitator/" . $controllerName;
         break;
+
+    case "/tutorialpage":
+        $controllerName = TutorialPageController::class;
+        $controllerFilePath = $controllerName;
+        break;
     
     default:
         $controllerName = UnhandledRouteController::class;
