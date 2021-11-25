@@ -52,5 +52,5 @@ define("__MVC_CONTROLLERS_DIR__", __ROOT__ . "/mvc/controllers/");
 define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
 
 
-# BOTSter constants.
-define("CHALLENGE_CHECKPOINT_MAX", 6);
+# BOTster constants.
+define("CHALLENGE_COMMANDBLOCK_MAX", 128);

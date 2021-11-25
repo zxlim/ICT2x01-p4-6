@@ -53,57 +53,57 @@ if (defined("FRONTEND") === FALSE) {
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Add New Challenge</h1>
-
-                        <form class="user" id="addChalForm" method="POST" enctype="multipart/form-data">
-                            <label class="control-label">Challenge Name</label>
-                            <div class="form-group">
-                                <input
-                                    type="text"
-                                    class="form-control form-control-user"
-                                    id="name"
-                                    name="name"
-                                    aria-describedby="name"
-                                    placeholder="Enter Challenge Name"
-                                    maxlength="48"
-                                    required
-                                />
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <form class="user" id="addChalForm" method="POST" enctype="multipart/form-data">
+                                            <label class="control-label">Challenge Name</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" aria-describedby="name"
+                                                    id="name" name="name" placeholder="Enter Challenge Name" maxlength="48" required
+                                                />
+                                            </div>
+                                            <label class="control-label">Maximum Number of Command Blocks</label>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control form-control-user" aria-describedby="maxCommandBlocks"
+                                                    id="maxCommandBlocks" name="maxCommandBlocks"
+                                                    placeholder="Minimum <?php safe_echo($state["countMin"]); ?> (Unlimited Blocks), Maximum <?php safe_echo($state["countMax"]); ?>"
+                                                    min="<?php safe_echo($state["countMin"]); ?>" max="<?php safe_echo($state["countMax"]); ?>"
+                                                    required
+                                                />
+                                            </div>
+                                            <label class="control-label">Challenge Map Image</label>
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-file"></i></span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="mapImg" name="mapImg" accept=".jpg,.JPG,.jpeg,.JPEG,.png,.PNG" required />
+                                                        <label class="custom-file-label" for="mapImg">Choose an image (Supports ".jpg", ".jpeg" and ".png" files)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-8">
+                                                        <button class="btn btn-block btn-success btn-icon-split" type="submit">
+                                                            <span class="text">Submit</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-2"></div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
                             </div>
-                            <label class="control-label">Number of Checkpoints</label>
-                            <div class="form-group">
-                                <input
-                                    type="number"
-                                    class="form-control form-control-user"
-                                    id="checkpointCount"
-                                    aria-describedby="checkpointCount"
-                                    name="checkpointCount"
-                                    placeholder="Checkpoint Count (Minimum <?php safe_echo($state["countMin"]); ?>, Maximum <?php safe_echo($state["countMax"]); ?>)"
-                                    min="<?php safe_echo($state["countMin"]); ?>"
-                                    max="<?php safe_echo($state["countMax"]); ?>"
-                                    required
-                                />
-                            </div>
-                            <label class="control-label">Challenge Map Image</label>
-                            <div class="form-group">
-                                <input
-                                    type="file"
-                                    id="mapImg"
-                                    name="mapImg" 
-                                    style="width: 200px;"
-                                    accept=".png,.PNG,.jpg,.JPG,.jpeg,.JPEG"
-                                    required
-                                />
-                            </div>
-                            <br /><br />
-                            <div class="form-group">
-                                <button class="btn btn-success btn-icon-split" type="submit"> 
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                                    <span class="text">Submit</span>
-                                </button>
-                            </div>
-                        </form>
-
+                        </div>
                     </div>
                     <!-- /.container-fluid -->
 
@@ -172,8 +172,13 @@ if (defined("FRONTEND") === FALSE) {
 
         <script>
             $(document).ready(function() {
-                $("#addChalForm").submit(function(e){
-                    e.preventDefault();
+                $("#mapImg").change(function(event){
+                    let mapFileName = event.target.files[0].name;
+                    $(".custom-file-label").text(mapFileName);
+                });
+
+                $("#addChalForm").submit(function(event){
+                    event.preventDefault();
 
                     let formData = new FormData(this);
 

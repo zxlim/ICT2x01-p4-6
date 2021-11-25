@@ -52,27 +52,24 @@ if (defined("FRONTEND") === FALSE) {
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">List of Challenges</h1>
-                        <a href="/facilitator/challenges" class="btn btn-info btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-puzzle-piece"></i>
-                            </span>
-                            <span class="text">Add New Challange</span>
-                        </a>
-                        <br /><br />
+                        <h1 class="h3 mb-2 text-gray-800">View All Challenges</h1>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"></h6>
-                            </div>
                             <div class="card-body">
+                                <a href="/facilitator/challenges" class="btn btn-info btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-puzzle-piece"></i>
+                                    </span>
+                                    <span class="text">Add New Challange</span>
+                                </a>
+                                <br /><br />
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Checkpoint Count</th>
+                                                <th>Max Command Blocks</th>
                                                 <th>Map Image</th>
                                                 <th>Action</th>
                                             </tr>
@@ -81,8 +78,8 @@ if (defined("FRONTEND") === FALSE) {
                                         <?php foreach ($state["chals"] as $challenge) { ?>
                                             <tr>
                                                 <td><?php safe_echo($challenge->getName()); ?></td>
-                                                <td><?php safe_echo($challenge->getCheckpointCount()); ?></td>
-                                                <td style="width: 400px">
+                                                <td><?php safe_echo($challenge->getPrettyMaxCommandBlocks()); ?></td>
+                                                <td style="max-width: 300px;">
                                                     <img
                                                         class="product-thmb"
                                                         style="object-fit: cover; display: block; max-height: 100%; max-width: 100%;"
@@ -101,7 +98,7 @@ if (defined("FRONTEND") === FALSE) {
                                         <tfoot>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Checkpoint Count</th>
+                                                <th>Max Command Blocks</th>
                                                 <th>Map Image</th>
                                                 <th>Action</th>
                                             </tr>

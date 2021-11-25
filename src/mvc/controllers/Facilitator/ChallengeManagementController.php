@@ -38,8 +38,8 @@ class ChallengeManagementController extends Controller {
         }
 
         $state = array(
-            "countMin" => 1,
-            "countMax" => CHALLENGE_CHECKPOINT_MAX - 1
+            "countMin" => 0,
+            "countMax" => CHALLENGE_COMMANDBLOCK_MAX - 1
         );
 
         $this->renderTemplate("Facilitator/challenges_add.php", "Add Challenge", $state);
@@ -59,14 +59,12 @@ class ChallengeManagementController extends Controller {
 
         if (validate_notempty($_POST["name"]) !== TRUE) {
             $state["msg"] = "Challenge name is required.";
-        } else if (validate_notempty($_POST["checkpointCount"]) !== TRUE) {
-            $state["msg"] = "Checkpoint count is required.";
         } else if (file_exists($_FILES["mapImg"]["tmp_name"]) !== TRUE) {
             $state["msg"] = "Challenge map is required.";
         } else if (ChallengeManagement::ValidateName($_POST["name"]) !== TRUE) {
             $state["msg"] = "Please choose another challenge name.";
-        } else if (ChallengeManagement::ValidateCheckpointCount($_POST["checkpointCount"]) !== TRUE) {
-            $state["msg"] = "Invalid checkpoint count.";
+        } else if (ChallengeManagement::ValidateMaxCommandBlocks($_POST["maxCommandBlocks"]) !== TRUE) {
+            $state["msg"] = "Invalid maximum Command Block value.";
         } else if (ChallengeManagement::ValidateMapFilePath($_FILES["mapImg"]) !== TRUE) {
             $state["msg"] = "Invalid file type. Only JPG/JPEG and PNG images are supported.";
         } else {
@@ -79,7 +77,7 @@ class ChallengeManagementController extends Controller {
                 $state["msg"] = "Sorry, an error has occured when processing the challenge map.";
             } else {
                 $state["httpStatusCode"] = 200;
-                $challenge = new Challenge(-1, $_POST["name"], $mapFilePath, (int)($_POST["checkpointCount"]));
+                $challenge = new Challenge(-1, $_POST["name"], $mapFilePath, (int)($_POST["maxCommandBlocks"]));
                 $chalManagement = new ChallengeManagement($challenge);
                 $chalManagement->createChallenge();
             }
