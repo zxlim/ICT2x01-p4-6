@@ -45,13 +45,23 @@ class Challenge {
     private $id;
     private $name;
     private $mapFilePath;
-    private $checkpointCount;
+    private $maxCommandBlocks;
 
-    function __construct(int $id, string $name, string $mapFilePath, int $checkpointCount) {
+    function __construct(int $id, string $name, string $mapFilePath, int $maxCommandBlocks) {
+        /**
+        * Constructor for the Challenge entity.
+        *
+        * @param    int         $id                 The ID of the Challenge entity. Set to -1 if
+        *                                           Challenge is new (ID will autoincrement in DB).
+        * @param    string      $name               Name of Challenge. Must be unique.
+        * @param    string      $mapFilePath        Absolute file path to map image file on disk.
+        * @param    int         $maxCommandBlocks   Maximum Command Blocks allowed. Set to 0 for Infinity.
+        */
+
         $this->id = $id;
         $this->name = $name;
         $this->mapFilePath = $mapFilePath;
-        $this->checkpointCount = $checkpointCount;
+        $this->maxCommandBlocks = $maxCommandBlocks;
     }
 
     public static function Load(int $id): Challenge {
@@ -64,7 +74,7 @@ class Challenge {
         * @return   Challenge  $challenge  The Challenge entity object.
         */
         $db = db_get_conn();
-        $stmt = $db->prepare("SELECT name, mapFilePath, checkpointCount FROM challenge WHERE id = :id");
+        $stmt = $db->prepare("SELECT name, mapFilePath, maxCommandBlocks FROM challenge WHERE id = :id");
         $stmt->bindValue(":id", $id, SQLITE3_INTEGER);
 
         $res = $stmt->execute();
@@ -81,7 +91,7 @@ class Challenge {
             throw new ChallengeException(sprintf("No Challenge was found with with ID %d.", $id));
         }
 
-        $challenge = new Challenge($id, $row["name"], $row["mapFilePath"], $row["checkpointCount"]);
+        $challenge = new Challenge($id, $row["name"], $row["mapFilePath"], $row["maxCommandBlocks"]);
         $db->close();
 
         return $challenge;
@@ -110,12 +120,20 @@ class Challenge {
         $this->mapFilePath = $mapFilePath;
     }
 
-    public function getCheckpointCount(): int {
-        return $this->checkpointCount;
+    public function getMaxCommandBlocks(): int {
+        return $this->maxCommandBlocks;
     }
 
-    public function setCheckpointCount(int $name) {
-        $this->checkpointCount = $checkpointCount;
+    public function setMaxCommandBlocks(int $maxCommandBlocks) {
+        $this->maxCommandBlocks = $maxCommandBlocks;
+    }
+
+    public function getPrettyMaxCommandBlocks() {
+        if ($this->maxCommandBlocks === 0) {
+            return "Unlimited";
+        }
+
+        return $this->getMaxCommandBlocks();
     }
 
     /**
@@ -123,10 +141,10 @@ class Challenge {
     */
     public function dbCreate() {
         $db = db_get_conn();
-        $stmt = $db->prepare("INSERT INTO challenge (name, mapFilePath, checkpointCount) VALUES (:name, :mapFilePath, :checkpointCount)");
+        $stmt = $db->prepare("INSERT INTO challenge (name, mapFilePath, maxCommandBlocks) VALUES (:name, :mapFilePath, :maxCommandBlocks)");
         $stmt->bindValue(":name", $this->name, SQLITE3_TEXT);
         $stmt->bindValue(":mapFilePath", $this->mapFilePath, SQLITE3_TEXT);
-        $stmt->bindValue(":checkpointCount", $this->checkpointCount, SQLITE3_INTEGER);
+        $stmt->bindValue(":maxCommandBlocks", $this->maxCommandBlocks, SQLITE3_INTEGER);
 
         $res = $stmt->execute();
         if ($res === false) {
@@ -140,7 +158,7 @@ class Challenge {
 
     public function dbUpdate() {
         $db = db_get_conn();
-        $stmt = $db->prepare("UPDATE challenge SET name = :name, mapFilePath = :mapFilePath, checkpointCount = :checkpointCount WHERE id = :id");
+        $stmt = $db->prepare("UPDATE challenge SET name = :name, mapFilePath = :mapFilePath, maxCommandBlocks = :maxCommandBlocks WHERE id = :id");
         $stmt->bindValue(":id", $this->id, SQLITE3_INTEGER);
 
         $res = $stmt->execute();
@@ -201,13 +219,9 @@ class ChallengeManagement {
         return TRUE;
     }
 
-    public function checkCompletion(int $checkpointCount): bool {
-        return ($this->challenge->getCheckpointCount === $checkpointCount);
-    }
-
     public static function GetAllChallenges(): array {
         $db = db_get_conn();
-        $stmt = $db->prepare("SELECT id, name, mapFilePath, checkpointCount FROM challenge");
+        $stmt = $db->prepare("SELECT id, name, mapFilePath, maxCommandBlocks FROM challenge");
 
         $res = $stmt->execute();
         if ($res === false) {
@@ -219,7 +233,7 @@ class ChallengeManagement {
         $challenges = array();
 
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
-            array_push($challenges, new Challenge($row["id"], $row["name"], $row["mapFilePath"], $row["checkpointCount"]));
+            array_push($challenges, new Challenge($row["id"], $row["name"], $row["mapFilePath"], $row["maxCommandBlocks"]));
         }
 
         $db->close();
@@ -262,9 +276,9 @@ class ChallengeManagement {
         return FALSE;
     }
 
-    public static function ValidateCheckpointCount($checkpointCount): bool {
-        if (validate_int($checkpointCount) === TRUE) {
-            return ($checkpointCount > 0 && $checkpointCount < CHALLENGE_CHECKPOINT_MAX);
+    public static function ValidateMaxCommandBlocks($maxCommandBlocks): bool {
+        if (validate_int($maxCommandBlocks) === TRUE) {
+            return ($maxCommandBlocks > -1 && $maxCommandBlocks < CHALLENGE_COMMANDBLOCK_MAX);
         }
 
         return FALSE;
