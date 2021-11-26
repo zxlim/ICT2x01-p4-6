@@ -22,3 +22,17 @@
   background-position: center;
   background-size: cover;
 }
+
+.codeblock {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+}
+
+.modal-dialog {
+    max-width: 768px;
+}
+
+pre {
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+}

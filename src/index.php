@@ -60,6 +60,11 @@ switch ($router) {
         $controllerName = ChallengeManagementController::class;
         $controllerFilePath = "Facilitator/" . $controllerName;
         break;
+
+    case "/student/play":
+        $controllerName = CommandController::class;
+        $controllerFilePath = "Student/" . $controllerName;
+        break;
     
     default:
         $controllerName = UnhandledRouteController::class;
