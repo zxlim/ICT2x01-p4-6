@@ -61,9 +61,9 @@ switch ($router) {
         $controllerFilePath = "Facilitator/" . $controllerName;
         break;
 
-    case "/tutorialpage":
+    case "/student/tutorialpage":
         $controllerName = TutorialPageController::class;
-        $controllerFilePath = $controllerName;
+        $controllerFilePath = "Student/" . $controllerName;
         break;
     
     default:

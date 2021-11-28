@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/Student/dashboard.php
+* mvc/views/Student/tutorialpage.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Student dashboard.
+* Student Tutorial Page.
 * -----------------------------------------------------------------------
 */
 
@@ -118,7 +118,7 @@ if (defined("FRONTEND") === FALSE) {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/tutorialpage">
+                    <a class="nav-link" href="#">
                         <i class="far fa-question-circle"></i>
                         <span>Tutorial</span>
                     </a>
