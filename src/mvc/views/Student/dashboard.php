@@ -118,7 +118,7 @@ if (defined("FRONTEND") === FALSE) {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="student/tutorialpage">
+                    <a class="nav-link" href="/student/tutorialpage">
                         <i class="far fa-question-circle"></i>
                         <span>Tutorial</span>
                     </a>

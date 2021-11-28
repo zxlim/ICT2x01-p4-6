@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /**
-* mvc/controllers/Student/ChallengeController.php
+* mvc/controllers/Student/TutorialPageController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
