@@ -317,6 +317,9 @@ if (defined("FRONTEND") === FALSE) {
                             <h5 class="modal-title" id="cmdCodeModalLabel">Constructed Code</h5>
                         </div>
                         <div class="modal-body">
+                            <p id="completeMsg" style="display: none;">
+                                You have completed the challenge successfully!
+                            </p>
                             <p>
                                 You have constructed the following code using Command Blocks:
                             </p>

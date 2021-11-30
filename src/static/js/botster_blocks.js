@@ -73,6 +73,106 @@ const BOTSTER_BLOCKS = [
 ];
 
 
+// BOTster Car Control Functions.
+function sendCommand(command) {
+    let res = {
+        "success": true,
+        "msg": "",
+        "result": false
+    };
+
+    // Synchronous is bad I know, but there's no easy alternative.
+    $.ajax({
+        async: false,
+        cache: false,
+        data: "cmd=" + command,
+        dataType: "json",
+        method: "POST",
+        url: "/student/play",
+        success: function(response) {
+            res.result = response.result;
+        },
+        error: function(response) {
+            res.success = false;
+
+            if (response.responseJSON !== undefined) {
+                res.msg = response.responseJSON.msg;
+            }
+        }
+    });
+
+    console.log(res);
+
+    return res;
+}
+
+function moveForward() {
+    /**
+    * This function moves the Car forward one "tile".
+    */
+    let res = sendCommand("forward");
+
+    if (res.success !== true || res.result !== true) {
+        throw res.msg;
+    }
+}
+
+
+function turnLeft() {
+    /**
+    * This function turns the Car left on the spot.
+    */
+    let res = sendCommand("left");
+
+    if (res.success !== true || res.result !== true) {
+        throw res.msg;
+    }
+}
+
+
+function turnRight() {
+    /**
+    * This function turns the Car right on the spot.
+    */
+    let res = sendCommand("right");
+
+    if (res.success !== true || res.result !== true) {
+        throw res.msg;
+    }
+}
+
+
+function obstacleDetected() {
+    /**
+    * This function queries the Ultrasonic Sensor to detect
+    * for obstacles in front of the car.
+    */
+    let res = sendCommand("obstacleDetected");
+
+    if (res.success === false) {
+        throw res.msg;
+    }
+
+    return res.result;
+}
+
+
+function endCheck() {
+    /**
+    * This function queries the Line Sensor to detect
+    * if the car has crossed the end line.
+    */
+    let res = sendCommand("endCheck");
+
+    if (res.success === false) {
+        throw res.msg;
+    }
+
+    return res.result;
+}
+// End of BOTster Car Control Functions.
+
+
 function initBOTsterBlockCode() {
     Blockly.JavaScript[BOTSTER_MOVEFORWARD] = function(block){
         return "moveForward();\n";
@@ -151,69 +251,62 @@ $(document).ready(function() {
         }, "show");
     });
 
+
     $("#cmdIssueLink").click(function(event){
         event.preventDefault();
 
-        $.notify({
-            message: "Sorry! Feature is still under development."
-        }, {
-            type: "warning",
-            animate: {
-                enter: "animated fadeInDown",
-                exit: "animated fadeOutUp"
-            },
-            placement: {
-                from: "top",
-                align: "center"
-            },
-            width: "384px"
-        });
+        window.LoopTrap = 16;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Too many loops! Reduce the count!";\n';
+        let generatedCode = Blockly.JavaScript.workspaceToCode(workspace);
 
-        // let generatedCode = Blockly.JavaScript.workspaceToCode(workspace);
-        // let formData = null;
+        try {
+            eval(generatedCode);
 
-        // $.ajax({
-        //     url: "/student/play",
-        //     data: formData,
-        //     cache: false,
-        //     dataType: "json",
-        //     method: "POST",
-        //     success: function(response){
-        //         $("#cmdCodeModalLabel").text("Good Job!");
-        //         $("#cmdCodeBlock").text(generatedCode);
-        //         $("#cmdCodeModal").modal({
-        //             backdrop: "static",
-        //             keyboard: false
-        //         }, "show");
+            if (endCheck() === true) {
+                $("#cmdCodeModalLabel").text("Good Job!");
+                $("#completeMsg").show();
+                $("#cmdCodeBlock").text(generatedCode);
+                $("#cmdCodeModal").modal({
+                    backdrop: "static",
+                    keyboard: false
+                }, "show");
 
-        //         $("#cmdCodeModalCloseBtn").click(function(event){
-        //             event.preventDefault();
-        //             window.location.replace("/");
-        //         });
-        //     },
-        //     error: function(response){
-        //         // console.log("HTTP Status Code: " + response.status);
-
-        //         let errorMsg = "Oops, the Car did not reach the end point!";
-        //         if (response.responseJSON !== undefined) {
-        //             errorMsg = response.responseJSON.msg;
-        //         }
+                $("#cmdCodeModalCloseBtn").click(function(event){
+                    event.preventDefault();
+                    window.location.replace("/");
+                });
+            } else {
+                $.notify({
+                    message: "Oops, the car did not cross the finish line!"
+                }, {
+                    type: "warning",
+                    animate: {
+                        enter: "animated fadeInDown",
+                        exit: "animated fadeOutUp"
+                    },
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    },
+                    width: "384px"
+                });
+            }
                 
-        //         $.notify({
-        //             message: errorMsg
-        //         }, {
-        //             type: "danger",
-        //             animate: {
-        //                 enter: "animated fadeInDown",
-        //                 exit: "animated fadeOutUp"
-        //             },
-        //             placement: {
-        //                 from: "top",
-        //                 align: "center"
-        //             },
-        //             width: "384px"
-        //         });
-        //     }
-        // });
+        } catch (error) {
+            $.notify({
+                message: error
+            }, {
+                type: "danger",
+                animate: {
+                    enter: "animated fadeInDown",
+                    exit: "animated fadeOutUp"
+                },
+                placement: {
+                    from: "top",
+                    align: "center"
+                },
+                width: "384px"
+            });
+        }
     });
 });

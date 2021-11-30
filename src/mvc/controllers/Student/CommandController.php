@@ -59,7 +59,48 @@ class CommandController extends Controller {
     }
 
     public function post() {
-        $this->methodNotAllowed();
+        session_start();
+
+        if (session_isauth() === FALSE || $_SESSION["Facilitator"] === TRUE) {
+            $this->notFound();
+        }
+
+        $state = array(
+            "httpStatusCode" => 200,
+            "msg" => "OK",
+            "result" => FALSE
+        );
+
+        $validCommands = array("forward", "left", "right", "obstacleDetected", "endCheck");
+
+        if (validate_notempty($_POST["cmd"]) === FALSE) {
+            $state["httpStatusCode"] = 400;
+            $state["msg"] = "No command specified!";
+        } else if (in_array($_POST["cmd"], $validCommands, TRUE) !== TRUE) {
+            $state["httpStatusCode"] = 400;
+            $state["msg"] = "Invalid command received.";
+        } else {
+            // Temporary hardcode, still waiting for car communication to work.
+            switch ($_POST["cmd"]) {
+                case "forward":
+                    $state["result"] = TRUE;
+                    break;
+                case "left":
+                    $state["result"] = TRUE;
+                    break;
+                case "right":
+                    $state["result"] = TRUE;
+                    break;
+                case "obstacleDetected":
+                    $state["result"] = TRUE;
+                    break;
+                case "endCheck":
+                    $state["result"] = TRUE;
+                    break;
+            }
+        }
+
+        $this->returnJSON($state);
     }
 
     public function delete() {
