@@ -101,8 +101,6 @@ function sendCommand(command) {
         }
     });
 
-    console.log(res);
-
     return res;
 }
 
