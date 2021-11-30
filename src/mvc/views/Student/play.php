@@ -166,7 +166,6 @@ if (defined("FRONTEND") === FALSE) {
                     <div class="container-fluid">
 
                         <input type="hidden" name="chalID" id="chalID" value="<?php safe_echo($state["challenge"]->getID()); ?>" readonly />
-                        <!-- chalMaxBlocks not yet implemented, waiting for modification to Challenge Model. -->
                         <input type="hidden" name="chalMaxBlocks" id="chalMaxBlocks" value="<?php safe_echo($state["challenge"]->getMaxCommandBlocks()); ?>" readonly />
 
                         <!-- Page Heading -->

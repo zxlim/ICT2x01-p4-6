@@ -195,7 +195,7 @@ $(document).ready(function() {
     const chalID = parseInt($("#chalID").val());
     let chalMaxBlocks = parseInt($("#chalMaxBlocks").val());
 
-    if (chalMaxBlocks === -1) {
+    if (chalMaxBlocks === 0) {
         chalMaxBlocks = Infinity;
     }
 
