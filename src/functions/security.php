@@ -43,17 +43,6 @@ function generate_pin_code(): string {
     return str_pad((string)(mt_rand(0, 999999)), 6, "0", STR_PAD_LEFT);
 }
 
-function sha256(string $input): string {
-    /**
-    * A function to generate a SHA256 hash.
-    *
-    * @param    string  $input      The input to hash.
-    *
-    * @return   string  $hash       The resultant hash.
-    */
-    return hash("sha256", $input, FALSE);
-}
-
 function pw_hash(string $password): string {
     /**
     * A function to hash a plaintext password using bcrypt.
