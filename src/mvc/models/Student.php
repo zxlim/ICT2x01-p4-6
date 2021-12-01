@@ -56,7 +56,7 @@ class Student {
     }
 
     public function getTutorialStatus(): bool {
-        return $this->issueCommandStatus;
+        return $this->tutorialStatus;
     }
 
     public function setTutorialStatus(bool $tutorialStatus) {
