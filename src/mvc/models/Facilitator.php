@@ -18,14 +18,6 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
-
 require_once(__FUNCTIONS_DIR__ . "db.php");
 require_once(__FUNCTIONS_DIR__ . "security.php");
 

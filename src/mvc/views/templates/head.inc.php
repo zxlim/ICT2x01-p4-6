@@ -17,14 +17,6 @@
 * Reusable frontend template for for the HTML HEAD element.
 * -----------------------------------------------------------------------
 */
-
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 ?>
 <head>
     <meta charset="utf-8">

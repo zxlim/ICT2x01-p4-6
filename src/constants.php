@@ -18,16 +18,8 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
-
 # The absolute path to the base directory of this application on the web server.
-define("__ROOT__", $_SERVER["DOCUMENT_ROOT"]);
+define("__ROOT__", __DIR__);
 
 
 # Application constants.

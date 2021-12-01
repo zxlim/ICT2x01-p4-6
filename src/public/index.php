@@ -1,4 +1,4 @@
-<?php define("FRONTEND", TRUE);
+<?php
 /**
 * index.php
 *
@@ -18,12 +18,12 @@
 * -----------------------------------------------------------------------
 */
 
-require_once("constants.php");
-require_once(__FUNCTIONS_DIR__ . "db.php");
+require_once("../constants.php");
 require_once(__FUNCTIONS_DIR__ . "security.php");
 require_once(__FUNCTIONS_DIR__ . "session.php");
 require_once(__FUNCTIONS_DIR__ . "utils.php");
 require_once(__FUNCTIONS_DIR__ . "validation.php");
+require_once(__FUNCTIONS_DIR__ . "db.php");
 
 
 $router = strtok($_SERVER["REQUEST_URI"], "?");
