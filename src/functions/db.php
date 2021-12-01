@@ -91,38 +91,3 @@ function db_get_config_value(string $key) {
 
     return $value;
 }
-
-/*
-// Function deprecated. Will be removed soon.
-function db_initial_setup() {
-    $db = db_get_conn();
-
-    $res = $db->exec("CREATE TABLE config (id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, key TEXT, value TEXT)");
-    if ($res === false) {
-        $last_error_code = $db->lastErrorCode();
-        $last_error_msg = $db->lastErrorMsg();
-        $db->close();
-        die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
-    }
-
-    $rows = array(
-        "INSERT INTO config (type, key, value) VALUES (0, 'facilitator_password', '" . pw_hash("P@ssw0rd") . "')",
-        "INSERT INTO config (type, key, value) VALUES (3, 'student_issue_cmd', 'TRUE')",
-        "INSERT INTO config (type, key, value) VALUES (3, 'student_tutorial', 'FALSE')",
-        "INSERT INTO config (type, key, value) VALUES (0, 'student_otp_code', '')"
-        // "INSERT INTO config (type, key, value) VALUES (0, 'student_otp_time', '')"
-    );
-
-    foreach($rows as $row) {
-        $res = $db->exec($row);
-        if ($res === false) {
-            $last_error_code = $db->lastErrorCode();
-            $last_error_msg = $db->lastErrorMsg();
-            $db->close();
-            die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
-        }
-    }
-
-    $db->close();
-}
-*/
