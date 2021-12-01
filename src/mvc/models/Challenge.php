@@ -148,6 +148,8 @@ class Challenge {
         $db->close();
     }
 
+    /*
+    // [UNUSED FUNCTION] Commented out to prevent accidental usage.
     public function dbUpdate() {
         $db = db_get_conn();
         $stmt = $db->prepare("UPDATE challenge SET name = :name, mapFilePath = :mapFilePath, maxCommandBlocks = :maxCommandBlocks WHERE id = :id");
@@ -162,6 +164,7 @@ class Challenge {
 
         $db->close();
     }
+    */
 
     public function dbDelete() {
         $db = db_get_conn();
