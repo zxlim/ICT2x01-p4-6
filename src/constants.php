@@ -33,5 +33,7 @@ define("__FUNCTIONS_DIR__", __ROOT__ . "/functions/");
 # Application constants.
 define("APP_TITLE", "BOTster");
 define("CHALLENGE_COMMANDBLOCK_MAX", 128);
-define("UPLOAD_DIR", "/static/uploads");
 define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
+define("PUBLIC_DIR", __ROOT__ . "/public");
+define("UPLOAD_DIR", "/static/uploads");
+define("SERVER_UPLOAD_DIR", PUBLIC_DIR . UPLOAD_DIR);

@@ -19,12 +19,7 @@
 */
 
 
-class ChallengeException extends Exception {
-    public function getError(): string {
-        $msg = "ChallengeException on line " . $this->getLine() . ": " . $this->getMessage();
-        return $msg;
-    }
-}
+class ChallengeException extends Exception {}
 
 
 /**
@@ -36,12 +31,11 @@ class Challenge {
     private $mapFilePath;
     private $maxCommandBlocks;
 
-    function __construct(int $id, string $name, string $mapFilePath, int $maxCommandBlocks) {
+    private function __construct(int $id, string $name, string $mapFilePath, int $maxCommandBlocks) {
         /**
-        * Constructor for the Challenge entity.
+        * Constructor for the Challenge entity. Called by Load() only.
         *
-        * @param    int         $id                 The ID of the Challenge entity. Set to -1 if
-        *                                           Challenge is new (ID will autoincrement in DB).
+        * @param    int         $id                 The ID of the Challenge entity.
         * @param    string      $name               Name of Challenge. Must be unique.
         * @param    string      $mapFilePath        Absolute file path to map image file on disk.
         * @param    int         $maxCommandBlocks   Maximum Command Blocks allowed. Set to 0 for Infinity.
@@ -106,27 +100,6 @@ class Challenge {
 
         return $this->getMaxCommandBlocks();
     }
-
-    /**
-    * Database CRUD operations.
-    */
-    public function dbCreate() {
-        $db = db_get_conn();
-        $stmt = $db->prepare("INSERT INTO challenge (name, mapFilePath, maxCommandBlocks) VALUES (:name, :mapFilePath, :maxCommandBlocks)");
-        $stmt->bindValue(":name", $this->name, SQLITE3_TEXT);
-        $stmt->bindValue(":mapFilePath", $this->mapFilePath, SQLITE3_TEXT);
-        $stmt->bindValue(":maxCommandBlocks", $this->maxCommandBlocks, SQLITE3_INTEGER);
-        $stmt->execute();
-        $db->close();
-    }
-
-    public function dbDelete() {
-        $db = db_get_conn();
-        $stmt = $db->prepare("DELETE FROM challenge WHERE id = :id");
-        $stmt->bindValue(":id", $this->id, SQLITE3_INTEGER);
-        $stmt->execute();
-        $db->close();
-    }
 }
 
 
@@ -134,26 +107,45 @@ class Challenge {
 * Control Classes.
 */
 class ChallengeManagement {
-    private $challenge;
+    public static function CreateChallenge(string $name, string $mapFilePath, int $maxCommandBlocks): int {
+        /**
+        * Creates a new Challenge Entity. Parameters are assumed to be validated before calling
+        * this function.
+        *
+        * @param    string      $name               Name of Challenge. Must be unique.
+        * @param    string      $mapFilePath        Absolute file path to map image file on disk.
+        * @param    int         $maxCommandBlocks   Maximum Command Blocks allowed. Set to 0 for Infinity.
+        *
+        * @return   int         $id                 The ID of the newly created Challenge.
+        */
+        $db = db_get_conn();
+        $stmt = $db->prepare("INSERT INTO challenge (name, mapFilePath, maxCommandBlocks) VALUES (:name, :mapFilePath, :maxCommandBlocks)");
+        $stmt->bindValue(":name", $name, SQLITE3_TEXT);
+        $stmt->bindValue(":mapFilePath", $mapFilePath, SQLITE3_TEXT);
+        $stmt->bindValue(":maxCommandBlocks", $maxCommandBlocks, SQLITE3_INTEGER);
+        $stmt->execute();
 
-    function __construct(Challenge $challenge) {
-        $this->challenge = $challenge;
+        $id = $db->lastInsertRowID();
+        $db->close();
+
+        return $id;
     }
 
-    public function createChallenge(): bool {
-        $this->challenge->dbCreate();
-        return TRUE;
-    }
-
-    public function deleteChallenge(): bool {
-        $this->challenge->dbDelete();
-        unlink(sprintf("%s%s", __ROOT__, $this->challenge->getMapFilePath()));
-        return TRUE;
+    public static function DeleteChallenge(Challenge $challenge) {
+        // Delete the Challenge map from the file system.
+        unlink(sprintf("%s/%s", PUBLIC_DIR, $challenge->getMapFilePath()));
+        
+        // Delete Challenge from database.
+        $db = db_get_conn();
+        $stmt = $db->prepare("DELETE FROM challenge WHERE id = :id");
+        $stmt->bindValue(":id", $challenge->getID(), SQLITE3_INTEGER);
+        $stmt->execute();
+        $db->close();
     }
 
     public static function GetAllChallenges(): array {
         $db = db_get_conn();
-        $stmt = $db->prepare("SELECT id, name, mapFilePath, maxCommandBlocks FROM challenge");
+        $stmt = $db->prepare("SELECT id FROM challenge");
         $res = $stmt->execute();
 
         $challenges = array();
@@ -161,7 +153,7 @@ class ChallengeManagement {
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
             array_push(
                 $challenges,
-                new Challenge($row["id"], $row["name"], $row["mapFilePath"], $row["maxCommandBlocks"])
+                Challenge::Load($row["id"])
             );
         }
 
@@ -187,12 +179,12 @@ class ChallengeManagement {
         return FALSE;
     }
 
-    public static function ValidateMapFilePath(array $mapFileObject): bool {
+    public static function ValidateMap(string $mapFileName, string $mapFilePath): bool {
         $allowedMimeTypes = array("image/jpeg", "image/png");
         $allowedExtensions = array("jpeg", "png");
 
-        $fileMimeType = mime_content_type($mapFileObject["tmp_name"]);
-        $fileExtension = strtolower(pathinfo($mapFileObject["name"], PATHINFO_EXTENSION));
+        $fileMimeType = mime_content_type($mapFilePath);
+        $fileExtension = strtolower(pathinfo($mapFileName, PATHINFO_EXTENSION));
 
         if (in_array($fileMimeType, $allowedMimeTypes) === TRUE) {
             return (in_array($fileExtension, $allowedExtensions) === TRUE);

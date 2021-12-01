@@ -49,29 +49,34 @@ class ChallengeManagementController extends Controller {
             "msg" => "OK"
         );
 
-        if (validate_notempty($_POST["name"]) !== TRUE) {
+        $name = $_POST["name"] ?? NULL;
+        $maxBlock = $_POST["maxCommandBlocks"] ?? NULL;
+        $mapTmpName = $_FILES["mapImg"]["name"] ?? NULL;
+        $mapTmpPath = $_FILES["mapImg"]["tmp_name"] ?? "/tmp/nonexistent/path/invalidupload";
+
+        if (validate_notempty($name) !== TRUE) {
             $state["msg"] = "Challenge name is required.";
-        } else if (file_exists($_FILES["mapImg"]["tmp_name"]) !== TRUE) {
+        } else if (validate_int($maxBlock) !== TRUE) {
+            $state["msg"] = "Please enter a number for maximum Challenge Blocks.";
+        } else if (file_exists($mapTmpPath) !== TRUE) {
             $state["msg"] = "Challenge map is required.";
-        } else if (ChallengeManagement::ValidateName($_POST["name"]) !== TRUE) {
+        } else if (ChallengeManagement::ValidateName($name) !== TRUE) {
             $state["msg"] = "Please choose another challenge name.";
-        } else if (ChallengeManagement::ValidateMaxCommandBlocks($_POST["maxCommandBlocks"]) !== TRUE) {
+        } else if (ChallengeManagement::ValidateMaxCommandBlocks($maxBlock) !== TRUE) {
             $state["msg"] = "Invalid maximum Command Block value.";
-        } else if (ChallengeManagement::ValidateMapFilePath($_FILES["mapImg"]) !== TRUE) {
+        } else if (ChallengeManagement::ValidateMap($mapTmpName, $mapTmpPath) !== TRUE) {
             $state["msg"] = "Invalid file type. Only JPG/JPEG and PNG images are supported.";
         } else {
-            $mapFileExt = strtolower(pathinfo($_FILES["mapImg"]["name"], PATHINFO_EXTENSION));
-            $mapFilePath = sprintf("%s/%s.%s", UPLOAD_DIR, generate_token(8), $mapFileExt);
-            $mapFileDest = sprintf("%s%s", __ROOT__, $mapFilePath);
+            $mapFileName = sprintf("%s.%s", generate_token(8), strtolower(pathinfo($mapTmpName, PATHINFO_EXTENSION)));
+            $mapFilePath = sprintf("%s/%s", UPLOAD_DIR, $mapFileName);
+            $saveLocation = sprintf("%s/%s", SERVER_UPLOAD_DIR, $mapFileName);
 
-            if (move_uploaded_file($_FILES["mapImg"]["tmp_name"], $mapFileDest) !== TRUE) {
+            if (move_uploaded_file($mapTmpPath, $saveLocation) !== TRUE) {
                 $state["httpStatusCode"] = 500;
-                $state["msg"] = "Sorry, an error has occured when processing the challenge map.";
+                $state["msg"] = "Sorry, an error has occured when processing the challenge map. ";
             } else {
+                ChallengeManagement::CreateChallenge($name, $mapFilePath, (int)($maxBlock));
                 $state["httpStatusCode"] = 200;
-                $challenge = new Challenge(-1, $_POST["name"], $mapFilePath, (int)($_POST["maxCommandBlocks"]));
-                $chalManagement = new ChallengeManagement($challenge);
-                $chalManagement->createChallenge();
             }
         }
 
@@ -90,15 +95,17 @@ class ChallengeManagementController extends Controller {
             "msg" => "OK"
         );
 
-        if (validate_notempty($_GET["id"]) !== TRUE) {
+        $tmp = strtok($_SERVER["REQUEST_URI"], "?");
+        $id = strtok("?") ?? "";
+
+        if (validate_notempty($id) !== TRUE) {
             $state["msg"] = "Please specify the Challenge to delete.";
-        } else if (validate_int($_GET["id"]) !== TRUE) {
+        } else if (validate_int($id) !== TRUE) {
             $state["msg"] = "Invalid Challenge ID specified.";
         } else {
             try {
-                $id = (int)($_GET["id"]);
-                $chalManagement = new ChallengeManagement(Challenge::Load($id));
-                $chalManagement->deleteChallenge();
+                $chalID = (int)($id);
+                ChallengeManagement::DeleteChallenge(Challenge::Load($chalID));
                 $state["httpStatusCode"] = 200;
             } catch (ChallengeException $e) {
                 $state["msg"] = "Challenge not found.";

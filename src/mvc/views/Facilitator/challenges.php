@@ -169,7 +169,7 @@
         <script>
             $(document).ready(function() {
                 $(".delChalBtn").click(function(){
-                    let formData = "?id=" + $(this).attr("chalID");
+                    let formData = "?" + $(this).attr("chalID");
                     $.ajax({
                         url: "/facilitator/challenges" + formData,
                         dataType: "json",
