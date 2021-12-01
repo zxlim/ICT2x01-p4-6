@@ -18,9 +18,6 @@
 * -----------------------------------------------------------------------
 */
 
-require_once(__FUNCTIONS_DIR__ . "db.php");
-require_once(__FUNCTIONS_DIR__ . "security.php");
-
 
 /**
 * Student Entity Class.
