@@ -149,7 +149,7 @@ Create a new branch off from the `dev` branch with a descriptive name starting w
 
 **3. Work on the Issue in the new branch**
 <br />
-Commit all additons or changes to the newly created branch. **Only work within the scope of the described Issue** (Do not make changes that are irrelevant to the Issue).
+Commit all additions or changes to the newly created branch. **Only work within the scope of the described Issue** (Do not make changes that are irrelevant to the Issue).
 
 **4. Create a Pull Request (PR) on GitHub**
 <br />
@@ -190,7 +190,7 @@ Hotfixes are code that will be deployed to both `dev` and `master` branches to f
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
-- Describe the feature that is being worked on.
+- Describe the issue that is being worked on.
 - Assign it to the relevant people (the "Issue Owner").
 - Label the Issue with the `hotfix` label.
 - Add the Issue to the `ICT2101/2201 Team Project` Project Board and set the appropriate column depending on Issue status.
@@ -238,7 +238,7 @@ Create a new branch off from the `dev` branch with a descriptive name starting w
 
 **3. Work on the Issue in the new branch**
 <br />
-Commit all additons or changes to the newly created branch. **Only work within the scope of the described Issue** (Do not make changes that are irrelevant to the Issue).
+Commit all additions or changes to the newly created branch. **Only work within the scope of the described Issue** (Do not make changes that are irrelevant to the Issue).
 
 **4. Create a Pull Request (PR) on GitHub**
 <br />
