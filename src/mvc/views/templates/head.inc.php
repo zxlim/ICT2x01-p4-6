@@ -17,6 +17,13 @@
 * Reusable frontend template for for the HTML HEAD element.
 * -----------------------------------------------------------------------
 */
+
+
+$viewHtmlTitle = APP_TITLE;
+
+if (defined("PAGE_TITLE") === TRUE) {
+    $viewHtmlTitle = sprintf("%s | %s", APP_TITLE, PAGE_TITLE);
+}
 ?>
 <head>
     <meta charset="utf-8">
@@ -25,15 +32,7 @@
     <meta name="description" content="<?php safe_echo(APP_TITLE); ?>">
     <meta name="author" content="P4-6">
 
-    <title>
-        <?php
-        if (defined("PAGE_TITLE") === TRUE) {
-            safe_echo(sprintf("%s | %s", APP_TITLE, PAGE_TITLE));
-        } else {
-            safe_echo(APP_TITLE);
-        }
-        ?>
-    </title>
+    <title><?php safe_echo($viewHtmlTitle); ?></title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" type="text/css" href="/static/vendor/fontawesome-free/css/all.min.css">
