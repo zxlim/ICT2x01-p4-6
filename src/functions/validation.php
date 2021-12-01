@@ -42,22 +42,6 @@ function validate_notempty($input, string $type = "string"): bool {
     }
 }
 
-function validate_numeric($input): bool {
-    /**
-    * A function to check whether a variable is a valid number.
-    * Used for input validation.
-    *
-    * @param    mixed   $input  The variable to check.
-    *
-    * @return   bool    $result TRUE if variable is a number else FALSE.
-    */
-    if (isset($input) === FALSE || $input === NULL) {
-        return FALSE;
-    } else {
-        return is_numeric($input);
-    }
-}
-
 function validate_int($input): bool {
     /**
     * A function to check whether a variable is a valid integer.
@@ -70,40 +54,6 @@ function validate_int($input): bool {
     if (isset($input) === FALSE || $input === NULL) {
         return FALSE;
     } else if (filter_var($input, FILTER_VALIDATE_INT) !== 0 && filter_var($input, FILTER_VALIDATE_INT) === FALSE) {
-        return FALSE;
-    } else {
-        return TRUE;
-    }
-}
-
-function validate_float($input): bool {
-    /**
-    * A function to check whether a variable is a valid float.
-    * Used for input validation.
-    *
-    * @param    mixed   $input  The variable to check.
-    *
-    * @return   bool    $result TRUE if variable is a float else FALSE.
-    */
-    if (isset($input) === FALSE || $input === NULL) {
-        return FALSE;
-    } else {
-        return is_float($input);
-    }
-}
-
-function validate_email($input): bool {
-    /**
-    * A function to check whether a variable is a valid email address.
-    * Used for input validation.
-    *
-    * @param    mixed   $input  The variable to check.
-    *
-    * @return   bool    $result TRUE if variable is an email address else FALSE.
-    */
-    if (isset($input) === FALSE || $input === NULL) {
-        return FALSE;
-    } else if (filter_var($input, FILTER_VALIDATE_EMAIL) === FALSE) {
         return FALSE;
     } else {
         return TRUE;
