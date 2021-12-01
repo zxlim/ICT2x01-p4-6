@@ -22,27 +22,16 @@
 define("__ROOT__", __DIR__);
 
 
-# Application constants.
-// define("APP_DOMAIN", trim($_SERVER["SERVER_NAME"]));
-// define("APP_ROOT", trim(dirname($_SERVER["REQUEST_URI"])));
-define("APP_TITLE", "BOTster");
-define("APP_TZ", "Asia/Singapore");
-
-
-define("UPLOAD_DIR", "/static/uploads");
-define("__FUNCTIONS_DIR__", __ROOT__ . "/functions/");
-
-
 # Constants used for MVC.
 define("__MVC_MODELS_DIR__", __ROOT__ . "/mvc/models/");
 define("__MVC_VIEWS_DIR__", __ROOT__ . "/mvc/views/");
 define("__MVC_VIEWS_TEMPLATES_DIR__", __MVC_VIEWS_DIR__ . "/templates/");
 define("__MVC_CONTROLLERS_DIR__", __ROOT__ . "/mvc/controllers/");
+define("__FUNCTIONS_DIR__", __ROOT__ . "/functions/");
 
 
-# Relative location of SQLite database file on disk.
-define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
-
-
-# BOTster constants.
+# Application constants.
+define("APP_TITLE", "BOTster");
 define("CHALLENGE_COMMANDBLOCK_MAX", 128);
+define("UPLOAD_DIR", "/static/uploads");
+define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
