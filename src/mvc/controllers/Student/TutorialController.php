@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/controllers/Student/TutorialPageController.php
+* mvc/controllers/Student/TutorialController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,26 +14,23 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* The Tutorial Page Controller.
+* The Tutorial Controller.
 * -----------------------------------------------------------------------
 */
 
 
-class TutorialPageController extends Controller {
+class TutorialController extends Controller {
     public function get() {
         session_start();
 
-        if ($_SESSION["Facilitator"] === FALSE && $_SESSION["authenticated"] === TRUE) {
-            $this->renderTemplate("Student/tutorialpage.php", "Tutorial Page");
-        }
-
-        else {
+        if (session_isauth() === FALSE || $_SESSION["Facilitator"] === TRUE) {
             $this->notFound();
         }
+
+        $this->renderTemplate("Student/tutorial.php", "Tutorial");
     }
 
     public function post() {
-        // If POST is allowed, remove the next line.
         $this->methodNotAllowed();
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/Student/tutorialpage.php
+* mvc/views/Student/tutorial.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
