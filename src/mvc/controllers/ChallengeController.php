@@ -29,10 +29,8 @@ class ChallengeController extends Controller {
             $this->redirect("/login");
         }
 
-        $challenges = ChallengeManagement::GetAllChallenges();
-
         $state = array(
-            "chals" => $challenges
+            "chals" => ChallengeManagement::GetAllChallenges();
         );
 
         if ($_SESSION["Facilitator"] === TRUE) {
