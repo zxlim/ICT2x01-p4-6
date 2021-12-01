@@ -65,13 +65,7 @@ class Challenge {
         $db = db_get_conn();
         $stmt = $db->prepare("SELECT name, mapFilePath, maxCommandBlocks FROM challenge WHERE id = :id");
         $stmt->bindValue(":id", $id, SQLITE3_INTEGER);
-
         $res = $stmt->execute();
-        if ($res === false) {
-            $errorMessage = sprintf("Failed to load Challenge [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-            $db->close();
-            throw new DBException($errorMessage);
-        }
 
         $row = $res->fetchArray(SQLITE3_ASSOC);
 
@@ -87,7 +81,7 @@ class Challenge {
     }
 
     /**
-    * Getters and Setters.
+    * Accessors.
     */
     public function getID(): int {
         return $this->id;
@@ -97,24 +91,12 @@ class Challenge {
         return $this->name;
     }
 
-    public function setName(string $name) {
-        $this->name = $name;
-    }
-
     public function getMapFilePath(): string {
         return $this->mapFilePath;
     }
 
-    public function setMapFilePath(string $mapFilePath) {
-        $this->mapFilePath = $mapFilePath;
-    }
-
     public function getMaxCommandBlocks(): int {
         return $this->maxCommandBlocks;
-    }
-
-    public function setMaxCommandBlocks(int $maxCommandBlocks) {
-        $this->maxCommandBlocks = $maxCommandBlocks;
     }
 
     public function getPrettyMaxCommandBlocks() {
@@ -134,47 +116,15 @@ class Challenge {
         $stmt->bindValue(":name", $this->name, SQLITE3_TEXT);
         $stmt->bindValue(":mapFilePath", $this->mapFilePath, SQLITE3_TEXT);
         $stmt->bindValue(":maxCommandBlocks", $this->maxCommandBlocks, SQLITE3_INTEGER);
-
-        $res = $stmt->execute();
-        if ($res === false) {
-            $errorMessage = sprintf("Failed to create Challenge [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-            $db->close();
-            throw new DBException($errorMessage);
-        }
-
+        $stmt->execute();
         $db->close();
     }
-
-    /*
-    // [UNUSED FUNCTION] Commented out to prevent accidental usage.
-    public function dbUpdate() {
-        $db = db_get_conn();
-        $stmt = $db->prepare("UPDATE challenge SET name = :name, mapFilePath = :mapFilePath, maxCommandBlocks = :maxCommandBlocks WHERE id = :id");
-        $stmt->bindValue(":id", $this->id, SQLITE3_INTEGER);
-
-        $res = $stmt->execute();
-        if ($res === false) {
-            $errorMessage = sprintf("Failed to update Challenge [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-            $db->close();
-            throw new DBException($errorMessage);
-        }
-
-        $db->close();
-    }
-    */
 
     public function dbDelete() {
         $db = db_get_conn();
         $stmt = $db->prepare("DELETE FROM challenge WHERE id = :id");
         $stmt->bindValue(":id", $this->id, SQLITE3_INTEGER);
-
-        $res = $stmt->execute();
-        if ($res === false) {
-            $errorMessage = sprintf("Failed to delete Challenge [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-            $db->close();
-            throw new DBException($errorMessage);
-        }
-
+        $stmt->execute();
         $db->close();
     }
 }
@@ -191,41 +141,28 @@ class ChallengeManagement {
     }
 
     public function createChallenge(): bool {
-        try {
-            $this->challenge->dbCreate();
-        } catch (DBException $e) {
-            return FALSE;
-        }
-
+        $this->challenge->dbCreate();
         return TRUE;
     }
 
     public function deleteChallenge(): bool {
-        try {
-            $this->challenge->dbDelete();
-            unlink(sprintf("%s%s", __ROOT__, $this->challenge->getMapFilePath()));
-        } catch (DBException $e) {
-            return FALSE;
-        }
-
+        $this->challenge->dbDelete();
+        unlink(sprintf("%s%s", __ROOT__, $this->challenge->getMapFilePath()));
         return TRUE;
     }
 
     public static function GetAllChallenges(): array {
         $db = db_get_conn();
         $stmt = $db->prepare("SELECT id, name, mapFilePath, maxCommandBlocks FROM challenge");
-
         $res = $stmt->execute();
-        if ($res === false) {
-            $errorMessage = sprintf("Failed to retrieve Challenge [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-            $db->close();
-            throw new DBException($errorMessage);
-        }
 
         $challenges = array();
 
         while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
-            array_push($challenges, new Challenge($row["id"], $row["name"], $row["mapFilePath"], $row["maxCommandBlocks"]));
+            array_push(
+                $challenges,
+                new Challenge($row["id"], $row["name"], $row["mapFilePath"], $row["maxCommandBlocks"])
+            );
         }
 
         $db->close();
@@ -234,24 +171,20 @@ class ChallengeManagement {
     }
 
     public static function ValidateName(string $name): bool {
-        $db = db_get_conn();
-        $stmt = $db->prepare("SELECT id FROM challenge WHERE name = :name");
-        $stmt->bindValue(":name", $name, SQLITE3_TEXT);
+        if (validate_notempty($name) === TRUE) {
+            $db = db_get_conn();
+            $stmt = $db->prepare("SELECT id FROM challenge WHERE name = :name");
+            $stmt->bindValue(":name", $name, SQLITE3_TEXT);
+            $res = $stmt->execute();
 
-        $res = $stmt->execute();
-        if ($res === false) {
-            $errorMessage = sprintf("Failed to retrieve Challenge [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
+            // If $res->fetchArray() is FALSE, means no Challenge with specified name was found.
+            $validationResult = ($res->fetchArray(SQLITE3_ASSOC) === FALSE);
             $db->close();
-            throw new DBException($errorMessage);
+
+            return $validationResult;
         }
 
-        $row = $res->fetchArray(SQLITE3_ASSOC);
-        // If $row is FALSE, means no Challenge with specified name was found.
-        $validationResult = ($row === FALSE);
-
-        $db->close();
-
-        return $validationResult;
+        return FALSE;
     }
 
     public static function ValidateMapFilePath(array $mapFileObject): bool {
@@ -268,9 +201,10 @@ class ChallengeManagement {
         return FALSE;
     }
 
-    public static function ValidateMaxCommandBlocks($maxCommandBlocks): bool {
+    public static function ValidateMaxCommandBlocks(string $maxCommandBlocks): bool {
         if (validate_int($maxCommandBlocks) === TRUE) {
-            return ($maxCommandBlocks > -1 && $maxCommandBlocks < CHALLENGE_COMMANDBLOCK_MAX);
+            $val = (int)($maxCommandBlocks);
+            return ($val > -1 && $val < CHALLENGE_COMMANDBLOCK_MAX);
         }
 
         return FALSE;
