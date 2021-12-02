@@ -1,6 +1,6 @@
 <?php
 /**
-* config.php
+* constants.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,7 +14,7 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Global constant and config keys declaration for the web application.
+* Global constant and config value declaration for the web application.
 * -----------------------------------------------------------------------
 */
 
@@ -28,12 +28,11 @@ define("__MVC_VIEWS_DIR__", __ROOT__ . "/mvc/views/");
 define("__MVC_VIEWS_TEMPLATES_DIR__", __MVC_VIEWS_DIR__ . "/templates/");
 define("__MVC_CONTROLLERS_DIR__", __ROOT__ . "/mvc/controllers/");
 define("__FUNCTIONS_DIR__", __ROOT__ . "/functions/");
+define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
 
 
 # Application constants.
 define("APP_TITLE", "BOTster");
 define("CHALLENGE_COMMANDBLOCK_MAX", 128);
-define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
 define("PUBLIC_DIR", __ROOT__ . "/public");
-define("UPLOAD_DIR", "/static/uploads");
-define("SERVER_UPLOAD_DIR", PUBLIC_DIR . UPLOAD_DIR);
+define("UPLOAD_DIR", "/static/uploads/");

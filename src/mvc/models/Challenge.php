@@ -133,7 +133,7 @@ class ChallengeManagement {
 
     public static function DeleteChallenge(Challenge $challenge) {
         // Delete the Challenge map from the file system.
-        unlink(sprintf("%s/%s", PUBLIC_DIR, $challenge->getMapFilePath()));
+        unlink(sprintf("%s%s", PUBLIC_DIR, $challenge->getMapFilePath()));
         
         // Delete Challenge from database.
         $db = db_get_conn();
@@ -193,7 +193,7 @@ class ChallengeManagement {
         return FALSE;
     }
 
-    public static function ValidateMaxCommandBlocks(string $maxCommandBlocks): bool {
+    public static function ValidateMaxCommandBlocks($maxCommandBlocks): bool {
         if (validate_int($maxCommandBlocks) === TRUE) {
             $val = (int)($maxCommandBlocks);
             return ($val > -1 && $val < CHALLENGE_COMMANDBLOCK_MAX);

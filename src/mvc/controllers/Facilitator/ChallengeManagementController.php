@@ -68,8 +68,8 @@ class ChallengeManagementController extends Controller {
             $state["msg"] = "Invalid file type. Only JPG/JPEG and PNG images are supported.";
         } else {
             $mapFileName = sprintf("%s.%s", generate_token(8), strtolower(pathinfo($mapTmpName, PATHINFO_EXTENSION)));
-            $mapFilePath = sprintf("%s/%s", UPLOAD_DIR, $mapFileName);
-            $saveLocation = sprintf("%s/%s", SERVER_UPLOAD_DIR, $mapFileName);
+            $mapFilePath = sprintf("%s%s", UPLOAD_DIR, $mapFileName);
+            $saveLocation = sprintf("%s%s", PUBLIC_DIR, $mapFilePath);
 
             if (move_uploaded_file($mapTmpPath, $saveLocation) !== TRUE) {
                 $state["httpStatusCode"] = 500;
