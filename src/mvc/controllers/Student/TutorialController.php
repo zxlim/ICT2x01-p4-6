@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/templates/js.inc.php
+* mvc/controllers/Student/TutorialController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,18 +14,27 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Reusable frontend template for including required JavaScript imports in
-* HTML files.
+* The Tutorial Controller.
 * -----------------------------------------------------------------------
 */
-?>
-<!-- Bootstrap core JavaScript-->
-<script src="/static/vendor/jquery/jquery.min.js"></script>
-<script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="/static/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="/static/js/sb-admin-2.min.js"></script>
+class TutorialController extends Controller {
+    public function get() {
+        session_start();
+
+        if (session_isauth() === FALSE || $_SESSION["Facilitator"] === TRUE) {
+            $this->notFound();
+        }
+
+        $this->renderTemplate("Student/tutorial.php", "Tutorial");
+    }
+
+    public function post() {
+        $this->methodNotAllowed();
+    }
+
+    public function delete() {
+        $this->methodNotAllowed();
+    }
+}

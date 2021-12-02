@@ -1,6 +1,6 @@
 <?php
 /**
-* config.php
+* constants.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,31 +14,12 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Global constant and config keys declaration for the web application.
+* Global constant and config value declaration for the web application.
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
-
 # The absolute path to the base directory of this application on the web server.
-define("__ROOT__", $_SERVER["DOCUMENT_ROOT"]);
-
-
-# Application constants.
-// define("APP_DOMAIN", trim($_SERVER["SERVER_NAME"]));
-// define("APP_ROOT", trim(dirname($_SERVER["REQUEST_URI"])));
-define("APP_TITLE", "BOTster");
-define("APP_TZ", "Asia/Singapore");
-
-
-define("UPLOAD_DIR", "/static/uploads");
-define("__FUNCTIONS_DIR__", __ROOT__ . "/functions/");
+define("__ROOT__", __DIR__);
 
 
 # Constants used for MVC.
@@ -46,11 +27,12 @@ define("__MVC_MODELS_DIR__", __ROOT__ . "/mvc/models/");
 define("__MVC_VIEWS_DIR__", __ROOT__ . "/mvc/views/");
 define("__MVC_VIEWS_TEMPLATES_DIR__", __MVC_VIEWS_DIR__ . "/templates/");
 define("__MVC_CONTROLLERS_DIR__", __ROOT__ . "/mvc/controllers/");
-
-
-# Relative location of SQLite database file on disk.
+define("__FUNCTIONS_DIR__", __ROOT__ . "/functions/");
 define("SQLITE_DB_FILE", __MVC_MODELS_DIR__ . "botster.db");
 
 
-# BOTster constants.
+# Application constants.
+define("APP_TITLE", "BOTster");
 define("CHALLENGE_COMMANDBLOCK_MAX", 128);
+define("PUBLIC_DIR", __ROOT__ . "/public");
+define("UPLOAD_DIR", "/static/uploads/");

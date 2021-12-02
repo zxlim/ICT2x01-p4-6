@@ -617,3 +617,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+
+### BOTster ###
+
+# Don't push and overwrite SQLite3 database file.
+src/mvc/models/botster.db

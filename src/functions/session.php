@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* functions/utils.php
+* functions/session.php
 *
 * @license      MIT License
 * @copyright    Copyright (c) 2019 Zhao Xiang Lim.
@@ -11,14 +11,6 @@
 * Session functions for the web application.
 * -----------------------------------------------------------------------
 */
-
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 
 
 function session_isstarted(): bool {
@@ -70,14 +62,4 @@ function session_end(): bool {
         // Nothing to end. Session not started.
         return FALSE;
     }
-}
-
-function session_restart(): void {
-    /**
-    * A function to start a fresh session with previous session data,
-    * including session cookie and session ID invalidated.
-    */
-    session_unset();
-    session_regenerate_id(TRUE);
-    $_SESSION["authenticated"] = FALSE;
 }

@@ -18,12 +18,11 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
+
+$viewHtmlTitle = APP_TITLE;
+
+if (defined("PAGE_TITLE") === TRUE) {
+    $viewHtmlTitle = sprintf("%s | %s", APP_TITLE, PAGE_TITLE);
 }
 ?>
 <head>
@@ -33,18 +32,10 @@ if (defined("FRONTEND") === FALSE) {
     <meta name="description" content="<?php safe_echo(APP_TITLE); ?>">
     <meta name="author" content="P4-6">
 
-    <title>
-        <?php
-        if (defined("PAGE_TITLE") === TRUE) {
-            safe_echo(sprintf("%s | %s", APP_TITLE, PAGE_TITLE));
-        } else {
-            safe_echo(APP_TITLE);
-        }
-        ?>
-    </title>
+    <title><?php safe_echo($viewHtmlTitle); ?></title>
 
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet" type="text/css" href="/static/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 
     <!-- Custom styles for this template-->
