@@ -19,12 +19,7 @@
 */
 
 
-class DBException extends Exception {
-    public function getError(): string {
-        $msg = "DBException on line " . $this->getLine() . ": " . $this->getMessage();
-        return $msg;
-    }
-}
+class BOTsterConfigException extends Exception {}
 
 
 function db_get_conn(): SQLite3 {
@@ -54,14 +49,13 @@ function db_get_config_value(string $key) {
     $stmt->bindValue(":key", $key, SQLITE3_TEXT);
     $res = $stmt->execute();
 
-    if ($res === false) {
-        $errorMessage = sprintf("Failed to retrieve Config [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-        $db->close();
-        throw new DBException($errorMessage);
-    }
-
     $row = $res->fetchArray(SQLITE3_ASSOC);
     $value = NULL;
+
+    if ($row === FALSE) {
+        $db->close();
+        throw new BOTsterConfigException(sprintf("No Config was found with with Key %s.", $key));
+    }
 
     switch ($row["type"]) {
         case 1:

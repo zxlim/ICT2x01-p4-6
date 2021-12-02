@@ -19,7 +19,7 @@
 */
 
 
-class ChallengeException extends Exception {}
+class BOTsterChallengeException extends Exception {}
 
 
 /**
@@ -65,7 +65,7 @@ class Challenge {
 
         if ($row === FALSE) {
             $db->close();
-            throw new ChallengeException(sprintf("No Challenge was found with with ID %d.", $id));
+            throw new BOTsterChallengeException(sprintf("No Challenge was found with with ID %d.", $id));
         }
 
         $challenge = new Challenge($id, $row["name"], $row["mapFilePath"], $row["maxCommandBlocks"]);
