@@ -30,7 +30,7 @@ class ChallengeController extends Controller {
         }
 
         $state = array(
-            "chals" => ChallengeManagement::GetAllChallenges();
+            "chals" => ChallengeManagement::GetAllChallenges()
         );
 
         if ($_SESSION["Facilitator"] === TRUE) {
