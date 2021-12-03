@@ -17,14 +17,6 @@
  * Facilitator Challenge Listing.
  * -----------------------------------------------------------------------
  */
-
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -177,7 +169,7 @@ if (defined("FRONTEND") === FALSE) {
         <script>
             $(document).ready(function() {
                 $(".delChalBtn").click(function(){
-                    let formData = "?id=" + $(this).attr("chalID");
+                    let formData = "?" + $(this).attr("chalID");
                     $.ajax({
                         url: "/facilitator/challenges" + formData,
                         dataType: "json",

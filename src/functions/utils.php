@@ -12,14 +12,6 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
-
 
 function html_safe(string $string_raw, bool $trim = TRUE): string {
     /**
@@ -54,55 +46,5 @@ function safe_echo($string, bool $trim = TRUE): void {
     if ($string !== NULL) {
         $str = (string)($string);
         echo(html_safe($str, $trim));
-    }
-}
-
-
-function truncate(string $string_raw, int $limit): string {
-    /**
-    * A function to truncate a string to a predefined limit.
-    *
-    * @param    string  $string_raw The string to truncate.
-    * @param    int     $limit      The point to truncate at.
-    *
-    * @return   string  $str        The truncated string.
-    */
-    return mb_strimwidth($string_raw, 0, $limit, "...");
-}
-
-
-function get_datetime(bool $date_only = FALSE, int $offset = 0, string $tz = "Asia/Singapore"): string {
-    /**
-    * Returns the date and time, accounting for any offset provided in seconds.
-    *
-    * @param    bool    $date_only  Only return the date without time.
-    * @param    int     $offset     The offset in seconds to add/subtract from
-    *                               the date and time.
-    * @param    string  $tz         The timezone to use when getting the date.
-    *
-    * @return   string  $date       The date and time.
-    */
-    if (in_array($tz, timezone_identifiers_list(), TRUE) === TRUE) {
-        // Valid timezone passed, use it.
-        date_default_timezone_set($tz);
-    } else {
-        // Default timezone.
-        date_default_timezone_set(APP_TZ);
-    }
-
-    $ts = time();
-
-    if ($offset > 0) {
-        // Add the offset to the timestamp.
-        $ts += $offset;
-    } else if ($offset < 0) {
-        // Subtract the offset from the timestamp.
-        $ts -= $offset;
-    }
-
-    if ($date_only === TRUE) {
-        return date("Y-m-d", $ts);
-    } else {
-        return date("Y-m-d H:i:s", $ts);
     }
 }

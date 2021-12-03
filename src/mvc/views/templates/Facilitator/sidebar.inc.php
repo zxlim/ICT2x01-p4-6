@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/templates/Facilitator/sidebar.js.inc.php
+* mvc/views/templates/Facilitator/sidebar.inc.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -17,18 +17,10 @@
 * Facilitator Sidebar HTML code.
 * -----------------------------------------------------------------------
 */
-
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 ?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href=".">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-truck-monster"></i>
         </div>

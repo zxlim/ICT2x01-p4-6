@@ -12,16 +12,6 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
-
-require_once(__FUNCTIONS_DIR__ . "validation.php");
-
 
 function generate_token(int $len = 16): string {
     /**
@@ -41,17 +31,6 @@ function generate_pin_code(): string {
     * @return   string  $code      The random code.
     */
     return str_pad((string)(mt_rand(0, 999999)), 6, "0", STR_PAD_LEFT);
-}
-
-function sha256(string $input): string {
-    /**
-    * A function to generate a SHA256 hash.
-    *
-    * @param    string  $input      The input to hash.
-    *
-    * @return   string  $hash       The resultant hash.
-    */
-    return hash("sha256", $input, FALSE);
 }
 
 function pw_hash(string $password): string {

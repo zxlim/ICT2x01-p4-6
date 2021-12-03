@@ -18,14 +18,6 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
-
 require_once(__MVC_MODELS_DIR__ . "Facilitator.php");
 require_once(__MVC_MODELS_DIR__ . "Student.php");
 
@@ -82,10 +74,9 @@ class LoginController extends Controller {
 
                 case "student":
                     // Student Authentication Flow.
-                    $studentAccess = new StudentAccess(new Student());
                     $state["errorMessage"] = "Invalid One-Time Password.";
 
-                    if ($studentAccess->login($_POST["password"]) === TRUE) {
+                    if (StudentAccess::Login(Student::Load(), $_POST["password"]) === TRUE) {
                         $state["errorLogin"] = FALSE;
                         $_SESSION["authenticated"] = TRUE;
                         $_SESSION["Facilitator"] = FALSE;

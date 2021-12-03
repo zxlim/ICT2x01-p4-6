@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /**
-* mvc/controllers/Facilitator/OTPController.php
+* mvc/controllers/Student/TutorialController.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,25 +14,28 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* The Facilitator OTP Controller.
+* The Tutorial Controller.
 * -----------------------------------------------------------------------
 */
 
 require_once(__MVC_MODELS_DIR__ . "Student.php");
 
 
-class OTPController extends Controller {
+class TutorialController extends Controller {
     public function get() {
         session_start();
 
-        if (session_isauth() === FALSE || $_SESSION["Facilitator"] !== TRUE) {
+        if (session_isauth() === FALSE || $_SESSION["Facilitator"] === TRUE) {
             $this->notFound();
         }
 
-        $otp = StudentManagement::GenerateOTP(Student::Load());
-        $state = array("otp" => $otp);
+        $student = Student::Load();
 
-        $this->returnJSON($state);
+        if ($student->getTutorialStatus() === FALSE) {
+            StudentManagement::ToggleTutorialStatus($student);
+        }
+
+        $this->renderTemplate("Student/tutorial.php", "Tutorial");
     }
 
     public function post() {

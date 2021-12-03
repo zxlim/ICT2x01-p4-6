@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/templates/Facilitator/otp.js.inc.php
+* mvc/views/templates/Facilitator/otp.inc.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -17,14 +17,6 @@
 * Facilitator OTP Modal JavaScript code.
 * -----------------------------------------------------------------------
 */
-
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 ?>
 <!-- OTP Modal-->
 <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">

@@ -18,23 +18,8 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 
-require_once(__FUNCTIONS_DIR__ . "security.php");
-
-
-class DBException extends Exception {
-    public function getError(): string {
-        $msg = "DBException on line " . $this->getLine() . ": " . $this->getMessage();
-        return $msg;
-    }
-}
+class BOTsterConfigException extends Exception {}
 
 
 function db_get_conn(): SQLite3 {
@@ -64,14 +49,13 @@ function db_get_config_value(string $key) {
     $stmt->bindValue(":key", $key, SQLITE3_TEXT);
     $res = $stmt->execute();
 
-    if ($res === false) {
-        $errorMessage = sprintf("Failed to retrieve Config [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-        $db->close();
-        throw new DBException($errorMessage);
-    }
-
     $row = $res->fetchArray(SQLITE3_ASSOC);
     $value = NULL;
+
+    if ($row === FALSE) {
+        $db->close();
+        throw new BOTsterConfigException(sprintf("No Config was found with with Key %s.", $key));
+    }
 
     switch ($row["type"]) {
         case 1:
@@ -91,38 +75,3 @@ function db_get_config_value(string $key) {
 
     return $value;
 }
-
-/*
-// Function deprecated. Will be removed soon.
-function db_initial_setup() {
-    $db = db_get_conn();
-
-    $res = $db->exec("CREATE TABLE config (id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, key TEXT, value TEXT)");
-    if ($res === false) {
-        $last_error_code = $db->lastErrorCode();
-        $last_error_msg = $db->lastErrorMsg();
-        $db->close();
-        die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
-    }
-
-    $rows = array(
-        "INSERT INTO config (type, key, value) VALUES (0, 'facilitator_password', '" . pw_hash("P@ssw0rd") . "')",
-        "INSERT INTO config (type, key, value) VALUES (3, 'student_issue_cmd', 'TRUE')",
-        "INSERT INTO config (type, key, value) VALUES (3, 'student_tutorial', 'FALSE')",
-        "INSERT INTO config (type, key, value) VALUES (0, 'student_otp_code', '')"
-        // "INSERT INTO config (type, key, value) VALUES (0, 'student_otp_time', '')"
-    );
-
-    foreach($rows as $row) {
-        $res = $db->exec($row);
-        if ($res === false) {
-            $last_error_code = $db->lastErrorCode();
-            $last_error_msg = $db->lastErrorMsg();
-            $db->close();
-            die("Failed to initialise database: (" . $last_error_code . ") " . $last_error_msg);
-        }
-    }
-
-    $db->close();
-}
-*/

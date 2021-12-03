@@ -17,14 +17,6 @@
 * 405 Method Not Allowed Error page.
 * -----------------------------------------------------------------------
 */
-
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

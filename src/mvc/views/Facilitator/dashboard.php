@@ -17,14 +17,6 @@
 * Facilitator dashboard.
 * -----------------------------------------------------------------------
 */
-
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -259,7 +251,7 @@ if (defined("FRONTEND") === FALSE) {
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="/logout">Logout</a>
+                        <a class="btn btn-primary" href="/logout" id="logoutBtn">Logout</a>
                     </div>
                 </div>
             </div>
