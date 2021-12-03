@@ -27,21 +27,46 @@ class Student {
     private $issueCommandStatus;
     private $tutorialStatus;
 
-    function __construct() {
-        $this->oneTimePassword = db_get_config_value("student_otp_code");
-        $this->issueCommandStatus = db_get_config_value("student_issue_cmd");
-        $this->tutorialStatus = db_get_config_value("student_tutorial");
+    private function __construct(string $oneTimePassword, bool $issueCommandStatus, bool $tutorialStatus) {
+        /**
+        * Constructor for the Student entity. Called by Load() only.
+        *
+        * @param    string      $onetimePassword    Student One-Time Password.
+        * @param    bool        $issueCommandStatus Student's ability to issue commands.
+        * @param    bool        $tutorialStatus     Tutorial Completion Status.
+        */
+        $this->oneTimePassword = $oneTimePassword;
+        $this->issueCommandStatus = $issueCommandStatus;
+        $this->tutorialStatus = $tutorialStatus;
+    }
+
+    public static function Load(): Student {
+        /**
+        * Returns a new instance of Student.
+        * This function mimics the factory design pattern.
+        *
+        * @return   Student    $student    The Student entity object.
+        */
+        $oneTimePassword = db_get_config_value("student_otp_code");
+        $issueCommandStatus = db_get_config_value("student_issue_cmd");
+        $tutorialStatus = db_get_config_value("student_tutorial");
+
+        return new Student($oneTimePassword, $issueCommandStatus, $tutorialStatus);
     }
 
     /**
-    * Getters and Setters.
+    * Accessors.
     */
     public function getOneTimePassword(): string {
         return $this->oneTimePassword;
     }
 
     public function setOneTimePassword(string $oneTimePassword) {
-        $this->oneTimePassword = $oneTimePassword;
+        $this->oneTimePassword = pw_hash($oneTimePassword);
+    }
+
+    public function clearOneTimePassword() {
+        $this->oneTimePassword = "";
     }
 
     public function getIssueCommandStatus(): bool {
@@ -59,52 +84,23 @@ class Student {
     public function setTutorialStatus(bool $tutorialStatus) {
         $this->tutorialStatus = $tutorialStatus;
     }
-
-    /**
-    * Database CRUD operations.
-    */
-    public function dbUpdate() {
-        $db = db_get_conn();
-
-        $stmt_one = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_otp_code'");
-        $stmt_one->bindValue(":val", (string)($this->getOneTimePassword()), SQLITE3_TEXT);
-
-        $stmt_two = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_issue_cmd'");
-        $stmt_two->bindValue(":val", (string)($this->getIssueCommandStatus()), SQLITE3_TEXT);
-
-        $stmt_three = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_tutorial'");
-        $stmt_three->bindValue(":val", (string)($this->getTutorialStatus()), SQLITE3_TEXT);
-
-        $stmts = array($stmt_one, $stmt_two, $stmt_three);
-
-        foreach ($stmts as $stmt) {
-            $res = $stmt->execute();
-            if ($res === false) {
-                $errorMessage = sprintf("Failed to update Student [%d] %s", $db->lastErrorCode(), $db->lastErrorMsg());
-                $db->close();
-                throw new DBException($errorMessage);
-            }
-        }
-
-        $db->close();
-    }
 }
 
 /**
 * Control Classes.
 */
 class StudentAccess {
-    private $student;
+    public static function Login(Student $student, string $otp): bool {
+        if ($student->getOneTimePassword() !== "") {
+            if (pw_verify($otp, $student->getOneTimePassword()) === TRUE) {
+                $student->clearOneTimePassword();
+                
+                $db = db_get_conn();
+                $stmt = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_otp_code'");
+                $stmt->bindValue(":val", (string)($student->getOneTimePassword()), SQLITE3_TEXT);
+                $stmt->execute();
+                $db->close();
 
-    function __construct(Student $student) {
-        $this->student = $student;
-    }
-
-    public function login(string $otp): bool {
-        if ($this->student->getOneTimePassword() !== "") {
-            if (pw_verify($otp, $this->student->getOneTimePassword()) === TRUE) {
-                $this->student->setOneTimePassword("");
-                $this->student->dbUpdate();
                 return TRUE;
             }
         }
@@ -114,25 +110,48 @@ class StudentAccess {
 }
 
 class StudentManagement {
-    private $student;
-
-    function __construct(Student $student) {
-        $this->student = $student;
-    }
-
-    public function generateOTP(): string {
+    public static function GenerateOTP(Student $student): string {
         $otp = generate_pin_code();
-        $this->student->setOneTimePassword(pw_hash($otp));
-        $this->student->dbUpdate();
+        $student->setOneTimePassword($otp);
+
+        $db = db_get_conn();
+        $stmt = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_otp_code'");
+        $stmt->bindValue(":val", (string)($student->getOneTimePassword()), SQLITE3_TEXT);
+        $stmt->execute();
+        $db->close();
+
         return $otp;
     }
 
-    public function toggleIssueCommandStatus() {
-        if ($this->student->getIssueCommandStatus() === TRUE) {
-            $this->student->setIssueCommandStatus(FALSE);
+    public static function ToggleIssueCommandStatus(Student $student): bool {
+        if ($student->getIssueCommandStatus() === TRUE) {
+            $student->setIssueCommandStatus(FALSE);
         } else {
-            $this->student->setIssueCommandStatus(TRUE);
+            $student->setIssueCommandStatus(TRUE);
         }
-        $this->student->dbUpdate();
+        
+        $db = db_get_conn();
+        $stmt = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_issue_cmd'");
+        $stmt->bindValue(":val", (string)($student->getIssueCommandStatus()), SQLITE3_TEXT);
+        $stmt->execute();
+        $db->close();
+
+        return $student->getIssueCommandStatus();
+    }
+
+    public static function ToggleTutorialStatus(Student $student): bool {
+        if ($student->getTutorialStatus() === TRUE) {
+            $student->setTutorialStatus(FALSE);
+        } else {
+            $student->setTutorialStatus(TRUE);
+        }
+
+        $db = db_get_conn();
+        $stmt = $db->prepare("UPDATE config SET value = :val WHERE key = 'student_tutorial'");
+        $stmt->bindValue(":val", (string)($student->getTutorialStatus()), SQLITE3_TEXT);
+        $stmt->execute();
+        $db->close();
+
+        return $student->getTutorialStatus();
     }
 }

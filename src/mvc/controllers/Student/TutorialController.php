@@ -18,6 +18,8 @@
 * -----------------------------------------------------------------------
 */
 
+require_once(__MVC_MODELS_DIR__ . "Student.php");
+
 
 class TutorialController extends Controller {
     public function get() {
@@ -25,6 +27,12 @@ class TutorialController extends Controller {
 
         if (session_isauth() === FALSE || $_SESSION["Facilitator"] === TRUE) {
             $this->notFound();
+        }
+
+        $student = Student::Load();
+
+        if ($student->getTutorialStatus() === FALSE) {
+            StudentManagement::ToggleTutorialStatus($student);
         }
 
         $this->renderTemplate("Student/tutorial.php", "Tutorial");

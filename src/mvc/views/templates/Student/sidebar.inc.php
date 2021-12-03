@@ -100,7 +100,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="/student/tutorial">
+        <a class="nav-link" id="student-tutorial-navlink" href="/student/tutorial">
             <i class="far fa-question-circle"></i>
             <span>Tutorial</span>
         </a>

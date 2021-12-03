@@ -29,8 +29,7 @@ class OTPController extends Controller {
             $this->notFound();
         }
 
-        $studentMgnt = new StudentManagement(new Student());
-        $otp = $studentMgnt->generateOTP();
+        $otp = StudentManagement::GenerateOTP(Student::Load());
         $state = array("otp" => $otp);
 
         $this->returnJSON($state);
