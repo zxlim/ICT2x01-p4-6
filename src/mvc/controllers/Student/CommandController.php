@@ -18,14 +18,6 @@
 * -----------------------------------------------------------------------
 */
 
-if (defined("FRONTEND") === FALSE) {
-    /**
-    * Ghetto way to prevent direct access to "include" files.
-    */
-    http_response_code(404);
-    exit();
-}
-
 require_once(__MVC_MODELS_DIR__ . "Challenge.php");
 
 
@@ -49,7 +41,7 @@ class CommandController extends Controller {
 
         try {
             $state["challenge"] = Challenge::Load((int)($_GET["id"]));
-        } catch (ChallengeException $e) {
+        } catch (BOTsterChallengeException $e) {
             // Challenge with specified ID does not exist.
             // Temporary redirect to Dashboard as Student Challenge listing page not ready.
             $this->redirect("/");
