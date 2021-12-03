@@ -35,9 +35,9 @@ class Student {
         * @param    bool        $issueCommandStatus Student's ability to issue commands.
         * @param    bool        $tutorialStatus     Tutorial Completion Status.
         */
-        $this->oneTimePassword = db_get_config_value("student_otp_code");
-        $this->issueCommandStatus = db_get_config_value("student_issue_cmd");
-        $this->tutorialStatus = db_get_config_value("student_tutorial");
+        $this->oneTimePassword = $oneTimePassword;
+        $this->issueCommandStatus = $issueCommandStatus;
+        $this->tutorialStatus = $tutorialStatus;
     }
 
     public static function Load(): Student {
