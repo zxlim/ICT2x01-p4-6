@@ -31,7 +31,6 @@ class CommandController extends Controller {
 
         if (validate_int($_GET["id"]) !== TRUE) {
             // Challenge ID not provided.
-            // Temporary redirect to Dashboard as Student Challenge listing page not ready.
             $this->redirect("/");
         }
 
@@ -43,7 +42,6 @@ class CommandController extends Controller {
             $state["challenge"] = Challenge::Load((int)($_GET["id"]));
         } catch (BOTsterChallengeException $e) {
             // Challenge with specified ID does not exist.
-            // Temporary redirect to Dashboard as Student Challenge listing page not ready.
             $this->redirect("/");
         }
 
