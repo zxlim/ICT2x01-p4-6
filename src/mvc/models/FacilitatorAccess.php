@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/controllers/Facilitator/OTPController.php
+* mvc/models/FacilitatorAccess.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
@@ -14,32 +14,23 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* The Facilitator OTP Controller.
+* FacilitatorAccess Control Class.
 * -----------------------------------------------------------------------
 */
 
-require_once(__MVC_MODELS_DIR__ . "StudentManagement.php");
+require_once(__MVC_MODELS_DIR__ . "Facilitator.php"); // @codeCoverageIgnore
 
 
-class OTPController extends Controller {
-    public function get() {
-        session_start();
-
-        if (session_isauth() === FALSE || $_SESSION["Facilitator"] !== TRUE) {
-            $this->notFound();
-        }
-
-        $otp = StudentManagement::GenerateOTP(Student::Load());
-        $state = array("otp" => $otp);
-
-        $this->returnJSON($state);
-    }
-
-    public function post() {
-        $this->methodNotAllowed();
-    }
-
-    public function delete() {
-        $this->methodNotAllowed();
+class FacilitatorAccess {
+    public static function login(Facilitator $facilitator, string $password): bool {
+        /**
+        * Checks if a given plaintext password is valid to authenticate as a Facilitator.
+        *
+        * @param    Facilitator $facilitator    The Facilitator entity object.
+        * @param    string      $password       Plaintext password submitted.
+        *
+        * @return   bool        $res            Whether the password is correct.
+        */
+        return pw_verify($password, $facilitator->getPassword());
     }
 }

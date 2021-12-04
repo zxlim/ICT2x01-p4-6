@@ -14,41 +14,39 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Facilitator Model.
+* Facilitator Entity Class.
 * -----------------------------------------------------------------------
 */
 
 
-/**
-* Facilitator Entity Class.
-*/
 class Facilitator {
     private $password;
 
-    function __construct() {
-        $this->password = db_get_config_value("facilitator_password");
+    private function __construct(string $password) {
+        /**
+        * Constructor for the Facilitator entity. Called by Load() only.
+        *
+        * @param    string      $password           Facilitator Password.
+        */
+        $this->password = $password;
+    }
+
+    public static function Load(): Facilitator {
+        /**
+        * Returns a new instance of Facilitator.
+        * This function mimics the factory design pattern.
+        *
+        * @return   Facilitator $facilitator        The Facilitator entity object.
+        */
+        $password = db_get_config_value("facilitator_password");
+
+        return new Facilitator($password);
     }
 
     /**
-    * Getters and Setters.
+    * Accessors.
     */
     public function getPassword(): string {
         return $this->password;
-    }
-}
-
-
-/**
-* Control Classes.
-*/
-class FacilitatorAccess {
-    private $facilitator;
-
-    function __construct(Facilitator $facilitator) {
-        $this->facilitator = $facilitator;
-    }
-
-    public function login(string $password): bool {
-        return pw_verify($password, $this->facilitator->getPassword());
     }
 }

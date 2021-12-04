@@ -40,13 +40,13 @@
             </button>
         </center>
         <br />
-        <a class="nav-link" href="/">
+        <a id="facilitator-dashboard-navlink" class="nav-link" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
-        <a class="nav-link" href="/challenges">
+        <a id="facilitator-challenges-navlink" class="nav-link" href="/challenges">
             <i class="fas fa-fw fa-bullseye"></i>
-            <span>View All Challenges</span>
+            <span>Challenge Management</span>
         </a>
     </li>
 </ul>

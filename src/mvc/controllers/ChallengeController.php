@@ -18,7 +18,7 @@
 * -----------------------------------------------------------------------
 */
 
-require_once(__MVC_MODELS_DIR__ . "Challenge.php");
+require_once(__MVC_MODELS_DIR__ . "ChallengeManagement.php");
 
 
 class ChallengeController extends Controller {
@@ -34,7 +34,7 @@ class ChallengeController extends Controller {
         );
 
         if ($_SESSION["Facilitator"] === TRUE) {
-            $this->renderTemplate("Facilitator/challenges.php", "All Challenges", $state);
+            $this->renderTemplate("Facilitator/challenges.php", "Challenge Management", $state);
         } else {
             $this->renderTemplate("Student/challenges.php", "All Challenges", $state);
         }

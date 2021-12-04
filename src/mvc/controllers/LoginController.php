@@ -18,8 +18,8 @@
 * -----------------------------------------------------------------------
 */
 
-require_once(__MVC_MODELS_DIR__ . "Facilitator.php");
-require_once(__MVC_MODELS_DIR__ . "Student.php");
+require_once(__MVC_MODELS_DIR__ . "FacilitatorAccess.php");
+require_once(__MVC_MODELS_DIR__ . "StudentAccess.php");
 
 
 class LoginController extends Controller {
@@ -61,11 +61,10 @@ class LoginController extends Controller {
             switch ($_POST["user"]) {
                 case "facilitator":
                     // Facilitator Authentication Flow.
-                    $facilitatorAccess = new FacilitatorAccess(new Facilitator());
                     $state["loginAsFacilitator"] = TRUE;
                     $state["errorMessage"] = "Invalid Password.";
 
-                    if ($facilitatorAccess->login($_POST["password"]) === TRUE) {
+                    if (FacilitatorAccess::Login(Facilitator::Load(), $_POST["password"]) === TRUE) {
                         $state["errorLogin"] = FALSE;
                         $_SESSION["authenticated"] = TRUE;
                         $_SESSION["Facilitator"] = TRUE;
