@@ -14,39 +14,23 @@
 * @author       WHITNEY TAN WEN HUI    (2002738@sit.singaporetech.edu.sg)
 *
 * -----------------------------------------------------------------------
-* Facilitator Entity Class.
+* FacilitatorAccess Control Class.
 * -----------------------------------------------------------------------
 */
 
+require_once(__MVC_MODELS_DIR__ . "Facilitator.php");
 
-class Facilitator {
-    private $password;
 
-    private function __construct(string $password) {
+class FacilitatorAccess {
+    public static function login(Facilitator $facilitator, string $password): bool {
         /**
-        * Constructor for the Facilitator entity. Called by Load() only.
+        * Checks if a given plaintext password is valid to authenticate as a Facilitator.
         *
-        * @param    string      $password           Facilitator Password.
-        */
-        $this->password = $password;
-    }
-
-    public static function Load(): Facilitator {
-        /**
-        * Returns a new instance of Facilitator.
-        * This function mimics the factory design pattern.
+        * @param    Facilitator $facilitator        The Facilitator entity object.
+        * @param    string      $password           Plaintext password submitted.
         *
-        * @return   Facilitator $facilitator        The Facilitator entity object.
+        * @return   bool        $res                Whether the password is correct.
         */
-        $password = db_get_config_value("facilitator_password");
-
-        return new Facilitator($password);
-    }
-
-    /**
-    * Accessors.
-    */
-    public function getPassword(): string {
-        return $this->password;
+        return pw_verify($password, $facilitator->getPassword());
     }
 }
