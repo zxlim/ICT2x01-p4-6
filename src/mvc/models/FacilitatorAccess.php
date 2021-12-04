@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
-* mvc/models/Facilitator.php
+* mvc/models/FacilitatorAccess.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
