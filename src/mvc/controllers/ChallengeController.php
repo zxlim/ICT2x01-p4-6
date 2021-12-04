@@ -18,7 +18,7 @@
 * -----------------------------------------------------------------------
 */
 
-require_once(__MVC_MODELS_DIR__ . "Challenge.php");
+require_once(__MVC_MODELS_DIR__ . "ChallengeManagement.php");
 
 
 class ChallengeController extends Controller {
