@@ -95,16 +95,14 @@ class ChallengeManagementController extends Controller {
             "msg" => "OK"
         );
 
-        $tmp = strtok($_SERVER["REQUEST_URI"], "?");
-        $id = strtok("?") ?? "";
-
-        if (validate_notempty($id) !== TRUE) {
+        if (validate_notempty($_GET["id"]) !== TRUE) {
             $state["msg"] = "Please specify the Challenge to delete.";
-        } else if (validate_int($id) !== TRUE) {
+        } else if (validate_int($_GET["id"]) !== TRUE) {
             $state["msg"] = "Invalid Challenge ID specified.";
         } else {
+            $chalID = (int)($_GET["id"]);
+
             try {
-                $chalID = (int)($id);
                 ChallengeManagement::DeleteChallenge(Challenge::Load($chalID));
                 $state["httpStatusCode"] = 200;
             } catch (ChallengeException $e) {
