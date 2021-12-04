@@ -36,3 +36,4 @@ define("APP_TITLE", "BOTster");
 define("CHALLENGE_COMMANDBLOCK_MAX", 128);
 define("PUBLIC_DIR", __ROOT__ . "/public");
 define("UPLOAD_DIR", "/static/uploads/");
+define("DEMO_MODE", TRUE);
