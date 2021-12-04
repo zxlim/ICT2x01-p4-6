@@ -62,13 +62,11 @@
                                         <div class="row text-center">
                                             <div class="col-md-6">
                                                 <i class="fas fa-satellite-dish"></i>&nbsp;
-                                                Car Status: <span class="text-danger">Not Connected</span>
-                                                <!-- Temporary hardcode, waiting for car to work. -->
+                                                Car Status: <span id="car-status" class="text-danger">Not Connected</span>
                                             </div>
                                             <div class="col-md-6">
                                                 <i class="fas fa-microchip"></i>&nbsp;
-                                                Obstacle Detected: <span class="text-danger">Ultrasonic Sensor Not Found</span>
-                                                <!-- Temporary hardcode, waiting for car to work. -->
+                                                Obstacle Detected: <span id="car-obstacle" class="text-danger">Unable to Retrieve Data</span>
                                             </div>
                                         </div>
                                         <br />
@@ -214,5 +212,46 @@
             <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "js.inc.php"); ?>
             <script src="https://unpkg.com/blockly/blockly.min.js"></script>
             <script src="/static/js/botster_blocks.js"></script>
+
+            <script>
+                <?php
+                    if ($state["carConnected"] === TRUE) {
+                ?>
+                $("#car-status").text("Connected");
+                $("#car-status").removeClass("text-danger");
+                $("#car-status").addClass("text-success");
+                <?php
+                    } else {
+                ?>
+                $("#car-status").text("Not Connected");
+                $("#car-status").removeClass("text-success");
+                $("#car-status").addClass("text-danger");
+                <?php
+                    }
+
+                    if ($state["carObstacle"] === FALSE) {
+                ?>
+                $("#car-obstacle").text("No Obstacles Detected");
+                $("#car-obstacle").removeClass("text-warning");
+                $("#car-obstacle").removeClass("text-danger");
+                $("#car-obstacle").addClass("text-success");
+                <?php
+                    } else if ($state["carObstacle"] === TRUE) {
+                ?>
+                $("#car-obstacle").text("Obstacle Detected!");
+                $("#car-obstacle").removeClass("text-success");
+                $("#car-obstacle").removeClass("text-danger");
+                $("#car-obstacle").addClass("text-warning");
+                <?php
+                    } else {
+                ?>
+                $("#car-obstacle").text("Unable to Retrieve Data");
+                $("#car-obstacle").removeClass("text-success");
+                $("#car-obstacle").removeClass("text-warning");
+                $("#car-obstacle").addClass("text-danger");
+                <?php
+                    }
+                ?>
+            </script>
     </body>
 </html>

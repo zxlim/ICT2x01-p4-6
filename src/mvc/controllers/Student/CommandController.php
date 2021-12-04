@@ -35,7 +35,9 @@ class CommandController extends Controller {
         }
 
         $state = array(
-            "challenge" => NULL
+            "challenge" => NULL,
+            "carConnected" => FALSE,
+            "carObstacle" => NULL
         );
 
         try {
@@ -44,6 +46,12 @@ class CommandController extends Controller {
             // Challenge with specified ID does not exist.
             $this->redirect("/");
         }
+
+        if (DEMO_MODE === TRUE) {
+            $state["carConnected"] = TRUE;
+            $state["carObstacle"] = FALSE;
+        }
+        // Sadly, logic to query the car does not exist.
 
         $this->renderTemplate("Student/play.php", "Play", $state);
     }
@@ -70,23 +78,28 @@ class CommandController extends Controller {
             $state["httpStatusCode"] = 400;
             $state["msg"] = "Invalid command received.";
         } else {
-            // Temporary hardcode, still waiting for car communication to work.
-            switch ($_POST["cmd"]) {
-                case "forward":
-                    $state["result"] = TRUE;
-                    break;
-                case "left":
-                    $state["result"] = TRUE;
-                    break;
-                case "right":
-                    $state["result"] = TRUE;
-                    break;
-                case "obstacleDetected":
-                    $state["result"] = TRUE;
-                    break;
-                case "endCheck":
-                    $state["result"] = TRUE;
-                    break;
+            // Sadly, logic to communicate with the car does not exist.
+            if (DEMO_MODE === TRUE) {
+                switch ($_POST["cmd"]) {
+                    case "forward":
+                        $state["result"] = TRUE;
+                        break;
+                    case "left":
+                        $state["result"] = TRUE;
+                        break;
+                    case "right":
+                        $state["result"] = TRUE;
+                        break;
+                    case "obstacleDetected":
+                        $state["result"] = TRUE;
+                        break;
+                    case "endCheck":
+                        $state["result"] = TRUE;
+                        break;
+                }
+            } else {
+                $state["httpStatusCode"] = 503;
+                $state["msg"] = "Sorry, feature is still under development.";
             }
         }
 
