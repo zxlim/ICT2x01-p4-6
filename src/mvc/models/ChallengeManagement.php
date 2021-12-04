@@ -18,7 +18,7 @@
 * -----------------------------------------------------------------------
 */
 
-require_once(__MVC_MODELS_DIR__ . "Challenge.php");
+require_once(__MVC_MODELS_DIR__ . "Challenge.php"); // @codeCoverageIgnore
 
 
 class ChallengeManagement {
@@ -47,6 +47,12 @@ class ChallengeManagement {
     }
 
     public static function DeleteChallenge(Challenge $challenge) {
+        /**
+        * Deletes a Challenge entity from the database as well as its associated map image
+        * file from the file system.
+        *
+        * @param    Challenge  $challenge   The Challenge entity object.
+        */
         // Delete the Challenge map from the file system.
         unlink(sprintf("%s%s", PUBLIC_DIR, $challenge->getMapFilePath()));
         
@@ -59,6 +65,11 @@ class ChallengeManagement {
     }
 
     public static function GetAllChallenges(): array {
+        /**
+        * Retrieve all Challenges from the database.
+        *
+        * @return   array      $challenges  An array of all Challenge entities.
+        */
         $db = db_get_conn();
         $stmt = $db->prepare("SELECT id FROM challenge");
         $res = $stmt->execute();
@@ -78,6 +89,13 @@ class ChallengeManagement {
     }
 
     public static function ValidateName(string $name): bool {
+        /**
+        * Checks whether a given name is valid for use in a new Challenge.
+        *
+        * @param    string     $name        The new Challenge name to validate.
+        *
+        * @return   bool       $res         The result of the validation.
+        */
         if (validate_notempty($name) === TRUE) {
             $db = db_get_conn();
             $stmt = $db->prepare("SELECT id FROM challenge WHERE name = :name");
@@ -95,6 +113,14 @@ class ChallengeManagement {
     }
 
     public static function ValidateMap(string $mapFileName, string $mapFilePath): bool {
+        /**
+        * Checks whether a given map file is valid for use in a new Challenge.
+        *
+        * @param    string     $mapFileName The name of the Map file to validate.
+        * @param    string     $mapFilePath The path to the Map file to validate.
+        *
+        * @return   bool       $res         The result of the validation.
+        */
         $allowedMimeTypes = array("image/jpeg", "image/png");
         $allowedExtensions = array("jpeg", "png");
 
@@ -109,6 +135,13 @@ class ChallengeManagement {
     }
 
     public static function ValidateMaxCommandBlocks($maxCommandBlocks): bool {
+        /**
+        * Checks whether a given maximum Command Block vlaue is valid for use in a new Challenge.
+        *
+        * @param    int        $maxCommandBlocks    The value to validate.
+        *
+        * @return   bool       $res                 The result of the validation.
+        */
         if (validate_int($maxCommandBlocks) === TRUE) {
             $val = (int)($maxCommandBlocks);
             return ($val > -1 && $val < CHALLENGE_COMMANDBLOCK_MAX);

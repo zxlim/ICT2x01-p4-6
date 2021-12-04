@@ -18,7 +18,7 @@
 * -----------------------------------------------------------------------
 */
 
-require_once(__MVC_MODELS_DIR__ . "Facilitator.php");
+require_once(__MVC_MODELS_DIR__ . "Facilitator.php"); // @codeCoverageIgnore
 
 
 class FacilitatorAccess {
@@ -26,10 +26,10 @@ class FacilitatorAccess {
         /**
         * Checks if a given plaintext password is valid to authenticate as a Facilitator.
         *
-        * @param    Facilitator $facilitator        The Facilitator entity object.
-        * @param    string      $password           Plaintext password submitted.
+        * @param    Facilitator $facilitator    The Facilitator entity object.
+        * @param    string      $password       Plaintext password submitted.
         *
-        * @return   bool        $res                Whether the password is correct.
+        * @return   bool        $res            Whether the password is correct.
         */
         return pw_verify($password, $facilitator->getPassword());
     }
