@@ -44,20 +44,21 @@
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">View All Challenges</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Challenge Management</h1>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-body">
-                                <a href="/facilitator/challenges" class="btn btn-info btn-icon-split">
+                                <a id="addChalBtn" href="/facilitator/challenges" class="btn btn-info btn-icon-split">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-puzzle-piece"></i>
                                     </span>
                                     <span class="text">Add New Challange</span>
                                 </a>
                                 <br /><br />
+                                <h4 class="h4 mb-2 text-gray-800">All Challenges</h4>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="challengesTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
@@ -99,7 +100,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <!-- /.container-fluid -->
 

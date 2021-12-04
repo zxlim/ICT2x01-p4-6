@@ -44,7 +44,7 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
-        <a id="facilitator-dashboard-navlink" class="nav-link" href="/challenges">
+        <a id="facilitator-challenges-navlink" class="nav-link" href="/challenges">
             <i class="fas fa-fw fa-bullseye"></i>
             <span>Challenge Management</span>
         </a>
