@@ -19,7 +19,7 @@
 */
 
 require_once(__MVC_MODELS_DIR__ . "FacilitatorAccess.php");
-require_once(__MVC_MODELS_DIR__ . "Student.php");
+require_once(__MVC_MODELS_DIR__ . "StudentAccess.php");
 
 
 class LoginController extends Controller {
