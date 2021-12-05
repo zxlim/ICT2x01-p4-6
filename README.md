@@ -1,4 +1,6 @@
 # BOTster
+![Code Coverage](https://zxlim.github.io/ICT2x01-p4-6/coverage_badge.svg)
+
 BOTster is a gamified feedback system used to engage primary school students on the topics of problem solving and computational thinking skills through block-based logical programming. Students will control a robotic car to complete challenges using a web interface.
 
 This documentation is mirrored on the [project's GitHub Wiki page](https://github.com/zxlim/ICT2x01-p4-6/wiki). You may use the Wiki version for a more organised look and feel of the documentation.
@@ -268,13 +270,15 @@ The System State Diagram has been updated:
 - Transition _Lost Connection to Robotic Car on Challenge Game Screen_ has been removed.
     - System Test _22_ removed.
 
-[Click here for the latest System Tests](docs/system_tests.pdf).
+[Click here for the latest System Tests.](docs/system_tests.pdf)
 
 ### System Test Run
 > Video of system test here.
 
 ## Whitebox Testing
 Testing is done on all Model classes (Entity/Control) and statement coverage is performed to ensure that adequete test cases have been written. Testing is done using [Codeception](https://codeception.com/). Codeception wraps around PHPUnit and PCOV to automate unit testing as well as generation of code coverage statistics.
+
+GitHub Actions are used to automate the execution of the test suite and publish code coverage statistics when Pull Requests are opened to merge into either the `dev` or `master` branches. See [.github/workflows/testsuite.yml](.github/workflows/testsuite.yml) for the deployed GitHub Action workflow.
 
 For the purpose of this project, the test suite ([Click here to view the test code](tests/unit/ChallengeManagementTest.php)) for the ChallengeManagement control class will be the main focus. The following are the test cases for the ChallengeManagement class:
 - There are no challenges yet
@@ -294,6 +298,8 @@ For the purpose of this project, the test suite ([Click here to view the test co
 - Delete challenges
 - Deleting non existent challenge will throw exception
 - There should be no challenges remaining
+
+[Click here to view the code coverage report for the ChallengeManagement control class.](https://zxlim.github.io/ICT2x01-p4-6/ChallengeManagement.php.html)
 
 ### Test Environment Preparation
 The test suite for this project is executed on a Ubuntu 20.04 LTS (Focal) system. To setup a test environment, run the following commands on a `root` terminal shell:
@@ -315,3 +321,5 @@ Code coverage statistics summary will be displayed on the console at the end. To
 
 ### Sample Run
 ![Codeception](docs/codeception.gif)
+<br />
+[Click here to view the latest code coverage report.](https://zxlim.github.io/ICT2x01-p4-6/)
