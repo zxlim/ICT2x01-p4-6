@@ -61,7 +61,7 @@ Ensure the user used for setting up BOTster is able to access root privileges vi
 
 For Debian-based GNU/Linux systems, the dependencies can be installed using the following commands:
 ```bash
-dev@p4-6:~$ sudo apt update && sudo apt install -y php7.4-cli php7.4-common php7.4-json php7.4-readline php7.4-sqlite3
+dev@p4-6:~$ sudo apt update && sudo apt install -y php7.4-cli php7.4-common php7.4-curl php7.4-fpm php7.4-json php7.4-mbstring php7.4-readline php7.4-sqlite3 sqlite3
 ```
 
 ### Running BOTster (For Windows)
@@ -280,23 +280,26 @@ Testing is done on all Model classes (Entity/Control) and statement coverage is 
 
 GitHub Actions are used to automate the execution of the test suite and publish code coverage statistics when Pull Requests are opened to merge into either the `dev` or `master` branches. See [.github/workflows/testsuite.yml](.github/workflows/testsuite.yml) for the deployed GitHub Action workflow.
 
-For the purpose of this project, the test suite ([Click here to view the test code](tests/unit/ChallengeManagementTest.php)) for the ChallengeManagement control class will be the main focus. The following are the test cases for the ChallengeManagement class:
-- There are no challenges yet `testThereAreNoChallengesYet()`
-- Valid challenge max command block values `testValidChallengeMaxCommandBlockValues()`
-- Max command block must be an integer `testMaxCommandBlockMustBeAnInteger()`
-- Max command block cannot be less than zero `testMaxCommandBlockCannotBeLessThanZero()`
-- Max command block limit constant check `testMaxCommandBlockLimitConstantCheck`
-- Valid map file `testValidMapFile()`
-- Specified file is not an image file thus not a valid map file `testSpecifiedFileIsNotAnImageFileThusNotAValidMapFile()`
-- Specified file has wrong extension thus not a valid map file `testSpecifiedFileHasWrongExtensionThusNotAValidMapFile()`
-- Create two new challenges `testCreateTwoNewChallenges()`
-- There are now two challenges `testThereAreNowTwoChallenges()`
-- Valid challenge names `testValidChallengeNames()`
-- Cannot use names belonging to existing challenges `testCannotUseNamesBelongingToExistingChallenges()`
-- Challenge name cannot be empty `testChallengeNameCannotBeEmpty()`
-- Delete challenges `testDeleteChallenges()`
-- Deleting non existent challenge will throw exception `testDeletingNonExistentChallengeWillThrowException()`
-- There should be no challenges remaining `testThereShouldBeNoChallengesRemaining()`
+For the purpose of this project, the test suite for the ChallengeManagement control class will be the main focus. The following table contains test cases for the ChallengeManagement class ([Click here to view the test case source code](tests/unit/ChallengeManagementTest.php)).
+
+| S/N | Test Description                                              | Test Case                                                  |
+|-----|---------------------------------------------------------------|------------------------------------------------------------|
+| 1   | There are no challenges yet                                   | `testThereAreNoChallengesYet()`                            |
+| 2   | Valid challenge max command block values                      | `testValidChallengeMaxCommandBlockValues()`                |
+| 3   | Max command block must be an integer                          | `testMaxCommandBlockMustBeAnInteger()`                     |
+| 4   | Max command block cannot be less than zero                    | `testMaxCommandBlockCannotBeLessThanZero()`                |
+| 5   | Max command block limit constant check                        | `testMaxCommandBlockLimitConstantCheck()`                  |
+| 6   | Valid map file                                                | `testValidMapFile()`                                       |
+| 7   | Specified file is not an image file thus not a valid map file | `testSpecifiedFileIsNotAnImageFileThusNotAValidMapFile()`  |
+| 8   | Specified file has wrong extension thus not a valid map file  | `testSpecifiedFileHasWrongExtensionThusNotAValidMapFile()` |
+| 9   | Create two new challenges                                     | `testCreateTwoNewChallenges()`                             |
+| 10  | There are now two challenges                                  | `testThereAreNowTwoChallenges()`                           |
+| 11  | Valid challenge names                                         | `testValidChallengeNames()`                                |
+| 12  | Cannot use names belonging to existing challenges             | `testCannotUseNamesBelongingToExistingChallenges()`        |
+| 13  | Challenge name cannot be empty                                | `testChallengeNameCannotBeEmpty()`                         |
+| 14  | Delete challenges                                             | `testDeleteChallenges()`                                   |
+| 15  | Deleting non existent challenge will throw exception          | `testDeletingNonExistentChallengeWillThrowException()`     |
+| 16  | There should be no challenges remaining                       | `testThereShouldBeNoChallengesRemaining()`                 |
 
 [Click here to view the code coverage report for the ChallengeManagement control class.](https://zxlim.github.io/ICT2x01-p4-6/ChallengeManagement.php.html)
 
@@ -304,7 +307,7 @@ For the purpose of this project, the test suite ([Click here to view the test co
 The test suite for this project is executed on a Ubuntu 20.04 LTS (Focal) system. To setup a test environment, run the following commands on a `root` terminal shell:
 ```bash
 # Install PHP 7.4 and other test dependencies.
-root@botster:~$ apt-get install -y curl php7.4-cli php7.4-curl php7.4-dev php7.4-fpm php7.4-mbstring php7.4-sqlite3 php-pcov sqlite3
+root@botster:~$ apt-get install -y curl php7.4-cli php7.4-curl php7.4-dev php7.4-fpm php7.4-json php7.4-mbstring php7.4-readline php7.4-sqlite3 php-pcov sqlite3
 
 # Install Codeception.
 root@botster:~$ curl -LsS https://codeception.com/codecept.phar -o /usr/local/bin/codecept
