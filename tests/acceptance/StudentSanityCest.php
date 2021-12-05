@@ -45,6 +45,7 @@ class StudentSanityCest {
         $I->seeCurrentUrlEquals('/');
         $I->seeInTitle('BOTster | Dashboard');
         $I->see('Dashboard');
+        $I->seeLink('', '/challenges');
         $I->seeLink('', '/student/tutorial');
     }
 
@@ -116,5 +117,20 @@ class StudentSanityCest {
         $I->seeInTitle('BOTster | Tutorial');
         $I->see('Tutorial');
         $I->see('To Take Note Before Playing!');
+    }
+
+
+    public function studentCanSeeChallengeListing(AcceptanceTester $I) {
+        /* ST19 */
+        // Generate OTP as Facilitator first and login as Student (Simulate Precondition 1 and 2).
+        $I->submitForm('.loginForm', ['user' => 'student', 'password' => $this->otp]);
+        $I->wait(2);
+        $I->seeCurrentUrlEquals('/');
+
+        $I->click('#student-challenges-navlink');
+        $I->seeCurrentUrlEquals('/challenges');
+        $I->seeInTitle('BOTster | All Challenges');
+        $I->see('All Challenges');
+        $I->seeElement('#challengesTable');
     }
 }

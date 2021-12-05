@@ -102,7 +102,7 @@ class FacilitatorSanityCest {
     }
 
 
-    public function facilitatorCanSeeChallengse(AcceptanceTester $I) {
+    public function facilitatorCanSeeChallengeListing(AcceptanceTester $I) {
         /* ST9 */
         $I->amOnPage('/login');
         $I->submitForm('.loginForm', ['user' => $this->facilitatorUser, 'password' => $this->facilitatorPass]);
