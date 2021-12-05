@@ -122,7 +122,7 @@ class ChallengeManagement {
         * @return   bool       $res         The result of the validation.
         */
         $allowedMimeTypes = array("image/jpeg", "image/png");
-        $allowedExtensions = array("jpeg", "png");
+        $allowedExtensions = array("jpg", "jpeg", "png");
 
         $fileMimeType = mime_content_type($mapFilePath);
         $fileExtension = strtolower(pathinfo($mapFileName, PATHINFO_EXTENSION));
