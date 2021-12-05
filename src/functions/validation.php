@@ -47,6 +47,8 @@ function validate_int($input): bool {
         return FALSE;
     } else if (filter_var($input, FILTER_VALIDATE_INT) !== 0 && filter_var($input, FILTER_VALIDATE_INT) === FALSE) {
         return FALSE;
+    } else if (is_numeric($input) !== TRUE) {
+        return FALSE;
     } else {
         return TRUE;
     }
