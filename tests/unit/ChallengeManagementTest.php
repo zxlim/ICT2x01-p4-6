@@ -32,101 +32,90 @@ class ChallengeManagementTest extends \Codeception\Test\Unit {
     * ChallengeManagement unit tests. Execution is sequential, ordered from top to bottom.
     */
     public function testThereAreNoChallengesYet() {
-        $res = ChallengeManagement::GetAllChallenges();
-        $this->assertTrue(count($res) === 0);
+        // There should not be any Challenges in the Database.
+        $this->assertEquals(count(ChallengeManagement::GetAllChallenges()), 0);
     }
 
 
     public function testValidChallengeMaxCommandBlockValues() {
-        $testValues = array(
-            "0", 0, 6, "16", (string)(CHALLENGE_COMMANDBLOCK_MAX - 1)
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks($t));
-        }
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks("0"));
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks(0));
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks("6"));
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks(6));
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks("16"));
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks(16));
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks((string)(CHALLENGE_COMMANDBLOCK_MAX - 1)));
+        $this->assertTrue(ChallengeManagement::ValidateMaxCommandBlocks((CHALLENGE_COMMANDBLOCK_MAX - 1)));
     }
 
 
     public function testMaxCommandBlockMustBeAnInteger() {
-        $testValues = array(
-            "Nope", "two", "", "3.141", 12.34, NULL
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks($t));
-        }
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("Nope"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("Six"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("six"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("zero"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(""));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("3.141"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(12.34));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(TRUE));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(FALSE));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(NULL));
     }
 
 
     public function testMaxCommandBlockCannotBeLessThanZero() {
-        $testValues = array(
-            "-1", -10, "-32768"
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks($t));
-        }
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("-1"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(-1));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("-10"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(-10));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks("-32768"));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks(-32768));
     }
 
 
     public function testMaxCommandBlockLimitConstantCheck() {
         // Value not less than CHALLENGE_COMMANDBLOCK_MAX constant.
-        $testValues = array(
-            (string)(CHALLENGE_COMMANDBLOCK_MAX), (string)(CHALLENGE_COMMANDBLOCK_MAX + 1)
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks($t));
-        }
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks((string)(CHALLENGE_COMMANDBLOCK_MAX)));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks((CHALLENGE_COMMANDBLOCK_MAX)));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks((string)(CHALLENGE_COMMANDBLOCK_MAX + 1)));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks((CHALLENGE_COMMANDBLOCK_MAX + 1)));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks((string)(CHALLENGE_COMMANDBLOCK_MAX + 100)));
+        $this->assertFalse(ChallengeManagement::ValidateMaxCommandBlocks((CHALLENGE_COMMANDBLOCK_MAX + 100)));
     }
 
 
     public function testValidMapFile() {
-        $testValues = array(
-            array("name" => "valid.png", "path" => sprintf("%s%s", $this->resourceDir, "valid.png")),
-            array("name" => "valid.jpg", "path" => sprintf("%s%s", $this->resourceDir, "valid.jpg")),
-            array("name" => "valid.jpeg", "path" => sprintf("%s%s", $this->resourceDir, "valid.jpeg"))
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertTrue(ChallengeManagement::ValidateMap($t["name"], $t["path"]));
-        }
+        $this->assertTrue(ChallengeManagement::ValidateMap("valid.png", sprintf("%s%s", $this->resourceDir, "valid.png")));
+        $this->assertTrue(ChallengeManagement::ValidateMap("valid.jpg", sprintf("%s%s", $this->resourceDir, "valid.jpg")));
+        $this->assertTrue(ChallengeManagement::ValidateMap("valid.jpeg", sprintf("%s%s", $this->resourceDir, "valid.jpeg")));
     }
 
 
     public function testSpecifiedFileIsNotAnImageFileThusNotAValidMapFile() {
-        $testValues = array(
-            array("name" => "invalid.txt", "path" => sprintf("%s%s", $this->resourceDir, "invalid.txt")),
-            array("name" => "txtWithPngExtension.png", "path" => sprintf("%s%s", $this->resourceDir, "txtWithPngExtension.png")),
-            array("name" => "txtWithJpgExtension.jpg", "path" => sprintf("%s%s", $this->resourceDir, "txtWithJpgExtension.jpg"))
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertFalse(ChallengeManagement::ValidateMap($t["name"], $t["path"]));
-        }
+        $this->assertFalse(ChallengeManagement::ValidateMap("invalid.txt", sprintf("%s%s", $this->resourceDir, "invalid.txt")));
+        $this->assertFalse(ChallengeManagement::ValidateMap("txtWithPngExtension.png", sprintf("%s%s", $this->resourceDir, "txtWithPngExtension.png")));
+        $this->assertFalse(ChallengeManagement::ValidateMap("txtWithJpgExtension.jpg", sprintf("%s%s", $this->resourceDir, "txtWithJpgExtension.jpg")));
+        $this->assertFalse(ChallengeManagement::ValidateMap("txtWithJpegExtension.jpeg", sprintf("%s%s", $this->resourceDir, "txtWithJpegExtension.jpeg")));
     }
 
 
     public function testSpecifiedFileHasWrongExtensionThusNotAValidMapFile() {
-        $testValues = array(
-            array("name" => "pngWithTxtExtension.txt", "path" => sprintf("%s%s", $this->resourceDir, "pngWithTxtExtension.txt")),
-            array("name" => "jpgWithMdExtension.txt", "path" => sprintf("%s%s", $this->resourceDir, "jpgWithMdExtension.md"))
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertFalse(ChallengeManagement::ValidateMap($t["name"], $t["path"]));
-        }
+        $this->assertFalse(ChallengeManagement::ValidateMap("pngWithTxtExtension.txt", sprintf("%s%s", $this->resourceDir, "pngWithTxtExtension.txt")));
+        $this->assertFalse(ChallengeManagement::ValidateMap("jpgWithMdExtension.md", sprintf("%s%s", $this->resourceDir, "jpgWithMdExtension.md")));
+        $this->assertFalse(ChallengeManagement::ValidateMap("jpegWithTxtExtension.txt", sprintf("%s%s", $this->resourceDir, "jpegWithTxtExtension.txt")));
     }
 
 
     public function testCreateTwoNewChallenges() {
-        $workingImage = $this->resourceDir . "valid.png";
+        $workingImage = sprintf("%s%s", $this->resourceDir, "valid.png");
 
-        foreach ($this->testChallenges as $t) {
-            copy($workingImage, sprintf("%s%s", PUBLIC_DIR, $t["mapFilePath"]));
-            $this->assertEquals(ChallengeManagement::CreateChallenge($t["name"], $t["mapFilePath"], $t["maxCommandBlocks"]), $t["id"]);
-        }
+        $testChalOne = $this->testChallenges[0];
+        copy($workingImage, sprintf("%s%s", PUBLIC_DIR, $testChalOne["mapFilePath"]));
+        $this->assertEquals(ChallengeManagement::CreateChallenge($testChalOne["name"], $testChalOne["mapFilePath"], $testChalOne["maxCommandBlocks"]), $testChalOne["id"]);
+
+        $testChalTwo = $this->testChallenges[1];
+        copy($workingImage, sprintf("%s%s", PUBLIC_DIR, $testChalTwo["mapFilePath"]));
+        $this->assertEquals(ChallengeManagement::CreateChallenge($testChalTwo["name"], $testChalTwo["mapFilePath"], $testChalTwo["maxCommandBlocks"]), $testChalTwo["id"]);
     }
 
 
@@ -134,46 +123,40 @@ class ChallengeManagementTest extends \Codeception\Test\Unit {
         $challenges = ChallengeManagement::GetAllChallenges();
         $this->assertTrue(count($challenges) === 2);
 
-        for ($i = 0; $i < 2; $i++) {
-            $chal = $challenges[$i];
-            $test = $this->testChallenges[$i];
+        $chalOne = $challenges[0];
+        $testChalOne = $this->testChallenges[0];
+        $this->assertEquals($chalOne->getID(), $testChalOne["id"]);
+        $this->assertEquals($chalOne->getName(), $testChalOne["name"]);
+        $this->assertEquals($chalOne->getMapFilePath(), $testChalOne["mapFilePath"]);
+        $this->assertEquals($chalOne->getMaxCommandBlocks(), $testChalOne["maxCommandBlocks"]);
+        $this->assertEquals($chalOne->getPrettyMaxCommandBlocks(), $testChalOne["prettyMax"]);
 
-            $this->assertEquals($chal->getID(), $test["id"]);
-            $this->assertEquals($chal->getName(), $test["name"]);
-            $this->assertEquals($chal->getMapFilePath(), $test["mapFilePath"]);
-            $this->assertEquals($chal->getMaxCommandBlocks(), $test["maxCommandBlocks"]);
-            $this->assertEquals($chal->getPrettyMaxCommandBlocks(), $test["prettyMax"]);
-        }
+        $chalTwo = $challenges[1];
+        $testChalTwo = $this->testChallenges[1];
+        $this->assertEquals($chalTwo->getID(), $testChalTwo["id"]);
+        $this->assertEquals($chalTwo->getName(), $testChalTwo["name"]);
+        $this->assertEquals($chalTwo->getMapFilePath(), $testChalTwo["mapFilePath"]);
+        $this->assertEquals($chalTwo->getMaxCommandBlocks(), $testChalTwo["maxCommandBlocks"]);
+        $this->assertEquals($chalTwo->getPrettyMaxCommandBlocks(), $testChalTwo["prettyMax"]);
     }
 
 
     public function testValidChallengeNames() {
-        $testValues = array(
-            "Valid", "123", "Challenge 1", "Test #3"
-        );
-
-        foreach ($testValues as $t) {
-            $this->assertTrue(ChallengeManagement::ValidateName($t));
-        }
+        $this->assertTrue(ChallengeManagement::ValidateName("Valid"));
+        $this->assertTrue(ChallengeManagement::ValidateName("123"));
+        $this->assertTrue(ChallengeManagement::ValidateName("Challenge 1"));
+        $this->assertTrue(ChallengeManagement::ValidateName("Test #3"));
     }
 
 
     public function testCannotUseNamesBelongingToExistingChallenges() {
-        foreach ($this->testChallenges as $t) {
-            $this->assertFalse(ChallengeManagement::ValidateName($t["name"]));
-        }
+        $this->assertFalse(ChallengeManagement::ValidateName($this->testChallenges[0]["name"]));
+        $this->assertFalse(ChallengeManagement::ValidateName($this->testChallenges[1]["name"]));
     }
 
 
     public function testChallengeNameCannotBeEmpty() {
         $this->assertFalse(ChallengeManagement::ValidateName(""));
-    }
-
-
-    public function testLoadingNonExistentChallengeWillThrowException() {
-        $this->expectException(BOTsterChallengeException::class);
-        $this->expectExceptionMessage("No Challenge was found with with ID 99.");
-        Challenge::Load(99);
     }
 
 

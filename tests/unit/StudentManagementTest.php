@@ -12,13 +12,16 @@ class StudentManagementTest extends \Codeception\Test\Unit {
      */
     protected $tester;
     
+
     protected function _before() {
         // Pass!
     }
 
+
     protected function _after() {
         // Pass!
     }
+
 
     /**
     * StudentManagement unit tests. Execution is sequential, ordered from top to bottom.
@@ -36,14 +39,11 @@ class StudentManagementTest extends \Codeception\Test\Unit {
 
     public function testToggleIssueCommandStatus() {
         $student = Student::Load();
-        $this->assertTrue($student->getIssueCommandStatus());
 
         $status = StudentManagement::ToggleIssueCommandStatus($student);
-        $this->assertFalse($status);
         $this->assertEquals($student->getIssueCommandStatus(), $status);
 
         $status = StudentManagement::ToggleIssueCommandStatus($student);
-        $this->assertTrue($status);
         $this->assertEquals($student->getIssueCommandStatus(), $status);
     }
 
