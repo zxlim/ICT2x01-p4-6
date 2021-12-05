@@ -1,5 +1,5 @@
 # BOTster
-![Code Coverage](https://zxlim.github.io/ICT2x01-p4-6/coverage_badge.svg)
+![Check Status](https://github.com/zxlim/ICT2x01-p4-6/actions/workflows/testsuite.yml/badge.svg) ![Code Coverage](https://zxlim.github.io/ICT2x01-p4-6/coverage_badge.svg)
 
 BOTster is a gamified feedback system used to engage primary school students on the topics of problem solving and computational thinking skills through block-based logical programming. Students will control a robotic car to complete challenges using a web interface.
 
@@ -281,23 +281,22 @@ Testing is done on all Model classes (Entity/Control) and statement coverage is 
 GitHub Actions are used to automate the execution of the test suite and publish code coverage statistics when Pull Requests are opened to merge into either the `dev` or `master` branches. See [.github/workflows/testsuite.yml](.github/workflows/testsuite.yml) for the deployed GitHub Action workflow.
 
 For the purpose of this project, the test suite ([Click here to view the test code](tests/unit/ChallengeManagementTest.php)) for the ChallengeManagement control class will be the main focus. The following are the test cases for the ChallengeManagement class:
-- There are no challenges yet
-- Valid challenge max command block values
-- Max command block must be an integer
-- Max command block cannot be less than zero
-- Max command block limit constant check
-- Valid map file
-- Specified file is not an image file thus not a valid map file
-- Specified file has wrong extension thus not a valid map file
-- Create two new challenges
-- There are now two challenges
-- Valid challenge names
-- Cannot use names belonging to existing challenges
-- Challenge name cannot be empty
-- Loading non existent challenge will throw exception
-- Delete challenges
-- Deleting non existent challenge will throw exception
-- There should be no challenges remaining
+- There are no challenges yet `testThereAreNoChallengesYet()`
+- Valid challenge max command block values `testValidChallengeMaxCommandBlockValues()`
+- Max command block must be an integer `testMaxCommandBlockMustBeAnInteger()`
+- Max command block cannot be less than zero `testMaxCommandBlockCannotBeLessThanZero()`
+- Max command block limit constant check `testMaxCommandBlockLimitConstantCheck`
+- Valid map file `testValidMapFile()`
+- Specified file is not an image file thus not a valid map file `testSpecifiedFileIsNotAnImageFileThusNotAValidMapFile()`
+- Specified file has wrong extension thus not a valid map file `testSpecifiedFileHasWrongExtensionThusNotAValidMapFile()`
+- Create two new challenges `testCreateTwoNewChallenges()`
+- There are now two challenges `testThereAreNowTwoChallenges()`
+- Valid challenge names `testValidChallengeNames()`
+- Cannot use names belonging to existing challenges `testCannotUseNamesBelongingToExistingChallenges()`
+- Challenge name cannot be empty `testChallengeNameCannotBeEmpty()`
+- Delete challenges `testDeleteChallenges()`
+- Deleting non existent challenge will throw exception `testDeletingNonExistentChallengeWillThrowException()`
+- There should be no challenges remaining `testThereShouldBeNoChallengesRemaining()`
 
 [Click here to view the code coverage report for the ChallengeManagement control class.](https://zxlim.github.io/ICT2x01-p4-6/ChallengeManagement.php.html)
 
