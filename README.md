@@ -22,7 +22,11 @@ This documentation is mirrored on the [project's GitHub Wiki page](https://githu
     - [Deploying Hotfixes](#deploying-hotfixes)
     - [Documentation, Workflow or Test-Suite Development](#documentation-workflow-or-test-suite-development)
 - [User Acceptance Test (UAT)](#user-acceptance-test-uat)
+    - [System State Diagram](#system-state-diagram)
 - [Whitebox Testing](#whitebox-testing)
+    - [Test Environment Preparation](#test-environment-preparation)
+    - [Running Unit Tests and Generating Code Coverage Statistics](#running-unit-tests-and-generating-code-coverage-statistics)
+    - [Sample Run](#sample-run)
 
 
 ## Repository Structure
@@ -258,19 +262,56 @@ When ready for code review, label the PR with the `review-requested` label. 2 re
 Once approval requirements have been met, use the `Merge Commit` feature on the respective PR page to merge the approved changes into the `dev` branch. Merging can be done by any of the code reviewers or the PR author. **Only perform merging using the GitHub web interface!** Once merged, **do not delete** the branch.
 
 ## User Acceptance Test (UAT)
-TBD
-```
-- include an updated use case diagram and system state diagram if there are changes made based on M2. Highlight the changes clearly.
-- an embedded video that runs through all the system test cases you have created (and refined) from M2
-- ~3 mins long to cover all system tests
-```
+### System State Diagram
+![Codeception](docs/system_state_diagram.png)
+The System State Diagram has been updated:
+- Transition _Lost Connection to Robotic Car on Challenge Game Screen_ has been removed.
+    - System Test _22_ removed.
+
+[Click here for the latest System Tests](docs/system_tests.pdf).
+
+### System Test Run
+> Video of system test here.
 
 ## Whitebox Testing
-TBD
+Testing is done on all Model classes (Entity/Control) and statement coverage is performed to ensure that adequete test cases have been written. Testing is done using [Codeception](https://codeception.com/). Codeception wraps around PHPUnit and PCOV to automate unit testing as well as generation of code coverage statistics.
+
+For the purpose of this project, the test suite ([Click here to view the test code](tests/unit/ChallengeManagementTest.php)) for the ChallengeManagement control class will be the main focus. The following are the test cases for the ChallengeManagement class:
+- There are no challenges yet
+- Valid challenge max command block values
+- Max command block must be an integer
+- Max command block cannot be less than zero
+- Max command block limit constant check
+- Valid map file
+- Specified file is not an image file thus not a valid map file
+- Specified file has wrong extension thus not a valid map file
+- Create two new challenges
+- There are now two challenges
+- Valid challenge names
+- Cannot use names belonging to existing challenges
+- Challenge name cannot be empty
+- Loading non existent challenge will throw exception
+- Delete challenges
+- Deleting non existent challenge will throw exception
+- There should be no challenges remaining
+
+### Test Environment Preparation
+The test suite for this project is executed on a Ubuntu 20.04 LTS (Focal) system. To setup a test environment, run the following commands on a `root` terminal shell:
+```bash
+# Install PHP 7.4 and other test dependencies.
+root@botster:~$ apt-get install -y curl php7.4-cli php7.4-curl php7.4-dev php7.4-fpm php7.4-mbstring php7.4-sqlite3 php-pcov sqlite3
+
+# Install Codeception.
+root@botster:~$ curl -LsS https://codeception.com/codecept.phar -o /usr/local/bin/codecept
+root@botster:~$ chmod a+x /usr/local/bin/codecept
 ```
-- choose one meaningful class to demonstrate your test code. “Meaningful” here means 2 or more interactions with other classes, e.g., a Control class. Please do not use an Entity class.
-- list the test cases for this test suite (for this one class) and where they reside in your repo
-- show code coverage statistics for each test case, including an explanation of how you have generated these statistics (whether manual, through a lib, or via the IDE)
-- provide instructions how to run the test suite
-- embed an animated gif or another short video (~1 min) of the test case being ran
+
+### Running Unit Tests and Generating Code Coverage Statistics
+Open a terminal shell in the repository directory and run the following command:
+```bash
+dev@botster:~/ICT2x01-p4-6$ codecept run unit --coverage --coverage-html
 ```
+Code coverage statistics summary will be displayed on the console at the end. To view the complete report, open the file `tests/_output/coverage/index.html` in a web browser.
+
+### Sample Run
+![Codeception](docs/codeception.gif)
