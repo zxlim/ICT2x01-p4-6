@@ -1,6 +1,6 @@
 <?php
 /**
-* mvc/views/templates/Facilitator/otp.inc.php
+* mvc/views/templates/Facilitator/cmdToggle.inc.php
 *
 * @copyright    Copyright (c) P4-6 2021. For the
 *               partial fulfillment of the module
