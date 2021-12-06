@@ -66,12 +66,9 @@ dev@p4-6:~$ sudo apt update && sudo apt install -y php7.4-cli php7.4-common php7
 ```
 
 ### Running BOTster (For Windows)
-1. Clone the repository using [Git Bash](https://gitforwindows.org/).
-```bash
-dev@botster MINGW64 ~ git clone https://github.com/zxlim/ICT2x01-p4-6.git
-```
+1. Download the latest project files (`Source code (zip)`) from [here](https://github.com/zxlim/ICT2x01-p4-6/releases/latest) and extract the contents to a folder.
 
-2. Open the repository folder using File Explorer by double-clicking it in the respective directory.
+2. Open the folder containing the extracted project files using File Explorer by double-clicking it in the respective directory.
 
 3. Double-click on `start.bat` to start BOTster. A Command Prompt window will open with output similar to the following:
 ```
@@ -80,17 +77,12 @@ dev@botster MINGW64 ~ git clone https://github.com/zxlim/ICT2x01-p4-6.git
 [Fri Nov 19 12:58:19 2021] PHP 7.4.25 Development Server (http://127.0.0.1:5000) started
 ```
 
-4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`.
+4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`. The default credentials for `Facilitator` is `P@ssw0rd`
 
 ### Running BOTster (For Linux)
-Steps shown here are done using a Terminal.
+1. Download the latest project files (`Source code (zip)`) from [here](https://github.com/zxlim/ICT2x01-p4-6/releases/latest) and extract the contents to a folder.
 
-1. Clone the repository.
-```bash
-dev@botster:~$ git clone https://github.com/zxlim/ICT2x01-p4-6.git
-```
-
-2. Set your current working directory to the repository on your local file system.
+2. In a terminal, set your current working directory to the repository on your local file system.
 ```bash
 dev@botster:~$ cd ICT2x01-p4-6
 ```
@@ -104,7 +96,7 @@ Document root is /home/dev/ICT2x01-p4-6/src
 Press Ctrl-C to quit.
 ```
 
-4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`.
+4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`. The default credentials for `Facilitator` is `P@ssw0rd`
 
 
 ## Development Workflow
