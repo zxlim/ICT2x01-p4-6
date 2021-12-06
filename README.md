@@ -25,10 +25,11 @@ This documentation is mirrored on the [project's GitHub Wiki page](https://githu
     - [Documentation, Workflow or Test-Suite Development](#documentation-workflow-or-test-suite-development)
 - [User Acceptance Test (UAT)](#user-acceptance-test-uat)
     - [System State Diagram](#system-state-diagram)
+    - [Video of System Test Run](#video-of-system-test-run)
 - [Whitebox Testing](#whitebox-testing)
     - [Test Environment Preparation](#test-environment-preparation)
     - [Running Unit Tests and Generating Code Coverage Statistics](#running-unit-tests-and-generating-code-coverage-statistics)
-    - [Sample Run](#sample-run)
+    - [Video of Test Suite Run](#video-of-test-suite-run)
 
 
 ## Repository Structure
@@ -39,6 +40,7 @@ This documentation is mirrored on the [project's GitHub Wiki page](https://githu
     ├── src                 # Directory containing project source code.
     ├── tests               # Directory containing files related to testing and coverage.
     ├── README.md           # This README file. Contains the key project documentation.
+    ├── codeception.yml     # Codeception test suite configuration.
     ├── start.bat           # Used to run BOTster on Windows systems.
     └── start.sh            # Used to run BOTster on Linux systems.
 
@@ -65,12 +67,9 @@ dev@p4-6:~$ sudo apt update && sudo apt install -y php7.4-cli php7.4-common php7
 ```
 
 ### Running BOTster (For Windows)
-1. Clone the repository using [Git Bash](https://gitforwindows.org/).
-```bash
-dev@botster MINGW64 ~ git clone https://github.com/zxlim/ICT2x01-p4-6.git
-```
+1. Download the latest project files (`Source code (zip)`) from [here](https://github.com/zxlim/ICT2x01-p4-6/releases/latest) and extract the contents to a folder.
 
-2. Open the repository folder using File Explorer by double-clicking it in the respective directory.
+2. Open the folder containing the extracted project files using File Explorer by double-clicking it in the respective directory.
 
 3. Double-click on `start.bat` to start BOTster. A Command Prompt window will open with output similar to the following:
 ```
@@ -79,17 +78,12 @@ dev@botster MINGW64 ~ git clone https://github.com/zxlim/ICT2x01-p4-6.git
 [Fri Nov 19 12:58:19 2021] PHP 7.4.25 Development Server (http://127.0.0.1:5000) started
 ```
 
-4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`.
+4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`. The default credentials for `Facilitator` is `P@ssw0rd`
 
 ### Running BOTster (For Linux)
-Steps shown here are done using a Terminal.
+1. Download the latest project files (`Source code (zip)`) from [here](https://github.com/zxlim/ICT2x01-p4-6/releases/latest) and extract the contents to a folder.
 
-1. Clone the repository.
-```bash
-dev@botster:~$ git clone https://github.com/zxlim/ICT2x01-p4-6.git
-```
-
-2. Set your current working directory to the repository on your local file system.
+2. In a terminal, set your current working directory to the repository on your local file system.
 ```bash
 dev@botster:~$ cd ICT2x01-p4-6
 ```
@@ -103,7 +97,7 @@ Document root is /home/dev/ICT2x01-p4-6/src
 Press Ctrl-C to quit.
 ```
 
-4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`.
+4. Access BOTster by opening a web browser on the same machine and going to the URL `http://127.0.0.1:5000`. The default credentials for `Facilitator` is `P@ssw0rd`
 
 
 ## Development Workflow
@@ -139,7 +133,7 @@ Branch protection is enforced on the following branches:
     - **Require conversation resolution before merging**: Conversations arising from code reviews must be resolved prior to merging.
 
 ### New Feature or Bug Fix
-![Feature/Bug Fix Workflow Diagram](docs/workflow_newfeature.png)
+![Feature/Bug Fix Workflow Diagram](docs/img/workflow_newfeature.png)
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
@@ -192,7 +186,7 @@ Once approval requirements have been met, the Team Lead will perform a merge fro
 ### Deploying Hotfixes
 Hotfixes are code that will be deployed to both `dev` and `master` branches to fix urgent issues that are present in production (`master`). Hotfix deployment PRs requires the involvement of the Team Lead as it involves merging into the `master` branch.
 <br /><br />
-![Hotfix Workflow Diagram](docs/workflow_hotfix.png)
+![Hotfix Workflow Diagram](docs/img/workflow_hotfix.png)
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
@@ -265,18 +259,19 @@ Once approval requirements have been met, use the `Merge Commit` feature on the 
 
 ## User Acceptance Test (UAT)
 ### System State Diagram
-![Codeception](docs/system_state_diagram.png)
-The System State Diagram has been updated:
-- Transition _Lost Connection to Robotic Car on Challenge Game Screen_ has been removed.
-    - System Test _22_ removed.
+![Codeception](docs/img/system_state_diagram.png)
+<br />
+Changes have been made to the System State Diagram for Milestone 3 project deliverables. Refer to _Section 1.2_ of the [latest UAT documentation](docs/UAT_Documentation.pdf) for more details.
 
-[Click here for the latest System Tests.](docs/system_tests.pdf)
+### Video of System Test Run
+[Click here to view the latest UAT documentation.](docs/UAT_Documentation.pdf)
+<br />
 
-### System Test Run
-> Video of system test here.
+https://user-images.githubusercontent.com/77649573/144800893-d68d2288-34dd-4df6-a523-132e2ca5f1a0.mp4
+
 
 ## Whitebox Testing
-Testing is done on all Model classes (Entity/Control) and statement coverage is performed to ensure that adequete test cases have been written. Testing is done using [Codeception](https://codeception.com/). Codeception wraps around PHPUnit and PCOV to automate unit testing as well as generation of code coverage statistics.
+Testing is done on all Model classes (Entity/Control) and statement coverage is performed to ensure that adequete test cases have been written. Testing is done using [Codeception](https://codeception.com/), which wraps around PHPUnit and PCOV to automate unit testing as well as generation of code coverage statistics.
 
 GitHub Actions are used to automate the execution of the test suite and publish code coverage statistics when Pull Requests are opened to merge into either the `dev` or `master` branches. See [.github/workflows/testsuite.yml](.github/workflows/testsuite.yml) for the deployed GitHub Action workflow.
 
@@ -321,7 +316,8 @@ dev@botster:~/ICT2x01-p4-6$ codecept run unit --coverage --coverage-html
 ```
 Code coverage statistics summary will be displayed on the console at the end. To view the complete report, open the file `tests/_output/coverage/index.html` in a web browser.
 
-### Sample Run
-![Codeception](docs/codeception.gif)
-<br />
+### Video of Test Suite Run
 [Click here to view the latest code coverage report.](https://zxlim.github.io/ICT2x01-p4-6/)
+<br />
+
+![Codeception](docs/img/codeception.gif)
