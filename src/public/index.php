@@ -56,6 +56,11 @@ switch ($router) {
         $controllerFilePath = "Facilitator/" . $controllerName;
         break;
 
+    case "/facilitator/toggleCmd":
+        $controllerName = CommandToggleController::class;
+        $controllerFilePath = "Facilitator/" . $controllerName;
+        break;
+
     case "/facilitator/challenges":
         $controllerName = ChallengeManagementController::class;
         $controllerFilePath = "Facilitator/" . $controllerName;
