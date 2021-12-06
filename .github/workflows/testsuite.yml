@@ -1,0 +1,77 @@
+name: BOTster Test Suite
+on:
+  pull_request:
+    branches:
+      - master
+      - dev
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  runTests:
+    runs-on: self-hosted
+    container:
+      image: ubuntu:focal
+      options: --user root
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      TZ: Asia/Singapore
+    steps:
+    - name: Update APT sources and install some test dependencies
+      run: |
+        sed -i 's|http://archive.|http://sg.archive.|g' /etc/apt/sources.list && \
+        apt-get clean && \
+        apt-get autoclean && \
+        apt-get update && \
+        apt-get install -y curl git rsync
+    - name: Install NodeJS and Selenium
+      run: |
+        curl -LsS -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash && \
+        . $HOME/.nvm/nvm.sh && \
+        nvm install 'lts/*' --latest-npm && \
+        curl -LsS -o ./chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+        apt-get install -y ./chrome.deb default-jdk-headless && \
+        rm -f ./chrome.deb && \
+        npm install selenium-standalone -g && \
+        selenium-standalone install --singleDriverInstall=chrome
+    - name: Install PHP 7.4 and Codeception
+      run: |
+        apt-get install -y php7.4-cli php7.4-curl php7.4-dev php7.4-fpm php7.4-mbstring php7.4-sqlite3 php-pcov sqlite3 && \
+        curl -LsS https://codeception.com/codecept.phar -o /usr/local/bin/codecept && \
+        chmod a+x /usr/local/bin/codecept
+    - name: Checkout BOTster GitHub Repository
+      uses: actions/checkout@v2.4.0
+    - name: Run test suite and generate code coverage statistics
+      run: |
+        . $HOME/.nvm/nvm.sh && \
+        echo "[*] Starting Selenium" && \
+        selenium-standalone start --singleDriverStart=chrome >/dev/null 2>&1 &
+        sleep 5
+        echo "[*] Starting BOTster Web" && \
+        php -S 127.0.0.1:5000 -t src/public >/dev/null 2>&1 &
+        sleep 5
+        codecept run --steps --coverage --coverage-html --coverage-xml
+    - name: Upload code coverage report
+      uses: actions/upload-artifact@v2.2.4
+      if: always()
+      with:
+        name: code-coverage
+        path: tests/_output/coverage/
+        if-no-files-found: error
+    - name: Generate code coverage badge
+      uses: timkrase/phpunit-coverage-badge@v1.2.0
+      if: always()
+      with:
+        report: tests/_output/coverage.xml
+        coverage_badge_path: tests/_output/coverage/coverage_badge.svg
+    - name: Prep for publishing code coverage report to GitHub Pages
+      if: always()
+      run: touch tests/_output/coverage/.nojekyll
+    - name: Publish code coverage report
+      uses: JamesIves/github-pages-deploy-action@4.1.7
+      if: always()
+      with:
+        branch: gh-pages
+        folder: tests/_output/coverage/
