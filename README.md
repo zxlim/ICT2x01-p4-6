@@ -25,10 +25,11 @@ This documentation is mirrored on the [project's GitHub Wiki page](https://githu
     - [Documentation, Workflow or Test-Suite Development](#documentation-workflow-or-test-suite-development)
 - [User Acceptance Test (UAT)](#user-acceptance-test-uat)
     - [System State Diagram](#system-state-diagram)
+    - [Video of System Test Run](#video-of-system-test-run)
 - [Whitebox Testing](#whitebox-testing)
     - [Test Environment Preparation](#test-environment-preparation)
     - [Running Unit Tests and Generating Code Coverage Statistics](#running-unit-tests-and-generating-code-coverage-statistics)
-    - [Sample Run](#sample-run)
+    - [Video of Test Suite Run](#video-of-test-suite-run)
 
 
 ## Repository Structure
@@ -266,9 +267,8 @@ Once approval requirements have been met, use the `Merge Commit` feature on the 
 ## User Acceptance Test (UAT)
 ### System State Diagram
 ![Codeception](docs/system_state_diagram.png)
-The System State Diagram has been updated:
-- Transition _Lost Connection to Robotic Car on Challenge Game Screen_ has been removed.
-    - System Test _22_ removed.
+<br />
+Changes have been made to the System State Diagram for Milestone 3 project deliverables. Refer to _Section 1.2_ of the [latest UAT documentation](docs/UAT_Documentation.pdf) for more details.
 
 ### Video of System Test Run
 [Click here to view the latest UAT documentation.](docs/UAT_Documentation.pdf)
@@ -278,7 +278,7 @@ https://user-images.githubusercontent.com/77649573/144800893-d68d2288-34dd-4df6-
 
 
 ## Whitebox Testing
-Testing is done on all Model classes (Entity/Control) and statement coverage is performed to ensure that adequete test cases have been written. Testing is done using [Codeception](https://codeception.com/). Codeception wraps around PHPUnit and PCOV to automate unit testing as well as generation of code coverage statistics.
+Testing is done on all Model classes (Entity/Control) and statement coverage is performed to ensure that adequete test cases have been written. Testing is done using [Codeception](https://codeception.com/), which wraps around PHPUnit and PCOV to automate unit testing as well as generation of code coverage statistics.
 
 GitHub Actions are used to automate the execution of the test suite and publish code coverage statistics when Pull Requests are opened to merge into either the `dev` or `master` branches. See [.github/workflows/testsuite.yml](.github/workflows/testsuite.yml) for the deployed GitHub Action workflow.
 
