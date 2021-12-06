@@ -40,6 +40,7 @@ This documentation is mirrored on the [project's GitHub Wiki page](https://githu
     ├── src                 # Directory containing project source code.
     ├── tests               # Directory containing files related to testing and coverage.
     ├── README.md           # This README file. Contains the key project documentation.
+    ├── codeception.yml     # Codeception test suite configuration.
     ├── start.bat           # Used to run BOTster on Windows systems.
     └── start.sh            # Used to run BOTster on Linux systems.
 
