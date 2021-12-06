@@ -270,9 +270,9 @@ The System State Diagram has been updated:
 - Transition _Lost Connection to Robotic Car on Challenge Game Screen_ has been removed.
     - System Test _22_ removed.
 
-[Click here for the latest System Tests.](docs/system_tests.pdf)
-
-### System Test Run
+### Video of System Test Run
+[Click here to view the latest UAT documentation.](docs/UAT_Documentation.pdf)
+<br />
 
 https://user-images.githubusercontent.com/77649573/144800893-d68d2288-34dd-4df6-a523-132e2ca5f1a0.mp4
 
@@ -323,7 +323,8 @@ dev@botster:~/ICT2x01-p4-6$ codecept run unit --coverage --coverage-html
 ```
 Code coverage statistics summary will be displayed on the console at the end. To view the complete report, open the file `tests/_output/coverage/index.html` in a web browser.
 
-### Sample Run
-![Codeception](docs/codeception.gif)
-<br />
+### Video of Test Suite Run
 [Click here to view the latest code coverage report.](https://zxlim.github.io/ICT2x01-p4-6/)
+<br />
+
+![Codeception](docs/codeception.gif)
