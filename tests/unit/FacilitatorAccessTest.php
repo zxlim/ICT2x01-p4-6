@@ -12,13 +12,16 @@ class FacilitatorAccessTest extends \Codeception\Test\Unit {
      */
     protected $tester;
     
+
     protected function _before() {
         // Pass!
     }
 
+
     protected function _after() {
         // Pass!
     }
+
 
     /**
     * FacilitatorAccess unit tests. Execution is sequential, ordered from top to bottom.
