@@ -140,7 +140,7 @@ Branch protection is enforced on the following branches:
     - **Require conversation resolution before merging**: Conversations arising from code reviews must be resolved prior to merging.
 
 ### New Feature or Bug Fix
-![Feature/Bug Fix Workflow Diagram](docs/workflow_newfeature.png)
+![Feature/Bug Fix Workflow Diagram](docs/img/workflow_newfeature.png)
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
@@ -193,7 +193,7 @@ Once approval requirements have been met, the Team Lead will perform a merge fro
 ### Deploying Hotfixes
 Hotfixes are code that will be deployed to both `dev` and `master` branches to fix urgent issues that are present in production (`master`). Hotfix deployment PRs requires the involvement of the Team Lead as it involves merging into the `master` branch.
 <br /><br />
-![Hotfix Workflow Diagram](docs/workflow_hotfix.png)
+![Hotfix Workflow Diagram](docs/img/workflow_hotfix.png)
 <br /><br />
 **1. Open a new Issue on GitHub**
 <br />
@@ -266,7 +266,7 @@ Once approval requirements have been met, use the `Merge Commit` feature on the 
 
 ## User Acceptance Test (UAT)
 ### System State Diagram
-![Codeception](docs/system_state_diagram.png)
+![Codeception](docs/img/system_state_diagram.png)
 <br />
 Changes have been made to the System State Diagram for Milestone 3 project deliverables. Refer to _Section 1.2_ of the [latest UAT documentation](docs/UAT_Documentation.pdf) for more details.
 
@@ -327,4 +327,4 @@ Code coverage statistics summary will be displayed on the console at the end. To
 [Click here to view the latest code coverage report.](https://zxlim.github.io/ICT2x01-p4-6/)
 <br />
 
-![Codeception](docs/codeception.gif)
+![Codeception](docs/img/codeception.gif)
