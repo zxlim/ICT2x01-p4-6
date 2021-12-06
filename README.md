@@ -273,7 +273,9 @@ The System State Diagram has been updated:
 [Click here for the latest System Tests.](docs/system_tests.pdf)
 
 ### System Test Run
-> Video of system test here.
+
+https://user-images.githubusercontent.com/77649573/144800893-d68d2288-34dd-4df6-a523-132e2ca5f1a0.mp4
+
 
 ## Whitebox Testing
 Testing is done on all Model classes (Entity/Control) and statement coverage is performed to ensure that adequete test cases have been written. Testing is done using [Codeception](https://codeception.com/). Codeception wraps around PHPUnit and PCOV to automate unit testing as well as generation of code coverage statistics.
