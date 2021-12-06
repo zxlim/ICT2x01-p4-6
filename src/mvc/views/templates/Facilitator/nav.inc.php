@@ -43,6 +43,10 @@
                     Settings
                 </a>
                 <div class="dropdown-divider"></div>
+                <a class="dropdown-item" id="cmdToggleTrigger" href="#" data-toggle="modal" data-target="#cmdStatusModal">
+                    <i class="fas fa-sliders-h fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Student Command Issuance
+                </a>
                 <a class="dropdown-item" id="logoutTrigger" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout

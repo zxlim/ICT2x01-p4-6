@@ -127,13 +127,13 @@
                                                     <span class="text">See Code</span>
                                                 </a>
                                                 <br />
-                                                <a href="#" class="btn btn-success btn-block" id="cmdIssueLink">
+                                                <button class="btn btn-success btn-block" id="cmdIssueLink">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-satellite-dish"></i>
                                                     </span>
                                                     &nbsp;&nbsp;
                                                     <span class="text">Send Command!</span>
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -234,5 +234,29 @@
                     }
                 ?>
             </script>
+
+            <?php
+                if ($state["cmdIssuanceStatus"] !== TRUE) {
+            ?>
+            <script>
+                $("#cmdIssueLink").attr("disabled", true);
+
+                $.notify({
+                    message: "Sorry, your Facilitator has disabled Command Issuance!"
+                }, {
+                    type: "warning",
+                    animate: {
+                        enter: "animated fadeInDown",
+                        exit: "animated fadeOutUp"
+                    },
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    },
+                });
+            </script>
+            <?php
+                }
+            ?>
     </body>
 </html>

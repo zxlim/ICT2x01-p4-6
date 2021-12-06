@@ -144,8 +144,9 @@
             </div>
         </div>
 
-        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "logoutModal.inc.php"); ?>
         <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "js.inc.php"); ?>
+        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "logoutModal.inc.php"); ?>
+        <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "Facilitator/cmdToggle.inc.php"); ?>
         <?php require_once(__MVC_VIEWS_TEMPLATES_DIR__ . "Facilitator/otp.inc.php"); ?>
 
         <script>

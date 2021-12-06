@@ -19,6 +19,7 @@
 */
 
 require_once(__MVC_MODELS_DIR__ . "Challenge.php");
+require_once(__MVC_MODELS_DIR__ . "Student.php");
 
 
 class CommandController extends Controller {
@@ -34,10 +35,13 @@ class CommandController extends Controller {
             $this->redirect("/");
         }
 
+        $student = Student::Load();
+
         $state = array(
             "challenge" => NULL,
             "carConnected" => FALSE,
-            "carObstacle" => NULL
+            "carObstacle" => NULL,
+            "cmdIssuanceStatus" => $student->getIssueCommandStatus()
         );
 
         try {
@@ -63,6 +67,8 @@ class CommandController extends Controller {
             $this->notFound();
         }
 
+        $student = Student::Load();
+
         $state = array(
             "httpStatusCode" => 200,
             "msg" => "OK",
@@ -71,7 +77,10 @@ class CommandController extends Controller {
 
         $validCommands = array("forward", "left", "right", "obstacleDetected", "endCheck");
 
-        if (validate_notempty($_POST["cmd"]) === FALSE) {
+        if ($student->getIssueCommandStatus() !== TRUE) {
+            $state["httpStatusCode"] = 400;
+            $state["msg"] = "Sorry, your Facilitator has disabled Command Issuance!";
+        } else if (validate_notempty($_POST["cmd"]) !== TRUE) {
             $state["httpStatusCode"] = 400;
             $state["msg"] = "No command specified!";
         } else if (in_array($_POST["cmd"], $validCommands, TRUE) !== TRUE) {

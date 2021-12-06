@@ -102,6 +102,20 @@ class FacilitatorSanityCest {
     }
 
 
+    public function facilitatorCanSeeCommandIssuanceModal(AcceptanceTester $I) {
+        $I->amOnPage('/login');
+        $I->submitForm('.loginForm', ['user' => $this->facilitatorUser, 'password' => $this->facilitatorPass]);
+        $I->wait(2);
+        $I->seeCurrentUrlEquals('/');
+
+        $I->click('#userDropdown');
+        $I->click('#cmdToggleTrigger');
+        $I->waitForElementVisible('#cmdStatusModal', 10);
+        $I->seeElement('#cmdStatusModal');
+        $I->see('Student Command Issuance Status');
+    }
+
+
     public function facilitatorCanSeeChallengeListing(AcceptanceTester $I) {
         /* ST9 */
         $I->amOnPage('/login');
